@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BM Training Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #CC2027;
+    --red-dark: #a01a1f;
+    --red-light: #fdecea;
+    --bg: #f7f6f4;
+    --surface: #ffffff;
+    --border: rgba(0,0,0,0.09);
+    --border-mid: rgba(0,0,0,0.16);
+    --text: #1a1a1a;
+    --text-2: #555;
+    --text-3: #888;
+    --green: #1D9E75;
+    --green-light: #e1f5ee;
+    --green-dark: #085041;
+    --amber-light: #faeeda;
+    --amber-dark: #633806;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* PIN SCREEN */
+  .pin-screen { position: fixed; inset: 0; background: var(--bg); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+  .pin-screen.hidden { display: none; }
+  .pin-box { background: white; border-radius: var(--radius); padding: 2rem; max-width: 360px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.12); text-align: center; }
+  .pin-logo { width: 48px; height: 48px; background: var(--red); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+  .pin-logo i { font-size: 24px; color: white; }
+  .pin-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .pin-sub { font-size: 13px; color: var(--text-3); margin-bottom: 1.5rem; }
+  .pin-dots { display: flex; justify-content: center; gap: 12px; margin-bottom: 1.5rem; }
+  .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border-mid); background: white; transition: all 0.15s; }
+  .pin-dot.filled { background: var(--red); border-color: var(--red); }
+  .pin-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 240px; margin: 0 auto; }
+  .pin-key { padding: 14px; font-size: 18px; font-weight: 500; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.12s; user-select: none; }
+  .pin-key:hover { background: #eee; }
+  .pin-key:active { background: #ddd; }
+  .pin-key.clear { font-size: 13px; color: var(--text-3); }
+  .pin-err { font-size: 12px; color: var(--red); margin-top: 12px; min-height: 18px; }
+
+  /* HEADER */
+  .site-header { background: var(--red); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .header-inner { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-mark { width: 32px; height: 32px; background: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+  .logo-mark i { font-size: 18px; color: var(--red); }
+  .logo-text { font-size: 14px; font-weight: 600; color: white; }
+  .logo-sub { font-size: 11px; color: rgba(255,255,255,0.7); }
+  .header-right { display: flex; align-items: center; gap: 10px; }
+  .refresh-btn { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: white; padding: 6px 12px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background 0.15s; }
+  .refresh-btn:hover { background: rgba(255,255,255,0.25); }
+  .last-updated { font-size: 11px; color: rgba(255,255,255,0.6); }
+
+  /* MAIN */
+  .main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* STAT CARDS */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 2rem; }
+  .stat-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+  .stat-icon { width: 32px; height: 32px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 10px; }
+  .stat-val { font-size: 28px; font-weight: 600; color: var(--text); line-height: 1; margin-bottom: 4px; }
+  .stat-label { font-size: 12px; color: var(--text-3); }
+
+  /* TABLE SECTION */
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .section-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .section-count { font-size: 12px; color: var(--text-3); }
+  .search-wrap { position: relative; margin-bottom: 12px; }
+  .search-input { width: 100%; padding: 9px 12px 9px 34px; border: 1px solid var(--border-mid); border-radius: var(--radius-sm); font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--text); outline: none; background: white; }
+  .search-input:focus { border-color: var(--red); }
+  .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 15px; color: var(--text-3); pointer-events: none; }
+
+  /* TABLE */
+  .table-wrap { background: white; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; }
+  thead { background: var(--red); }
+  thead th { padding: 11px 14px; font-size: 11px; font-weight: 600; color: white; text-align: left; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--bg); }
+  tbody td { padding: 11px 14px; font-size: 13px; color: var(--text); }
+  .td-name { font-weight: 500; }
+  .td-date { color: var(--text-3); }
+  .score-pill { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 99px; font-size: 12px; font-weight: 500; }
+  .score-high { background: var(--green-light); color: var(--green-dark); }
+  .score-mid { background: var(--amber-light); color: var(--amber-dark); }
+  .score-low { background: var(--red-light); color: var(--red-dark); }
+  .empty-row td { text-align: center; padding: 2.5rem; color: var(--text-3); font-size: 13px; }
+
+  /* LOADING */
+  .loading-wrap { text-align: center; padding: 3rem; color: var(--text-3); font-size: 13px; }
+  .loading-wrap i { font-size: 24px; display: block; margin-bottom: 8px; animation: spin 1s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* SORT INDICATOR */
+  thead th { cursor: pointer; }
+  thead th:hover { background: var(--red-dark); }
+  .sort-icon { margin-left: 4px; opacity: 0.6; font-size: 11px; }
+
+  @media (max-width: 640px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .main { padding: 1.25rem 1rem 3rem; }
+    thead th:nth-child(3), tbody td:nth-child(3),
+    thead th:nth-child(4), tbody td:nth-child(4),
+    thead th:nth-child(5), tbody td:nth-child(5) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PIN SCREEN -->
+<div class="pin-screen" id="pin-screen">
+  <div class="pin-box">
+    <div class="pin-logo"><i class="ti ti-tractor"></i></div>
+    <div class="pin-title">Training Dashboard</div>
+    <div class="pin-sub">Enter your PIN to access results</div>
+    <div class="pin-dots">
+      <div class="pin-dot" id="d0"></div>
+      <div class="pin-dot" id="d1"></div>
+      <div class="pin-dot" id="d2"></div>
+      <div class="pin-dot" id="d3"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinPress('1')">1</button>
+      <button class="pin-key" onclick="pinPress('2')">2</button>
+      <button class="pin-key" onclick="pinPress('3')">3</button>
+      <button class="pin-key" onclick="pinPress('4')">4</button>
+      <button class="pin-key" onclick="pinPress('5')">5</button>
+      <button class="pin-key" onclick="pinPress('6')">6</button>
+      <button class="pin-key" onclick="pinPress('7')">7</button>
+      <button class="pin-key" onclick="pinPress('8')">8</button>
+      <button class="pin-key" onclick="pinPress('9')">9</button>
+      <button class="pin-key clear" onclick="pinClear()">Clear</button>
+      <button class="pin-key" onclick="pinPress('0')">0</button>
+      <button class="pin-key clear" onclick="pinBack()"><i class="ti ti-backspace"></i></button>
+    </div>
+    <div class="pin-err" id="pin-err"></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark"><i class="ti ti-tractor"></i></div>
+      <div>
+        <div class="logo-text">BM Training Dashboard</div>
+        <div class="logo-sub">Completion & Score Tracking</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="last-updated" id="last-updated"></span>
+      <button class="refresh-btn" onclick="loadData()"><i class="ti ti-refresh"></i> Refresh</button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#fdecea; color:var(--red);"><i class="ti ti-users"></i></div>
+      <div class="stat-val" id="stat-total">—</div>
+      <div class="stat-label">Total completions</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:var(--green-light); color:var(--green-dark);"><i class="ti ti-chart-bar"></i></div>
+      <div class="stat-val" id="stat-avg">—</div>
+      <div class="stat-label">Avg overall score</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:var(--green-light); color:var(--green-dark);"><i class="ti ti-trophy"></i></div>
+      <div class="stat-val" id="stat-perfect">—</div>
+      <div class="stat-label">Perfect scores</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:var(--amber-light); color:var(--amber-dark);"><i class="ti ti-calendar"></i></div>
+      <div class="stat-val" id="stat-recent">—</div>
+      <div class="stat-label">Completed this month</div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-title">Completion results</div>
+    <div class="section-count" id="table-count"></div>
+  </div>
+  <div class="search-wrap">
+    <i class="ti ti-search search-icon"></i>
+    <input class="search-input" id="search-input" type="text" placeholder="Search by name..." oninput="filterTable()">
+  </div>
+  <div class="table-wrap">
+    <div class="loading-wrap" id="loading">
+      <i class="ti ti-loader"></i>
+      Loading results...
+    </div>
+    <table id="results-table" style="display:none;">
+      <thead>
+        <tr>
+          <th onclick="sortTable(0)">BM Name <span class="sort-icon">↕</span></th>
+          <th onclick="sortTable(1)">Date Completed <span class="sort-icon">↕</span></th>
+          <th onclick="sortTable(2)">Module 1 <span class="sort-icon">↕</span></th>
+          <th onclick="sortTable(3)">Module 2 <span class="sort-icon">↕</span></th>
+          <th onclick="sortTable(4)">Module 3 <span class="sort-icon">↕</span></th>
+          <th onclick="sortTable(5)">Overall <span class="sort-icon">↕</span></th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+</main>
+
+<script>
+// ─── CONFIG ──────────────────────────────────────────────────
+const SHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE';
+const SHEET_TAB = 'BM Training';
+const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${encodeURIComponent(SHEET_TAB)}&tq=select%20*`;
+const CORRECT_PIN = '9020';
+
+// ─── PIN LOGIC ───────────────────────────────────────────────
+let pinEntry = '';
+
+function pinPress(digit) {
+  if (pinEntry.length >= 4) return;
+  pinEntry += digit;
+  updateDots();
+  if (pinEntry.length === 4) {
+    setTimeout(checkPin, 150);
+  }
+}
+
+function pinBack() {
+  pinEntry = pinEntry.slice(0, -1);
+  updateDots();
+  document.getElementById('pin-err').textContent = '';
+}
+
+function pinClear() {
+  pinEntry = '';
+  updateDots();
+  document.getElementById('pin-err').textContent = '';
+}
+
+function updateDots() {
+  for (let i = 0; i < 4; i++) {
+    document.getElementById('d' + i).classList.toggle('filled', i < pinEntry.length);
+  }
+}
+
+function checkPin() {
+  if (pinEntry === CORRECT_PIN) {
+    document.getElementById('pin-screen').classList.add('hidden');
+    loadData();
+  } else {
+    document.getElementById('pin-err').textContent = 'Incorrect PIN. Please try again.';
+    pinEntry = '';
+    updateDots();
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('pin-screen').classList.contains('hidden')) return;
+  if (e.key >= '0' && e.key <= '9') pinPress(e.key);
+  if (e.key === 'Backspace') pinBack();
+});
+
+// ─── DATA ────────────────────────────────────────────────────
+let allRows = [];
+let sortCol = 1;
+let sortAsc = false;
+
+function loadData() {
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('results-table').style.display = 'none';
+
+  fetch(GVIZ_URL)
+    .then(r => r.text())
+    .then(text => {
+      const json = JSON.parse(text.replace(/^[^(]+\(/, '').replace(/\);?\s*$/, ''));
+      const rows = json.table.rows || [];
+      allRows = rows.slice(1).map(row => { // skip header row
+        const c = row.c || [];
+        return {
+          timestamp: c[0]?.v || '',
+          name: c[1]?.v || '',
+          date: c[2]?.v || '',
+          m1: c[3]?.v || '—',
+          m2: c[4]?.v || '—',
+          m3: c[5]?.v || '—',
+          overall: c[6]?.v || '—'
+        };
+      }).filter(r => r.name);
+      renderStats();
+      filterTable();
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('results-table').style.display = 'table';
+      document.getElementById('last-updated').textContent = 'Updated ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    })
+    .catch(() => {
+      document.getElementById('loading').innerHTML = '<i class="ti ti-alert-circle" style="color:var(--red);animation:none;"></i>Could not load data. Check your Sheet ID and make sure the sheet is shared publicly.';
+    });
+}
+
+function scoreToPercent(scoreStr) {
+  if (!scoreStr || scoreStr === '—') return null;
+  const parts = scoreStr.split('/');
+  if (parts.length !== 2) return null;
+  const num = parseInt(parts[0]);
+  const den = parseInt(parts[1]);
+  if (isNaN(num) || isNaN(den) || den === 0) return null;
+  return Math.round((num / den) * 100);
+}
+
+function scorePill(scoreStr) {
+  const pct = scoreToPercent(scoreStr);
+  if (pct === null) return `<span style="color:var(--text-3);">—</span>`;
+  const cls = pct >= 80 ? 'score-high' : pct >= 60 ? 'score-mid' : 'score-low';
+  return `<span class="score-pill ${cls}">${scoreStr} (${pct}%)</span>`;
+}
+
+function renderStats() {
+  const total = allRows.length;
+  document.getElementById('stat-total').textContent = total;
+
+  const percents = allRows.map(r => scoreToPercent(r.overall)).filter(p => p !== null);
+  const avg = percents.length > 0 ? Math.round(percents.reduce((a,b)=>a+b,0)/percents.length) : null;
+  document.getElementById('stat-avg').textContent = avg !== null ? avg + '%' : '—';
+
+  const perfect = allRows.filter(r => scoreToPercent(r.overall) === 100).length;
+  document.getElementById('stat-perfect').textContent = perfect;
+
+  const thisMonth = new Date().toLocaleDateString('en-US', {month:'short', year:'numeric'});
+  const recent = allRows.filter(r => r.date && r.date.includes(thisMonth.split(' ')[0])).length;
+  document.getElementById('stat-recent').textContent = recent;
+}
+
+function filterTable() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const filtered = allRows.filter(r => r.name.toLowerCase().includes(q));
+  renderTable(filtered);
+}
+
+function renderTable(rows) {
+  const sorted = [...rows].sort((a, b) => {
+    const cols = ['name','date','m1','m2','m3','overall'];
+    const key = cols[sortCol];
+    const va = key === 'overall' ? (scoreToPercent(a[key]) ?? -1) : (a[key] || '');
+    const vb = key === 'overall' ? (scoreToPercent(b[key]) ?? -1) : (b[key] || '');
+    if (va < vb) return sortAsc ? -1 : 1;
+    if (va > vb) return sortAsc ? 1 : -1;
+    return 0;
+  });
+
+  const tbody = document.getElementById('table-body');
+  document.getElementById('table-count').textContent = sorted.length + ' result' + (sorted.length !== 1 ? 's' : '');
+
+  if (sorted.length === 0) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="6">No results found</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = sorted.map(r => `
+    <tr>
+      <td class="td-name">${r.name}</td>
+      <td class="td-date">${r.date || '—'}</td>
+      <td>${scorePill(r.m1)}</td>
+      <td>${scorePill(r.m2)}</td>
+      <td>${scorePill(r.m3)}</td>
+      <td>${scorePill(r.overall)}</td>
+    </tr>
+  `).join('');
+}
+
+function sortTable(col) {
+  if (sortCol === col) sortAsc = !sortAsc;
+  else { sortCol = col; sortAsc = true; }
+  filterTable();
+}
+</script>
+</body>
+</html>
