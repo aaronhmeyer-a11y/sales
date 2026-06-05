@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -191,6 +192,36 @@
   .m3-done .c-title, .m3-done .c-sub { color: var(--green-dark); }
   .m3-done .complete-btn { background: var(--green); color: white; border-color: var(--green-dark); }
 
+  /* NAME MODAL */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+  .modal-overlay.hidden { display: none; }
+  .modal-box { background: white; border-radius: var(--radius); padding: 2rem; max-width: 400px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+  .modal-logo { width: 40px; height: 40px; background: var(--red); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+  .modal-logo i { font-size: 20px; color: white; }
+  .modal-title { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .modal-sub { font-size: 13px; color: var(--text-2); margin-bottom: 1.25rem; line-height: 1.5; }
+  .modal-label { font-size: 12px; font-weight: 500; color: var(--text-2); margin-bottom: 5px; display: block; }
+  .modal-input { width: 100%; padding: 9px 12px; border: 1px solid var(--border-mid); border-radius: var(--radius-sm); font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--text); outline: none; transition: border-color 0.15s; }
+  .modal-input:focus { border-color: var(--red); }
+  .modal-btn { margin-top: 1rem; width: 100%; padding: 10px; background: var(--red); color: white; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.15s; }
+  .modal-btn:hover { background: var(--red-dark); }
+  .modal-err { font-size: 12px; color: var(--red); margin-top: 6px; display: none; }
+
+  /* SUBMIT MODAL */
+  .submit-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+  .submit-overlay.hidden { display: none; }
+  .submit-box { background: white; border-radius: var(--radius); padding: 2rem; max-width: 420px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); text-align: center; }
+  .submit-icon { font-size: 40px; color: var(--green); margin-bottom: 12px; display: block; }
+  .submit-title { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .submit-sub { font-size: 13px; color: var(--text-2); margin-bottom: 1.5rem; line-height: 1.5; }
+  .submit-scores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+  .submit-score-box { background: var(--bg); border-radius: var(--radius-sm); padding: 10px; }
+  .submit-score-label { font-size: 11px; color: var(--text-3); margin-bottom: 3px; }
+  .submit-score-val { font-size: 18px; font-weight: 600; color: var(--text); }
+  .submit-btn { padding: 10px 24px; background: var(--green); color: white; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.15s; }
+  .submit-btn:hover { background: var(--green-dark); }
+  .submit-status { font-size: 12px; color: var(--text-3); margin-top: 10px; min-height: 18px; }
+
   /* RESPONSIVE */
   @media (max-width: 600px) {
     .stats-row { grid-template-columns: repeat(3, 1fr); }
@@ -203,6 +234,35 @@
 </style>
 </head>
 <body>
+
+<!-- NAME MODAL -->
+<div class="modal-overlay" id="name-modal">
+  <div class="modal-box">
+    <div class="modal-logo"><i class="ti ti-tractor"></i></div>
+    <div class="modal-title">Mahindra BM Sales Training</div>
+    <div class="modal-sub">Enter your name to get started. Your completion and quiz scores will be recorded when you finish all three modules.</div>
+    <label class="modal-label" for="bm-name-input">Your full name</label>
+    <input class="modal-input" id="bm-name-input" type="text" placeholder="First and last name" autocomplete="name" />
+    <div class="modal-err" id="name-err">Please enter your full name to continue.</div>
+    <button class="modal-btn" onclick="startTraining()">Start training →</button>
+  </div>
+</div>
+
+<!-- SUBMIT MODAL -->
+<div class="submit-overlay hidden" id="submit-modal">
+  <div class="submit-box">
+    <i class="ti ti-trophy submit-icon"></i>
+    <div class="submit-title">Training complete!</div>
+    <div class="submit-sub" id="submit-name-line">Great work. Here's your final score summary.</div>
+    <div class="submit-scores">
+      <div class="submit-score-box"><div class="submit-score-label">Module 1</div><div class="submit-score-val" id="final-m1">—</div></div>
+      <div class="submit-score-box"><div class="submit-score-label">Module 2</div><div class="submit-score-val" id="final-m2">—</div></div>
+      <div class="submit-score-box"><div class="submit-score-label">Module 3</div><div class="submit-score-val" id="final-m3">—</div></div>
+    </div>
+    <button class="submit-btn" onclick="submitResults()">Submit my results</button>
+    <div class="submit-status" id="submit-status"></div>
+  </div>
+</div>
 
 <header class="site-header">
   <div class="header-inner">
@@ -964,12 +1024,103 @@ function updateHeaderProgress() {
   const done = ['m1','m2','m3'].filter(m => state[m].reviewed.every(Boolean)).length;
   document.getElementById('hp-bar').style.width = Math.round(done/3*100)+'%';
   document.getElementById('hp-label').textContent = done+' of 3 modules';
+  checkAllComplete();
 }
 
 function showModule(idx) {
   document.querySelectorAll('.module-section').forEach((s,i) => s.classList.toggle('active', i===idx));
   document.querySelectorAll('.nav-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
   window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ─── APPS SCRIPT URL ─────────────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby6Y4Fsh9Xeu6gT-ZKN4jv_CkMkSwmaoCbWIim5gb_l8kmIli-tSPKv_T2a9rz5mnUF6w/exec';
+
+// ─── BM NAME & TRACKING ──────────────────────────────────────
+let bmName = '';
+
+function startTraining() {
+  const input = document.getElementById('bm-name-input').value.trim();
+  if (!input || input.split(' ').length < 2) {
+    document.getElementById('name-err').style.display = 'block';
+    return;
+  }
+  bmName = input;
+  document.getElementById('name-modal').classList.add('hidden');
+}
+
+document.getElementById('bm-name-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') startTraining();
+});
+
+function getModuleScore(mod) {
+  const s = state[mod];
+  const answered = s.quizAnswered.filter(Boolean).length;
+  const correct = s.quizCorrect.filter(Boolean).length;
+  return answered > 0 ? correct + '/' + answered : '0/0';
+}
+
+function getOverallScore() {
+  let correct = 0, total = 0;
+  ['m1','m2','m3'].forEach(mod => {
+    correct += state[mod].quizCorrect.filter(Boolean).length;
+    total += state[mod].quizAnswered.filter(Boolean).length;
+  });
+  return total > 0 ? correct + '/' + total : '0/0';
+}
+
+function checkAllComplete() {
+  const allDone = ['m1','m2','m3'].every(mod => state[mod].reviewed.every(Boolean));
+  if (allDone) {
+    setTimeout(showSubmitModal, 600);
+  }
+}
+
+function showSubmitModal() {
+  const m1 = getModuleScore('m1');
+  const m2 = getModuleScore('m2');
+  const m3 = getModuleScore('m3');
+  document.getElementById('final-m1').textContent = m1;
+  document.getElementById('final-m2').textContent = m2;
+  document.getElementById('final-m3').textContent = m3;
+  document.getElementById('submit-name-line').textContent = `Nice work, ${bmName}. Here's your final score summary.`;
+  document.getElementById('submit-modal').classList.remove('hidden');
+}
+
+function submitResults() {
+  const btn = document.querySelector('.submit-btn');
+  const status = document.getElementById('submit-status');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+  status.textContent = 'Sending your results...';
+
+  const payload = {
+    name: bmName,
+    dateCompleted: new Date().toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' }),
+    m1Score: getModuleScore('m1'),
+    m2Score: getModuleScore('m2'),
+    m3Score: getModuleScore('m3'),
+    overallScore: getOverallScore()
+  };
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    status.textContent = '✓ Results submitted successfully!';
+    status.style.color = 'var(--green)';
+    btn.textContent = 'Submitted ✓';
+    btn.style.background = 'var(--green)';
+  })
+  .catch(() => {
+    status.textContent = 'Submission failed — please screenshot your scores and share with your manager.';
+    status.style.color = 'var(--red)';
+    btn.disabled = false;
+    btn.textContent = 'Try again';
+  });
 }
 
 // ─── INIT ─────────────────────────────────────────────────────
