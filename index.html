@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahindra BM Sales Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #CC2027;
+    --red-dark: #a01a1f;
+    --red-light: #fdecea;
+    --red-mid: #f5c0c2;
+    --bg: #f7f6f4;
+    --surface: #ffffff;
+    --border: rgba(0,0,0,0.09);
+    --border-mid: rgba(0,0,0,0.16);
+    --text: #1a1a1a;
+    --text-2: #555;
+    --text-3: #888;
+    --green: #1D9E75;
+    --green-light: #e1f5ee;
+    --green-dark: #085041;
+    --amber-light: #faeeda;
+    --amber-dark: #633806;
+    --danger-light: #fcebeb;
+    --danger-dark: #791f1f;
+    --purple-light: #eeedfe;
+    --purple: #534AB7;
+    --purple-dark: #3C3489;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; min-height: 100vh; }
+
+  /* HEADER */
+  .site-header { background: var(--red); padding: 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .header-inner { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-mark { width: 32px; height: 32px; background: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+  .logo-mark i { font-size: 18px; color: var(--red); }
+  .logo-text { font-size: 14px; font-weight: 600; color: white; letter-spacing: 0.01em; }
+  .logo-sub { font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 400; }
+  .header-progress { display: flex; align-items: center; gap: 8px; }
+  .hp-label { font-size: 12px; color: rgba(255,255,255,0.8); }
+  .hp-bar-bg { width: 80px; height: 4px; background: rgba(255,255,255,0.25); border-radius: 99px; }
+  .hp-bar-fill { height: 4px; border-radius: 99px; background: white; transition: width 0.4s; }
+
+  /* NAV TABS */
+  .module-nav { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 56px; z-index: 90; }
+  .nav-inner { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; display: flex; gap: 0; }
+  .nav-tab { padding: 12px 16px; font-size: 13px; font-weight: 500; color: var(--text-3); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active { color: var(--red); border-bottom-color: var(--red); }
+  .nav-tab .tab-check { width: 16px; height: 16px; border-radius: 50%; background: var(--green-light); color: var(--green-dark); display: none; align-items: center; justify-content: center; font-size: 10px; }
+  .nav-tab.done .tab-check { display: flex; }
+
+  /* MAIN */
+  .main { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* MODULE SECTIONS */
+  .module-section { display: none; }
+  .module-section.active { display: block; }
+  .module-hero { margin-bottom: 1.5rem; }
+  .module-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+  .module-title { font-size: 26px; font-weight: 600; color: var(--text); line-height: 1.2; margin-bottom: 6px; }
+  .module-desc { font-size: 14px; color: var(--text-2); }
+
+  /* STATS */
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+  .stat-box { background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; }
+  .stat-box-label { font-size: 11px; color: var(--text-3); margin-bottom: 3px; }
+  .stat-box-val { font-size: 22px; font-weight: 600; color: var(--text); }
+
+  /* PROGRESS */
+  .prog-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; }
+  .prog-bg { flex: 1; height: 5px; background: #e8e6e2; border-radius: 99px; }
+  .prog-fill { height: 5px; border-radius: 99px; transition: width 0.4s; }
+  .m1 .prog-fill { background: var(--red); }
+  .m2 .prog-fill { background: var(--purple); }
+  .m3 .prog-fill { background: var(--green); }
+  .prog-label { font-size: 12px; color: var(--text-3); white-space: nowrap; }
+
+  /* CARDS */
+  .card { background: white; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s; }
+  .card:hover { border-color: var(--border-mid); box-shadow: var(--shadow); }
+  .card.open { border-color: var(--border-mid); }
+  .card-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; user-select: none; }
+  .card-icon { width: 36px; height: 36px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+  .card-titles { flex: 1; min-width: 0; }
+  .card-name { font-size: 14px; font-weight: 600; color: var(--text); }
+  .card-sub { font-size: 12px; color: var(--text-3); margin-top: 1px; }
+  .card-badge { font-size: 11px; padding: 2px 9px; border-radius: 99px; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
+  .badge-review { background: #f0efff; color: var(--purple-dark); }
+  .badge-review-g { background: var(--green-light); color: var(--green-dark); }
+  .badge-review-r { background: var(--red-light); color: var(--red-dark); }
+  .badge-done { background: var(--green-light); color: var(--green-dark); }
+  .chev { font-size: 16px; color: var(--text-3); transition: transform 0.2s; flex-shrink: 0; margin-left: 4px; }
+  .card.open .chev { transform: rotate(180deg); }
+  .card-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); }
+  .card.open .card-body { display: block; }
+
+  /* SPECS GRID */
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0; }
+  .spec-box { background: var(--bg); border-radius: var(--radius-sm); padding: 10px 12px; }
+  .spec-label { font-size: 11px; color: var(--text-3); margin-bottom: 2px; }
+  .spec-val { font-size: 15px; font-weight: 600; color: var(--text); }
+  .spec-sub { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+
+  /* SECTION LABELS */
+  .sec-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin: 14px 0 8px; display: flex; align-items: center; gap: 5px; }
+  .sec-label i { font-size: 13px; }
+
+  /* TIP ITEMS */
+  .tip-item { display: flex; gap: 9px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text); line-height: 1.55; }
+  .tip-item:last-child { border-bottom: none; }
+  .tip-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+
+  /* SCRIPTS */
+  .script-block { border-left: 3px solid; padding: 10px 13px; margin: 8px 0; background: var(--bg); }
+  .script-lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
+  .script-text { font-size: 13px; color: var(--text); line-height: 1.6; font-style: italic; }
+
+  /* OBJECTIONS */
+  .obj-block { background: var(--bg); border-radius: var(--radius-sm); padding: 11px 13px; margin-bottom: 7px; }
+  .obj-q { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+  .obj-a { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+  .obj-a em { color: var(--text); font-style: italic; }
+
+  /* PAYMENT GRID */
+  .payment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+  .pay-box { background: var(--bg); border-radius: var(--radius-sm); padding: 10px 12px; }
+  .pay-label { font-size: 11px; color: var(--text-3); margin-bottom: 2px; }
+  .pay-val { font-size: 16px; font-weight: 600; color: var(--text); }
+  .pay-sub { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+
+  /* DEAL STEPS */
+  .deal-step { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .deal-step:last-child { border-bottom: none; }
+  .deal-num { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; margin-top: 1px; background: var(--green-light); color: var(--green-dark); }
+  .deal-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .deal-desc { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+
+  /* NOTE */
+  .note-block { background: var(--amber-light); border-radius: var(--radius-sm); padding: 9px 13px; margin: 8px 0; font-size: 12px; color: var(--amber-dark); line-height: 1.5; }
+
+  /* TAGS */
+  .tag { font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 500; }
+  .tag-sub { background: #dbeafe; color: #1e40af; }
+  .tag-compact { background: var(--purple-light); color: var(--purple-dark); }
+  .tag-utility { background: var(--green-light); color: var(--green-dark); }
+  .tag-commercial { background: var(--amber-light); color: var(--amber-dark); }
+
+  /* QUIZ */
+  .quiz-wrap { margin-top: 14px; background: var(--bg); border-radius: var(--radius-sm); padding: 13px; }
+  .quiz-q { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 10px; line-height: 1.5; }
+  .quiz-opt { display: flex; align-items: flex-start; gap: 8px; padding: 8px 11px; border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 6px; font-size: 13px; cursor: pointer; background: white; color: var(--text); transition: background 0.12s, border-color 0.12s; line-height: 1.5; }
+  .quiz-opt:hover { background: var(--bg); border-color: var(--border-mid); }
+  .quiz-opt.correct { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+  .quiz-opt.wrong { background: var(--danger-light); border-color: #e24b4a; color: var(--danger-dark); }
+  .quiz-opt i { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+  .quiz-fb { font-size: 13px; margin-top: 8px; padding: 9px 11px; border-radius: var(--radius-sm); display: none; line-height: 1.5; }
+  .quiz-fb.show { display: block; }
+  .quiz-fb.ok { background: var(--green-light); color: var(--green-dark); }
+  .quiz-fb.no { background: var(--danger-light); color: var(--danger-dark); }
+
+  /* BUTTONS */
+  .next-btn { margin-top: 12px; width: 100%; padding: 10px; font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; background: white; border: 1px solid var(--border-mid); border-radius: var(--radius-sm); cursor: pointer; color: var(--text); transition: background 0.12s; }
+  .next-btn:hover { background: var(--bg); }
+
+  /* COMPLETE */
+  .complete-msg { margin-top: 1.5rem; border-radius: var(--radius); padding: 1.5rem; text-align: center; display: none; border: 1px solid; }
+  .complete-msg.m1-done { background: var(--red-light); border-color: var(--red-mid); }
+  .complete-msg.m2-done { background: var(--purple-light); border-color: #afa9ec; }
+  .complete-msg.m3-done { background: var(--green-light); border-color: #5dcaa5; }
+  .complete-msg i { font-size: 26px; display: block; margin-bottom: 8px; }
+  .complete-msg .c-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .complete-msg .c-sub { font-size: 13px; margin-bottom: 12px; }
+  .complete-btn { padding: 8px 18px; font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid; transition: opacity 0.15s; }
+  .complete-btn:hover { opacity: 0.85; }
+  .m1-done .c-title, .m1-done .c-sub { color: var(--red-dark); }
+  .m1-done .complete-btn { background: var(--red); color: white; border-color: var(--red-dark); }
+  .m2-done .c-title, .m2-done .c-sub { color: var(--purple-dark); }
+  .m2-done .complete-btn { background: var(--purple); color: white; border-color: var(--purple-dark); }
+  .m3-done .c-title, .m3-done .c-sub { color: var(--green-dark); }
+  .m3-done .complete-btn { background: var(--green); color: white; border-color: var(--green-dark); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .stats-row { grid-template-columns: repeat(3, 1fr); }
+    .specs-grid { grid-template-columns: 1fr 1fr; }
+    .payment-grid { grid-template-columns: 1fr 1fr; }
+    .main { padding: 1.25rem 1rem 3rem; }
+    .nav-tab { padding: 10px 10px; font-size: 12px; }
+    .module-title { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark"><i class="ti ti-tractor"></i></div>
+      <div>
+        <div class="logo-text">Mahindra Sales Training</div>
+        <div class="logo-sub">Business Manager Program</div>
+      </div>
+    </div>
+    <div class="header-progress">
+      <span class="hp-label" id="hp-label">0 of 3 modules</span>
+      <div class="hp-bar-bg"><div class="hp-bar-fill" id="hp-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+</header>
+
+<nav class="module-nav">
+  <div class="nav-inner">
+    <div class="nav-tab active" id="tab-0" onclick="showModule(0)">
+      <span>Module 1</span>
+      <span style="color:var(--text-3); font-weight:400;">Product lineup</span>
+      <span class="tab-check"><i class="ti ti-check"></i></span>
+    </div>
+    <div class="nav-tab" id="tab-1" onclick="showModule(1)">
+      <span>Module 2</span>
+      <span style="color:var(--text-3); font-weight:400;">Sales process</span>
+      <span class="tab-check"><i class="ti ti-check"></i></span>
+    </div>
+    <div class="nav-tab" id="tab-2" onclick="showModule(2)">
+      <span>Module 3</span>
+      <span style="color:var(--text-3); font-weight:400;">Financing</span>
+      <span class="tab-check"><i class="ti ti-check"></i></span>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ===================== MODULE 1 ===================== -->
+<section class="module-section m1 active" id="mod-0">
+  <div class="module-hero">
+    <div class="module-eyebrow">Module 1</div>
+    <div class="module-title">Product lineup</div>
+    <div class="module-desc">All six current Mahindra series — what to say on the lot</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-box-label">Series</div><div class="stat-box-val">6</div></div>
+    <div class="stat-box"><div class="stat-box-label">Reviewed</div><div class="stat-box-val" id="m1-reviewed">0</div></div>
+    <div class="stat-box"><div class="stat-box-label">Quiz score</div><div class="stat-box-val" id="m1-score">—</div></div>
+  </div>
+  <div class="prog-row m1">
+    <div class="prog-bg"><div class="prog-fill" id="m1-prog" style="width:0%"></div></div>
+    <span class="prog-label" id="m1-prog-label">0 of 6</span>
+  </div>
+  <div id="m1-cards"></div>
+  <div class="complete-msg m1-done" id="m1-complete">
+    <i class="ti ti-circle-check" style="color:var(--red);"></i>
+    <div class="c-title">Module 1 complete</div>
+    <div class="c-sub">All six series reviewed. Continue to the sales process.</div>
+    <button class="complete-btn" onclick="showModule(1)">Continue to Module 2 →</button>
+  </div>
+</section>
+
+<!-- ===================== MODULE 2 ===================== -->
+<section class="module-section m2" id="mod-1">
+  <div class="module-hero">
+    <div class="module-eyebrow">Module 2</div>
+    <div class="module-title">Sales process</div>
+    <div class="module-desc">Meet & greet through close — scripts, frameworks, and objection handling</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-box-label">Steps</div><div class="stat-box-val">5</div></div>
+    <div class="stat-box"><div class="stat-box-label">Completed</div><div class="stat-box-val" id="m2-reviewed">0</div></div>
+    <div class="stat-box"><div class="stat-box-label">Quiz score</div><div class="stat-box-val" id="m2-score">—</div></div>
+  </div>
+  <div class="prog-row m2">
+    <div class="prog-bg"><div class="prog-fill" id="m2-prog" style="width:0%"></div></div>
+    <span class="prog-label" id="m2-prog-label">0 of 5</span>
+  </div>
+  <div id="m2-cards"></div>
+  <div class="complete-msg m2-done" id="m2-complete">
+    <i class="ti ti-circle-check" style="color:var(--purple);"></i>
+    <div class="c-title">Module 2 complete</div>
+    <div class="c-sub">Sales process covered. Continue to financing and deal structure.</div>
+    <button class="complete-btn" onclick="showModule(2)">Continue to Module 3 →</button>
+  </div>
+</section>
+
+<!-- ===================== MODULE 3 ===================== -->
+<section class="module-section m3" id="mod-2">
+  <div class="module-hero">
+    <div class="module-eyebrow">Module 3</div>
+    <div class="module-title">Financing & deal structure</div>
+    <div class="module-desc">mFUSA programs, payment selling, deal structure, and closing</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-box-label">Topics</div><div class="stat-box-val">5</div></div>
+    <div class="stat-box"><div class="stat-box-label">Completed</div><div class="stat-box-val" id="m3-reviewed">0</div></div>
+    <div class="stat-box"><div class="stat-box-label">Quiz score</div><div class="stat-box-val" id="m3-score">—</div></div>
+  </div>
+  <div class="prog-row m3">
+    <div class="prog-bg"><div class="prog-fill" id="m3-prog" style="width:0%"></div></div>
+    <span class="prog-label" id="m3-prog-label">0 of 5</span>
+  </div>
+  <div id="m3-cards"></div>
+  <div class="complete-msg m3-done" id="m3-complete">
+    <i class="ti ti-circle-check" style="color:var(--green);"></i>
+    <div class="c-title">Training complete — all 3 modules done</div>
+    <div class="c-sub">Product lineup, sales process, and financing covered. You're ready for the lot.</div>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ─── MODULE 1 DATA ───────────────────────────────────────────
+const m1data = [
+  { name:"1100 series", hp:"20–25 HP", type:"Subcompact", tagClass:"tag-sub", iconBg:"#dbeafe", iconColor:"#1e40af",
+    customer:"Estate owners, hobby farmers, properties under 5 acres",
+    specs:[
+      {label:"Loader lift (pivot pin)",val:"794 lb",sub:"L11 loader"},
+      {label:"3-pt lift capacity",val:"771 lb",sub:"24\" from pin, CAT 1"},
+      {label:"Loader max lift height",val:"68\"",sub:"with L11"},
+      {label:"Backhoe dig depth",val:"76\"",sub:"optional B11"}
+    ],
+    pitches:[
+      "No DPF — ever. Zero regen downtime, no wasted fuel, fewer parts to replace. Lead every Mahindra conversation with this.",
+      "794 lb loader lift — heaviest-lifting subcompact we've ever built. Skid-steer couplers mean attachment swaps take seconds.",
+      "Crank Assist™ walks first-time owners step-by-step through startup. Huge confidence builder for buyers who've never owned a tractor.",
+      "Electric PTO engagement prevents accidental activation — big safety sell for customers with kids or pets on the property.",
+      "mComfort seat swivels for backhoe operation. One machine, multiple jobs without the awkward twist.",
+      "Optional ROPS cab: heated, glass-enclosed, 360° view with wipers and work lights. Nothing else in this class offers it.",
+      "Folding ROPS fits in a standard garage. Most subcompact buyers worry about storage — this closes that objection fast.",
+      "HST 2-range transmission with single pedal — as easy to drive as a golf cart. Perfect for the first-time buyer."
+    ],
+    quiz:{
+      q:"A customer with 3 acres and a standard garage says they've never owned a tractor. What's your strongest opening pitch?",
+      opts:[
+        {text:"Lead with the 794 lb loader lift capacity",correct:false},
+        {text:"Lead with Crank Assist™ and the garage-friendly folding ROPS",correct:true},
+        {text:"Lead with the optional cab and backhoe depth",correct:false}
+      ],
+      ok:"Correct. First-time buyer + small lot = address confidence and practicality first. Crank Assist™ and folding ROPS hit both.",
+      no:"Lift specs and premium options won't land with a first-time buyer on 3 acres. Lead with ease of use and fit."
+    }
+  },
+  { name:"2100 series", hp:"22–25 HP", type:"Compact", tagClass:"tag-compact", iconBg:"#ede9fe", iconColor:"#5b21b6",
+    customer:"Small acreage owners, light farm use, 5–15 acres",
+    specs:[
+      {label:"Loader lift (pivot pin)",val:"1,477 lb",sub:"L21 loader"},
+      {label:"3-pt lift capacity",val:"1,760 lb",sub:"24\" from pin, CAT 1"},
+      {label:"Loader max lift height",val:"77\"",sub:"with L21"},
+      {label:"Backhoe dig depth",val:"91\"",sub:"optional B21"}
+    ],
+    pitches:[
+      "No DPF — same story as every Mahindra. No regen, no downtime, no surprises. Reinforce this on every model conversation.",
+      "1,477 lb loader lift — nearly double the 1100. For customers moving material regularly, this is a meaningful step up.",
+      "1,760 lb 3-point lift handles a wide range of CAT 1 rear implements — tillers, finish mowers, box blades, spreaders.",
+      "3-range HST with two-pedal operation — easier to learn than shuttle shift for buyers stepping up from a lawn tractor.",
+      "Telescoping stabilizers on the 3-point hitch make rear implement hookups faster and more precise.",
+      "B21 backhoe digs 91 inches with over 2,900 lb bucket force — capable option for customers who want occasional dig work.",
+      "Skid-steer loader couplers standard. Ask: 'How much time do you spend swapping attachments?' Then demonstrate the speed.",
+      "Good bridge tractor — positions well for customers who've outgrown a subcompact but don't need utility HP."
+    ],
+    quiz:{
+      q:"A customer is stepping up from a riding mower, has 10 acres, and is nervous about operating a tractor. Best move?",
+      opts:[
+        {text:"Show them the 1100 — simpler for a new operator",correct:false},
+        {text:"Emphasize the 3-range HST and walk them through how easy it drives",correct:true},
+        {text:"Lead with the backhoe dig depth and 3-pt lift numbers",correct:false}
+      ],
+      ok:"Correct. The 2100's 3-range HST is the easiest transmission in the lineup and directly addresses operator anxiety.",
+      no:"The 1100 undersizes them for 10 acres. Specs don't answer their concern. Ease of operation is the winning angle here."
+    }
+  },
+  { name:"1600 series", hp:"25–39 HP", type:"Compact utility", tagClass:"tag-compact", iconBg:"#ede9fe", iconColor:"#3C3489",
+    customer:"Estates, orchards, ranches, hunt clubs — 10–40 acres",
+    specs:[
+      {label:"Loader lift (pivot pin)",val:"1,830 lb",sub:"skid-steer couplers std."},
+      {label:"3-pt lift capacity",val:"1,720 lb",sub:"24\" from pin, CAT 1"},
+      {label:"Loader max lift height",val:"up to 91\"",sub:"1635/1640 models"},
+      {label:"PTO HP",val:"up to 29.9 HP",sub:"1640 models"}
+    ],
+    pitches:[
+      "No DPF on any 1600 model. Common rail engine runs cleaner and quieter at lower RPMs — longer life, less fuel.",
+      "1,830 lb loader lift. Can stack 4-foot round bales two high, carry IBC totes, handle full bucket loads all day.",
+      "Two transmission choices: 8F/8R synchro shuttle for experienced operators, or 3-range HST for first-timers. Fit the tractor to the buyer.",
+      "Optional climate-controlled cab with mid-PTO for snowblower — a year-round machine for northern customers.",
+      "925 CCA battery on the 1635/1640. Starts in any weather — lead this for cold-climate customers.",
+      "7-year/3,000-hour $0 deductible powertrain warranty. No competitor in this class comes close. Use as a closing point.",
+      "Skid-steer couplers standard, folding ROPS, mComfort seat with adjustable armrests — well-equipped at a strong value price.",
+      "Ground clearance up to 12.8\" on the 1640 — important for customers doing hay or rough terrain work."
+    ],
+    quiz:{
+      q:"A rancher with 30 acres needs to move round bales and occasionally grade a driveway. What's your key pitch for the 1600?",
+      opts:[
+        {text:"The no-DPF engine and 7-year warranty",correct:false},
+        {text:"The 1,830 lb loader capacity and transmission choices",correct:true},
+        {text:"The optional cab and snowblower capability",correct:false}
+      ],
+      ok:"Right call. A rancher moving bales needs to know this loader handles the work. Back it up with the warranty as a close.",
+      no:"Warranty and cab are supporting points, not openers for this buyer. Lead with what the machine can lift and haul."
+    }
+  },
+  { name:"4500 series", hp:"41–48 HP", type:"Utility", tagClass:"tag-utility", iconBg:"#dcfce7", iconColor:"#166534",
+    customer:"Rural lifestyle, hobby farming, grounds maintenance, light commercial",
+    specs:[
+      {label:"Loader lift (pivot pin)",val:"2,866 lb",sub:"4550-4L loader"},
+      {label:"3-pt lift capacity",val:"Best-in-class",sub:"CAT 1 & 2, tele. stabilizers"},
+      {label:"Loader max lift height",val:"116.6\"",sub:"4550-4L"},
+      {label:"Backhoe dig depth",val:"101\"",sub:"optional 4550B"}
+    ],
+    pitches:[
+      "4WD on every model — no 2WD option. That's a strength: customers get maximum traction and stability every time.",
+      "2,866 lb loader lift at pivot pins on the 4550. Ask any competitor to match that number at this price point.",
+      "No DPF mCRD 4-cylinder engine. Cleaner exhaust, no operator regen involvement, lower cost of ownership.",
+      "Skid-steer quick-attach couplers standard on the loader — fast hookups across buckets, forks, bale spears, and grapples.",
+      "Optional 4550B backhoe: 101-inch dig depth, 180° swing arc, 3,670 lb bucket dig force. True multi-purpose machine.",
+      "mComfort mechanical suspension seat standard — reduces fatigue on long days. One-piece steel hood for easy engine access.",
+      "Large ag and industrial tire options for maximum traction on uneven terrain or wet fields.",
+      "7-year/3,000-hour $0 deductible powertrain warranty. Strong competitive advantage at this HP level."
+    ],
+    quiz:{
+      q:"A grounds maintenance customer needs loader work, mowing, and occasional trenching. Which 4500 do you spec out?",
+      opts:[
+        {text:"4540 4WD — base model saves them money",correct:false},
+        {text:"4550 4WD with the backhoe option",correct:true},
+        {text:"Step them up to the 5100 instead",correct:false}
+      ],
+      ok:"Correct. Trenching needs the 4550B backhoe, only available on the 4550. 4WD gives the stability needed for all three tasks.",
+      no:"The backhoe option only fits the 4550 — the 4540 can't be configured for trenching. The 5100 may be more than they need."
+    }
+  },
+  { name:"5100 series", hp:"45–55 HP", type:"Commercial utility", tagClass:"tag-commercial", iconBg:"#fef3c7", iconColor:"#92400e",
+    customer:"Ag farmers, livestock, landscapers, municipalities, ranchers — 50+ acres",
+    specs:[
+      {label:"Loader lift (full height)",val:"3,100 lb",sub:"5155-4L at pivot pin"},
+      {label:"3-pt linkage",val:"CAT 1 & 2",sub:"telescoping stabilizers + flex links"},
+      {label:"Loader max lift height",val:"122\"",sub:"5155-4L loader"},
+      {label:"Backhoe dig depth",val:"112\"",sub:"optional 65B, 9+ feet"}
+    ],
+    pitches:[
+      "mCRD common rail diesel — no DPF, superior PTO HP vs. Deere and Kubota at this price. Lead with that comparison directly.",
+      "3,100 lb full-height loader lift, 122-inch max height. Stack hay, load mixer wagons, handle bulk materials with reach to spare.",
+      "Base weight 5,390 lb — add the loader and you're at 6,690 lb. This machine doesn't get pushed around on slopes or in mud.",
+      "12F/12R synchromesh transmission — upshift or downshift on the fly like a car. Faster for front loader work than a standard HST.",
+      "CAT 1 and CAT 2 connectors standard — more implement compatibility than most competitors. One tractor, dozens of tools.",
+      "540 and 540E economy PTO modes standard. Fuel savings add up fast over a full season — put real numbers in front of the buyer.",
+      "Optional backhoe digs over 9 feet with 3,895 lb bucket force. ROI pitch: replaces a rental machine for most farm dig work.",
+      "Flat-top fenders add usable storage, side ignition prevents knee bumps — details that matter on long days."
+    ],
+    quiz:{
+      q:"A livestock farmer with 75 acres asks how the 5100 stacks up against a Kubota at similar HP. Your strongest counter?",
+      opts:[
+        {text:"Our dealer network and parts availability",correct:false},
+        {text:"Superior PTO HP, no DPF regen, and the 7-year warranty",correct:true},
+        {text:"The mComfort seat and operator comfort features",correct:false}
+      ],
+      ok:"Exactly right. A working farmer cares about uptime and output. No regen downtime + better PTO HP + stronger warranty wins it.",
+      no:"Dealer network and comfort are supporting points. A 75-acre operation needs uptime and PTO performance — lead there."
+    }
+  },
+  { name:"6000 series", hp:"62–75 HP", type:"Commercial utility", tagClass:"tag-commercial", iconBg:"#fef3c7", iconColor:"#78350f",
+    customer:"Commercial farmers, hay producers, large acreage, municipalities",
+    specs:[
+      {label:"Loader lift (full height)",val:"3,609 lb",sub:"6075L at pivot pin"},
+      {label:"3-pt lift capacity",val:"5,952–6,416 lb",sub:"CAT 1 & 2, varies by model"},
+      {label:"Loader max lift height",val:"133\"",sub:"6075L — high-sided trucks"},
+      {label:"Backhoe dig depth",val:"112\"",sub:"optional, 9'4\", 3,895 lb force"}
+    ],
+    pitches:[
+      "Turbocharged, intercooled mCRD — no DPF at 60+ HP. Competitors make you deal with regen at this power level. We don't.",
+      "3,609 lb loader lift at full height. 133-inch max height reaches into mixer wagons and high-sided trucks.",
+      "Up to 6,416 lb on the 3-point hitch. Pulls serious implements: subsoilers, large disc harrows, heavy rotary cutters.",
+      "15F/15R full synchromesh on shuttle models; power shuttle with wet clutch on PST models — faster direction changes for loader-intensive days.",
+      "Optional cab with 140A alternator — ready for work lights, electronics, and GPS. Built for commercial and municipal buyers.",
+      "540 and 540E economy PTO modes. At 60+ HP, fuel consumption is a real cost — 540E saves measurable gallons per hour.",
+      "Backhoe option: 9'4\" dig depth, 3,895 lb bucket force, 18-inch bucket standard. Replaces a dedicated excavator for most farm dig work.",
+      "Heavy front axles boost stability for loader work. Wet disc brakes with lever-actuated parking brake — built for the long haul."
+    ],
+    quiz:{
+      q:"A hay producer with 200 acres asks why they should choose the 6075 over a comparable Deere or Kubota. What do you lead with?",
+      opts:[
+        {text:"Lower price point and strong warranty",correct:false},
+        {text:"No DPF at this HP level, 3,609 lb loader lift, and 7-year warranty",correct:true},
+        {text:"Transmission options and cab comfort",correct:false}
+      ],
+      ok:"Perfect. A 200-acre hay producer can't afford regen downtime during cutting season. No DPF + loader capacity + warranty wins this deal.",
+      no:"Price signals commodity. Comfort doesn't move a production farmer. Lead with uptime, lift capacity, and warranty protection."
+    }
+  }
+];
+
+// ─── MODULE 2 DATA ───────────────────────────────────────────
+const m2data = [
+  { name:"Step 1 — Meet & greet", subtitle:"First impression sets the deal's tone", icon:"ti-user", iconBg:"#ede9fe", iconColor:"#5b21b6",
+    tips:[
+      "Get to them before they've walked the lot for five minutes on their own. An ungreeted customer starts forming opinions without you.",
+      "Open with curiosity, not a pitch. 'What brings you in today?' beats 'Can I help you?' — one invites a conversation, the other invites 'just looking.'",
+      "Mirror their energy. A no-nonsense farmer wants direct, low-fluff conversation. A first-time buyer wants reassurance. Read them fast.",
+      "Introduce yourself by name and get theirs early. Using their name throughout the conversation builds rapport without effort.",
+      "Never walk them to the tractors first. Walk them to a conversation first — lot walks are more effective after you know what they need."
+    ],
+    scripts:[
+      {label:"Opening line", color:"var(--purple)", labelColor:"var(--purple)", text:"\"Hey, welcome in — I'm [name]. What brings you out today, are you looking to add a tractor or replace something you've got?\""},
+      {label:"If they say 'just looking'", color:"var(--purple)", labelColor:"var(--purple)", text:"\"No problem at all. I'll let you browse — I'm happy to answer anything when you're ready. Just so I know, is it for your place or someone else's property?\""}
+    ],
+    hasObjections:false,
+    quiz:{
+      q:"A customer walks in and says 'just looking.' What's the right move?",
+      opts:[
+        {text:"Give them space and wait for them to come to you",correct:false},
+        {text:"Acknowledge it, then ask one low-pressure question to open a conversation",correct:true},
+        {text:"Start walking them through the lineup immediately",correct:false}
+      ],
+      ok:"Correct. 'Just looking' is a defense, not a dismissal. One easy question keeps the door open without pressure.",
+      no:"Waiting kills momentum. Jumping straight to the lineup ignores what they actually need. One warm question is the right move."
+    }
+  },
+  { name:"Step 2 — Discovery", subtitle:"Ask before you pitch", icon:"ti-question-mark", iconBg:"#ede9fe", iconColor:"#5b21b6",
+    tips:[
+      "Use the LAND framework: Land size, Application (what they're doing with it), Needs timeline, and Dollar comfort. Four questions that tell you everything.",
+      "Never mention a model until you've asked at least 3 discovery questions. The BM who asks the best questions wins more deals than the one who knows the most specs.",
+      "Dig into application — mowing, loader work, hay, tilling, snow, landscaping? One customer's 'general use' is another's 'I need to move round bales every day.'",
+      "Ask about their current situation: 'What are you running now?' If they have a tractor, find out what they like and hate about it. That's your pitch.",
+      "Timeline matters. 'When do you need this by?' separates tire-kickers from buyers and helps you prioritize urgency.",
+      "Let them talk. The more a customer talks, the more they're invested. Your job in discovery is to listen 70% and talk 30%."
+    ],
+    scripts:[
+      {label:"LAND opener", color:"var(--purple)", labelColor:"var(--purple)", text:"\"Before I show you anything, I want to make sure I point you at the right machine. How many acres are you working with, and what's the main thing you need it to do?\""},
+      {label:"Digging into application", color:"var(--purple)", labelColor:"var(--purple)", text:"\"When you say general use — are we talking mostly mowing and light loader work, or do you need something that can handle hay or heavier implement work?\""},
+      {label:"Current situation", color:"var(--purple)", labelColor:"var(--purple)", text:"\"Are you replacing something or is this your first tractor? If you've had one before, what did you like or wish it did better?\""}
+    ],
+    hasObjections:false,
+    quiz:{
+      q:"A customer walks in and says they want 'something around 40 HP.' What do you do first?",
+      opts:[
+        {text:"Show them the 4500 series — it fits the HP range they mentioned",correct:false},
+        {text:"Ask LAND questions before walking them to any model",correct:true},
+        {text:"Ask about their budget before anything else",correct:false}
+      ],
+      ok:"Right. HP is a starting point, not a destination. LAND questions tell you if 40 HP is actually what they need.",
+      no:"Jumping to a model or leading with budget skips the most important step. Discovery first — then match the machine to the real need."
+    }
+  },
+  { name:"Step 3 — Product match & demo", subtitle:"Put them in the seat", icon:"ti-tractor", iconBg:"#ede9fe", iconColor:"#5b21b6",
+    tips:[
+      "A customer who sits in the seat is significantly more likely to buy. Make the demo non-negotiable — 'Let me show you how it drives' not 'Would you like to try it?'",
+      "Recommend one or two models max based on your discovery answers. Showing three or more creates confusion and stalls decisions.",
+      "Walk the machine before they get on. Point out the specific features that match what they told you in discovery.",
+      "During the demo, let them operate it. Set up a route that shows loader capability, turning radius, and ground feel. Don't just let them idle.",
+      "After the demo, ask: 'How did that feel compared to what you were expecting?' — this surfaces objections early while you're still at the machine.",
+      "If they're comparing to a competitor, offer a side-by-side walk. Don't avoid the comparison — own it. You know the Mahindra advantages cold."
+    ],
+    scripts:[
+      {label:"Transitioning to the lot", color:"var(--purple)", labelColor:"var(--purple)", text:"\"Based on what you're describing — 20 acres, loader work, and some bush hogging — the 1600 is going to be the right machine. Let me walk you over and show you a couple things before you get on it.\""},
+      {label:"Post-demo question", color:"var(--purple)", labelColor:"var(--purple)", text:"\"How did that feel? Anything that surprised you — good or bad?\""},
+      {label:"If they hesitate on the demo", color:"var(--purple)", labelColor:"var(--purple)", text:"\"It only takes about 5 minutes and it's the best way to know if this is the right fit. Hop on and we'll take it around the building.\""}
+    ],
+    hasObjections:false,
+    quiz:{
+      q:"After discovery, you know the customer needs the 1600 series. What's your next move?",
+      opts:[
+        {text:"Present the full 1600 lineup and let them choose the model",correct:false},
+        {text:"Recommend one specific model and walk them to it for a demo",correct:true},
+        {text:"Give them a brochure and spec sheet to review before the demo",correct:false}
+      ],
+      ok:"Correct. Narrow it to one recommendation — it shows confidence and expertise. Then get them on the machine.",
+      no:"Too many options stalls the decision. A brochure before a demo slows momentum. Make the call and get them in the seat."
+    }
+  },
+  { name:"Step 4 — Objection handling", subtitle:"Objections are buying signals", icon:"ti-shield", iconBg:"#ede9fe", iconColor:"#5b21b6",
+    tips:[
+      "Reframe your mindset: an objection means they're still engaged. A customer who's done buying just leaves.",
+      "Never argue with an objection. Acknowledge it first — 'That's a fair point' — then pivot. Arguing puts them on defense.",
+      "Isolate the objection before you answer it. 'Is that the main thing holding you back, or is there something else too?' Answering the wrong objection wastes time.",
+      "Most objections are really one of three things: price, confidence, or timing. Identify which one before you respond.",
+      "After you handle an objection, always close back: 'Does that help?' or 'Does that change things for you?' — don't just answer and go silent."
+    ],
+    hasObjections:true,
+    objections:[
+      {q:"\"It's more than I wanted to spend.\"", a:"Don't drop the price first. Pivot to payment: ", script:"\"I hear you — what if I showed you what the monthly looks like on our current mFUSA finance program? Most folks find it's less than they expected.\""},
+      {q:"\"I need to think about it.\"", a:"This means there's an unanswered question. Find it: ", script:"\"Absolutely — what specific piece would you want to think through? I want to make sure I've answered everything before you leave.\""},
+      {q:"\"I'm also looking at Kubota / Kioti / LS.\"", a:"Don't trash the competitor. Get curious instead: ", script:"\"Good to shop around. What do you like about what you've seen so far? I want to make sure you're comparing apples to apples on the things that matter most.\""},
+      {q:"\"I'm not sure I need that much tractor.\"", a:"Reframe as long-term value: ", script:"\"That's a common concern — I'd rather you get what you need than sell you something you'll outgrow in a season. What's the biggest job you'd ask this machine to do?\""},
+      {q:"\"I want to wait until spring.\"", a:"Create urgency without pressure: ", script:"\"That's fine, and spring is a great time to have it ready. The challenge is our current mFUSA rate and inventory — both tend to change before spring hits. Want to at least lock in today's numbers?\""}
+    ],
+    scripts:[],
+    quiz:{
+      q:"A customer says 'I want to think about it' and starts moving toward the door. What do you do?",
+      opts:[
+        {text:"Thank them and hand them a brochure to take home",correct:false},
+        {text:"Ask what specific thing they still need to think through",correct:true},
+        {text:"Offer a discount to try to close before they leave",correct:false}
+      ],
+      ok:"Exactly right. 'I need to think about it' almost always means there's one unanswered question. Find it before they walk.",
+      no:"A brochure is a goodbye. A discount without identifying the real objection is money left on the table. Find the question first."
+    }
+  },
+  { name:"Step 5 — Close & follow-up", subtitle:"Ask for the business, then stay in it", icon:"ti-check", iconBg:"#ede9fe", iconColor:"#5b21b6",
+    tips:[
+      "Most BMs don't ask for the sale clearly enough. After you've handled objections, close directly: 'Are we ready to get the paperwork started?'",
+      "Trial closes throughout the conversation reduce friction at the final close: 'If the numbers work for you, is this the one?'",
+      "Offer a reason to decide today — current mFUSA program, inventory availability, delivery timing. Urgency should be real, not manufactured.",
+      "If they say yes, slow down. Confirm the model, attachments, and delivery expectations before moving to paperwork.",
+      "If they don't buy today, set a specific next step before they leave — not 'let me know' but a day and time to follow up.",
+      "Follow-up calls within 24 hours close more deals than any other single activity. Strike while the demo is still fresh.",
+      "Track every unsold demo with a follow-up date. The BM who follows up consistently outsells the one who waits for the phone to ring."
+    ],
+    scripts:[
+      {label:"Direct close", color:"var(--purple)", labelColor:"var(--purple)", text:"\"Based on everything we've talked about, it sounds like the 1635 HST is the right fit. Are we ready to get the paperwork started?\""},
+      {label:"Trial close during walkthrough", color:"var(--purple)", labelColor:"var(--purple)", text:"\"If the monthly payment works for you, is this the machine you'd want to go with?\""},
+      {label:"Setting a follow-up before they leave", color:"var(--purple)", labelColor:"var(--purple)", text:"\"I'll run the numbers on the mFUSA 0% program and send them over this afternoon. Can I give you a call Thursday to walk through it?\""},
+      {label:"24-hour follow-up opener", color:"var(--purple)", labelColor:"var(--purple)", text:"\"Hey [name], it's [your name] from [dealership]. Just wanted to follow up while the demo was still fresh — did any other questions come up after you left?\""}
+    ],
+    hasObjections:false,
+    quiz:{
+      q:"A customer liked the tractor but left without buying. They said they'd 'be in touch.' What's the right move?",
+      opts:[
+        {text:"Wait for them to reach out — you don't want to be pushy",correct:false},
+        {text:"Call within 24 hours with a specific reason to reconnect",correct:true},
+        {text:"Send a follow-up email in a week with the spec sheet",correct:false}
+      ],
+      ok:"Correct. 24-hour follow-up while the demo is still fresh is one of the highest-ROI activities in tractor sales. Don't wait.",
+      no:"Waiting gives competitors time to get in front of them. A week is too long — the buying energy fades fast. Call within 24 hours."
+    }
+  }
+];
+
+// ─── MODULE 3 DATA ───────────────────────────────────────────
+const dealSteps = [
+  {num:1,title:"Start at full MSRP + attachments",desc:"Never open discounted. Present the full package — tractor, loader, and any implements they mentioned needing."},
+  {num:2,title:"Offer the mFUSA promotional rate first",desc:"0% or low-rate financing is your cheapest concession. It moves the monthly payment dramatically without touching gross."},
+  {num:3,title:"Bundle implements to grow the ticket",desc:"Add a rotary cutter, box blade, backhoe, or bale spear. Bigger ticket = more room to work. Ask: 'What do you need to be productive day one?'"},
+  {num:4,title:"Adjust term length before price",desc:"Extending from 60 to 72 or 84 months drops the payment further. Use this before touching the unit price."},
+  {num:5,title:"Discount the tractor price — last resort only",desc:"Only here if everything else has been exhausted. Know your floor plan break-even before you move a dollar on the price."}
+];
+const m3data = [
+  { name:"Topic 1 — mFUSA programs overview", subtitle:"Know your programs before they ask", icon:"ti-building-bank", iconBg:"#dcfce7", iconColor:"#166534",
+    tips:[
+      "Mahindra Finance USA (mFUSA) is your captive lender — always lead with mFUSA before sending customers to outside banks. mFUSA approval keeps the deal in house and protects your margin.",
+      "Core programs: 0% promotional financing (typically 48–60 months), low-rate standard financing (72–84 months), and seasonal deferred payment for spring delivery / fall payment buyers.",
+      "Programs rotate quarterly — always check the current rate sheet before quoting. Quoting an expired program kills trust fast.",
+      "Know your floor plan terms. Your margin flex is linked to how long the unit has been on the floor. Units sitting longer have more room.",
+      "mFUSA approvals are typically fast — same day for clean credit. Use this as a selling point vs. customers who think financing will be a long process.",
+      "Always present mFUSA first even if a customer says they're paying cash. 'Let me show you what the 0% program looks like before you decide — you may want to keep your cash working.'"
+    ],
+    scripts:[
+      {label:"Introducing mFUSA early",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"Before we talk numbers, we have Mahindra's own finance program through mFUSA — 0% for 60 months right now. A lot of folks find it makes more sense to finance than write a check, even if they have the cash.\""},
+      {label:"Positioning mFUSA vs. a bank",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"You can absolutely use your bank — but our mFUSA program is 0% right now and your bank won't beat that. Let me show you the monthly on this machine.\""}
+    ],
+    hasPayments:false, hasDealSteps:false, hasObjections:false,
+    quiz:{
+      q:"A customer says they're planning to pay cash. What should you do?",
+      opts:[
+        {text:"Accept it and move forward with a cash deal",correct:false},
+        {text:"Present the 0% mFUSA program before they finalize — they may prefer to keep their cash",correct:true},
+        {text:"Offer a cash discount to incentivize the quicker transaction",correct:false}
+      ],
+      ok:"Correct. Always present mFUSA even to cash buyers. 0% financing is hard to beat — and a financed deal protects your cash flow and margin.",
+      no:"Cash deals can actually cost you. A financed deal through mFUSA keeps margin in the deal and gives the customer a better use of their money at 0%."
+    }
+  },
+  { name:"Topic 2 — Selling on payment", subtitle:"Frame value around monthly cost, not price", icon:"ti-calculator", iconBg:"#dcfce7", iconColor:"#166534",
+    tips:[
+      "Most compact tractor buyers are monthly payment buyers — they budget monthly, not by sticker price. Lead with payment after you've confirmed the right model.",
+      "Never present the full cash price first to a customer who hasn't asked. Price anchors kill deals. Payment frames win them.",
+      "The truck payment comparison is your most powerful tool. A 2100 series at 0%/60 months runs around $400–450 a month — less than most truck payments. Say it out loud.",
+      "Build payment fluency: know approximate monthly payments for your top 3 selling models at the current promotional rate. Say it without looking it up.",
+      "If a customer fixates on price, pivot: 'What monthly payment would make this work for you?' — moves the conversation from sticker shock to workable math.",
+      "Always quote payment ranges, not exact numbers, until you have an mFUSA application in hand. 'Around $400–450 a month' avoids commitment before credit is pulled."
+    ],
+    hasPayments:true,
+    payments:[
+      {label:"2100 series (~$25K)",val:"~$417/mo",sub:"0% for 60 months"},
+      {label:"1600 series (~$28K)",val:"~$467/mo",sub:"0% for 60 months"},
+      {label:"4500 series (~$35K)",val:"~$583/mo",sub:"0% for 60 months"},
+      {label:"5100 series (~$45K)",val:"~$750/mo",sub:"0% for 60 months"}
+    ],
+    scripts:[
+      {label:"Payment pivot from price objection",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"I hear you on the price — let's look at it differently. At 0% for 60 months through mFUSA, the 2100 series is right around $400–450 a month. That's less than most truck payments, and this machine works every day.\""},
+      {label:"Asking their payment target",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"What monthly payment would make this feel comfortable for you? Let me see what I can put together through mFUSA.\""}
+    ],
+    hasDealSteps:false, hasObjections:false,
+    quiz:{
+      q:"A customer sees the sticker on a 2100 series and says 'that's more than I thought.' What's your move?",
+      opts:[
+        {text:"Explain the features that justify the price",correct:false},
+        {text:"Immediately pivot to the monthly payment and the truck comparison",correct:true},
+        {text:"Show them the 1100 series to keep them engaged",correct:false}
+      ],
+      ok:"Right. Price sticker shock is best answered with a payment frame, not a feature list. Get to the monthly number and let that do the work.",
+      no:"Defending the price with features keeps them anchored to the sticker. Stepping down loses gross. Pivot to payment immediately."
+    }
+  },
+  { name:"Topic 3 — Deal structure", subtitle:"Build from the top down to protect gross", icon:"ti-layers", iconBg:"#dcfce7", iconColor:"#166534",
+    tips:[
+      "Always build from the top down: start at full MSRP plus attachments. Never open with a discounted price.",
+      "Your first concession should always be the mFUSA promotional rate — costs you significantly less than a cash discount and feels valuable to the customer.",
+      "Add implements and attachments to increase the total ticket before talking about price. A loader, rotary cutter, or backhoe absorbs margin pressure and increases total gross.",
+      "Only discount the tractor price as a last resort, after you've exhausted rate concessions and attachment bundling.",
+      "Know your floor plan cost on each unit. Once a deal goes below your floor plan break-even, you're paying to sell a tractor. Know that number cold.",
+      "Implement bundles are a win-win: the customer gets everything they need at delivery, and you increase total deal gross. Always ask: 'What do you need to be productive day one?'"
+    ],
+    hasDealSteps:true,
+    scripts:[
+      {label:"Opening at full MSRP",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"Here's where we start — full MSRP plus the loader package. Let me show you what that looks like monthly through mFUSA on our current program.\""},
+      {label:"Rate as first concession",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"I can get you into our mFUSA 0% program for 60 months — that drops your payment significantly without touching the price of the machine.\""},
+      {label:"Bundling implements",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"Before we finalize, what implements do you need to be productive day one? A rotary cutter and box blade added today gets you everything you need and I can work the package.\""}
+    ],
+    hasPayments:false, hasObjections:false,
+    quiz:{
+      q:"A customer asks for $1,500 off the sticker price. What's the best first response?",
+      opts:[
+        {text:"Meet them at $750 off as a compromise",correct:false},
+        {text:"Offer the mFUSA promotional rate as an alternative to a price cut",correct:true},
+        {text:"Hold firm and explain why the price is where it is",correct:false}
+      ],
+      ok:"Correct. The mFUSA rate concession costs you far less than $1,500 off the sticker. Offer the rate first — save price discount for last resort.",
+      no:"Splitting a discount immediately gives away gross without testing other options. The mFUSA rate concession is your first and cheapest move."
+    }
+  },
+  { name:"Topic 4 — Reading the credit application", subtitle:"Know what you're working with before you commit", icon:"ti-file-text", iconBg:"#dcfce7", iconColor:"#166534",
+    tips:[
+      "Get a credit application early — ideally before the demo. 'Let me get your information into mFUSA while we walk the lot' is natural and low-pressure.",
+      "A pulled credit score tells you what program tier you're working in. Don't quote a 0% payment to someone who may not qualify.",
+      "mFUSA has tiered programs. Strong credit gets the promotional rate. Weaker credit may still qualify at a standard rate — know the tiers.",
+      "If credit comes back thin, lead with what IS available: 'mFUSA has a program that works for you at X%' beats 'you don't qualify for the 0%.'",
+      "Co-signer conversations: if a customer is close but not qualifying, a co-signer can close the gap. Bring it up early.",
+      "Never promise a rate before mFUSA approval. Quote ranges only: 'depending on credit, you're looking at somewhere between $X and $Y per month.'"
+    ],
+    scripts:[
+      {label:"Getting the application early",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"While I pull the machine around, let me grab your info for the mFUSA application — it only takes a minute and tells us exactly which program you qualify for.\""},
+      {label:"If credit comes back challenged",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"Here's what mFUSA has for you — you qualify for our standard program at X%, which puts you right around $Y a month. That's still a strong payment on this machine.\""},
+      {label:"Co-signer intro",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"Just to make sure we've got every option on the table — is there a spouse or business partner who typically co-signs on purchases like this?\""}
+    ],
+    hasPayments:false, hasDealSteps:false, hasObjections:false,
+    quiz:{
+      q:"Before pulling credit, a customer asks 'what will my monthly payment be?' What do you say?",
+      opts:[
+        {text:"Quote them the 0% mFUSA payment for the model they're looking at",correct:false},
+        {text:"Give a payment range and explain it depends on the mFUSA program they qualify for",correct:true},
+        {text:"Tell them you can't discuss payments until the paperwork is done",correct:false}
+      ],
+      ok:"Right. Quote a range, not a number. 'Somewhere between $X and $Y depending on your mFUSA program' sets the right expectation without overcommitting.",
+      no:"Quoting the 0% rate before credit is pulled sets an expectation you may not be able to meet. Ranges protect you and keep the conversation moving."
+    }
+  },
+  { name:"Topic 5 — Closing the finance deal", subtitle:"Paperwork is part of the sale", icon:"ti-signature", iconBg:"#dcfce7", iconColor:"#166534",
+    tips:[
+      "The finance close is a process, not a single moment. You're closing the model, then the payment, then the mFUSA program, then the paperwork — each step leads to the next.",
+      "Once a customer agrees on payment, move immediately: 'Great — let me get the mFUSA paperwork started.' Any pause gives doubt time to creep in.",
+      "Review every line item with the customer before they sign. Surprises at delivery kill future referrals even when the customer takes the tractor.",
+      "Confirm delivery expectations clearly: date, prep items, any attachments being added. A tractor that shows up missing an implement is a trust problem.",
+      "Getting a deposit locks the deal and reduces fallout. 'I'll hold this machine with a deposit today — what works for you, credit card or check?'",
+      "After signing, re-sell the decision. Buyer's remorse is real. 'You made a great call — this machine is going to work hard for you' goes a long way."
+    ],
+    scripts:[
+      {label:"Moving to paperwork after agreement",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"Perfect — let me get the mFUSA paperwork going. I'll have you in and out in about 20 minutes.\""},
+      {label:"Getting a deposit to lock the deal",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"I want to make sure this unit is held for you. I can lock it with a deposit today — credit card or check, whichever is easier.\""},
+      {label:"Re-selling the decision after signing",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"You made a solid call today. The [model] is going to serve you well — and that 7-year warranty means you've got Mahindra behind you the whole time.\""},
+      {label:"Setting up delivery",color:"var(--green)",labelColor:"var(--green-dark)",text:"\"Let's confirm delivery before you leave — what day works, and do you need us to arrange transport or are you picking up?\""}
+    ],
+    hasPayments:false, hasDealSteps:false, hasObjections:false,
+    quiz:{
+      q:"A customer agrees on the payment and says 'sounds good, I'll come back Saturday to sign.' What's the right move?",
+      opts:[
+        {text:"Confirm Saturday and send them a reminder the day before",correct:false},
+        {text:"Get a deposit today to lock the deal before they leave",correct:true},
+        {text:"Start pulling mFUSA paperwork so it's ready for Saturday",correct:false}
+      ],
+      ok:"Correct. A verbal agreement without a deposit is a maybe, not a deal. Get something down before they leave — it dramatically reduces fallout.",
+      no:"Without a deposit, that deal can go sideways before Saturday. A competitor call or second thought can undo everything. Lock it now."
+    }
+  }
+];
+
+// ─── STATE ───────────────────────────────────────────────────
+const state = {
+  m1: { open:null, reviewed:new Array(6).fill(false), quizAnswered:new Array(6).fill(false), quizCorrect:new Array(6).fill(false) },
+  m2: { open:null, reviewed:new Array(5).fill(false), quizAnswered:new Array(5).fill(false), quizCorrect:new Array(5).fill(false) },
+  m3: { open:null, reviewed:new Array(5).fill(false), quizAnswered:new Array(5).fill(false), quizCorrect:new Array(5).fill(false) }
+};
+
+// ─── BUILD CARDS ─────────────────────────────────────────────
+function buildM1() {
+  const container = document.getElementById('m1-cards');
+  m1data.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'card'; div.id = 'm1-card-'+i;
+    div.onclick = () => toggleCard('m1', i, 6);
+    const specsHTML = s.specs.map(sp => `<div class="spec-box"><div class="spec-label">${sp.label}</div><div class="spec-val">${sp.val}</div><div class="spec-sub">${sp.sub}</div></div>`).join('');
+    const pitchHTML = s.pitches.map(p => `<div class="tip-item"><div class="tip-dot" style="background:var(--red);"></div><div>${p}</div></div>`).join('');
+    const quizHTML = buildQuiz('m1', i, s.quiz);
+    div.innerHTML = `
+      <div class="card-header">
+        <div class="card-icon" style="background:${s.iconBg};color:${s.iconColor};"><i class="ti ti-tractor"></i></div>
+        <div class="card-titles">
+          <div class="card-name">${s.name} <span style="font-weight:400;color:var(--text-3);font-size:12px;">· ${s.hp}</span></div>
+          <div class="card-sub"><span class="tag ${s.tagClass}">${s.type}</span></div>
+        </div>
+        <span class="card-badge badge-review-r" id="m1-badge-${i}">Review</span>
+        <i class="ti ti-chevron-down chev" id="m1-chev-${i}"></i>
+      </div>
+      <div class="card-body">
+        <div style="font-size:12px;color:var(--text-3);font-style:italic;margin-top:12px;">Ideal for: ${s.customer}</div>
+        <div class="specs-grid">${specsHTML}</div>
+        <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+        ${pitchHTML}
+        ${quizHTML}
+        <button class="next-btn" onclick="markReviewed('m1',${i},6);event.stopPropagation();">${i<5?'Mark reviewed &amp; next →':'Mark reviewed — finish module →'}</button>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function buildM2() {
+  const container = document.getElementById('m2-cards');
+  m2data.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'card'; div.id = 'm2-card-'+i;
+    div.onclick = () => toggleCard('m2', i, 5);
+    const tipsHTML = s.tips.map(t => `<div class="tip-item"><div class="tip-dot" style="background:var(--purple);"></div><div>${t}</div></div>`).join('');
+    const scriptsHTML = (s.scripts||[]).map(sc => `<div class="script-block" style="border-color:var(--purple);"><div class="script-lbl" style="color:var(--purple);">${sc.label}</div><div class="script-text">${sc.text}</div></div>`).join('');
+    let objHTML = '';
+    if (s.hasObjections) {
+      objHTML = `<div class="sec-label"><i class="ti ti-alert-circle"></i>Common objections — what to say</div>` +
+        s.objections.map(o => `<div class="obj-block"><div class="obj-q">${o.q}</div><div class="obj-a">${o.a}<em>${o.script}</em></div></div>`).join('');
+    }
+    const quizHTML = buildQuiz('m2', i, s.quiz);
+    div.innerHTML = `
+      <div class="card-header">
+        <div class="card-icon" style="background:${s.iconBg};color:${s.iconColor};"><i class="ti ${s.icon}"></i></div>
+        <div class="card-titles">
+          <div class="card-name">${s.name}</div>
+          <div class="card-sub" style="color:var(--text-3);">${s.subtitle}</div>
+        </div>
+        <span class="card-badge badge-review" id="m2-badge-${i}">Review</span>
+        <i class="ti ti-chevron-down chev" id="m2-chev-${i}"></i>
+      </div>
+      <div class="card-body">
+        <div class="sec-label" style="margin-top:12px;"><i class="ti ti-bulb"></i>Key principles</div>
+        ${tipsHTML}
+        ${scriptsHTML}
+        ${objHTML}
+        ${quizHTML}
+        <button class="next-btn" onclick="markReviewed('m2',${i},5);event.stopPropagation();">${i<4?'Mark complete &amp; next →':'Mark complete — finish module →'}</button>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function buildM3() {
+  const container = document.getElementById('m3-cards');
+  m3data.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'card'; div.id = 'm3-card-'+i;
+    div.onclick = () => toggleCard('m3', i, 5);
+    const tipsHTML = s.tips.map(t => `<div class="tip-item"><div class="tip-dot" style="background:var(--green);"></div><div>${t}</div></div>`).join('');
+    const scriptsHTML = (s.scripts||[]).map(sc => `<div class="script-block" style="border-color:var(--green);"><div class="script-lbl" style="color:var(--green-dark);">${sc.label}</div><div class="script-text">${sc.text}</div></div>`).join('');
+    let payHTML = '';
+    if (s.hasPayments) {
+      payHTML = `<div class="sec-label"><i class="ti ti-coin"></i>Reference payments — current 0% mFUSA program</div>
+        <div class="note-block">Estimated reference figures only. Always verify against the current mFUSA rate sheet and confirm after credit approval.</div>
+        <div class="payment-grid">${s.payments.map(p=>`<div class="pay-box"><div class="pay-label">${p.label}</div><div class="pay-val">${p.val}</div><div class="pay-sub">${p.sub}</div></div>`).join('')}</div>`;
+    }
+    let dsHTML = '';
+    if (s.hasDealSteps) {
+      dsHTML = `<div class="sec-label" style="margin-top:1rem;"><i class="ti ti-sort-descending"></i>Deal structure — work this order</div>` +
+        dealSteps.map(d=>`<div class="deal-step"><div class="deal-num">${d.num}</div><div><div class="deal-title">${d.title}</div><div class="deal-desc">${d.desc}</div></div></div>`).join('');
+    }
+    const quizHTML = buildQuiz('m3', i, s.quiz);
+    div.innerHTML = `
+      <div class="card-header">
+        <div class="card-icon" style="background:${s.iconBg};color:${s.iconColor};"><i class="ti ${s.icon}"></i></div>
+        <div class="card-titles">
+          <div class="card-name">${s.name}</div>
+          <div class="card-sub" style="color:var(--text-3);">${s.subtitle}</div>
+        </div>
+        <span class="card-badge badge-review-g" id="m3-badge-${i}">Review</span>
+        <i class="ti ti-chevron-down chev" id="m3-chev-${i}"></i>
+      </div>
+      <div class="card-body">
+        <div class="sec-label" style="margin-top:12px;"><i class="ti ti-bulb"></i>Key principles</div>
+        ${tipsHTML}
+        ${payHTML}
+        ${dsHTML}
+        ${scriptsHTML}
+        ${quizHTML}
+        <button class="next-btn" onclick="markReviewed('m3',${i},5);event.stopPropagation();">${i<4?'Mark complete &amp; next →':'Finish training →'}</button>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function buildQuiz(mod, i, quiz) {
+  const optsHTML = quiz.opts.map(o => `<div class="quiz-opt" onclick="answer('${mod}',${i},this,${o.correct});event.stopPropagation();"><i class="ti ti-circle"></i>${o.text}</div>`).join('');
+  return `<div class="quiz-wrap"><div class="quiz-q">${quiz.q}</div>${optsHTML}<div class="quiz-fb" id="${mod}-fb-${i}"></div></div>`;
+}
+
+// ─── INTERACTIONS ─────────────────────────────────────────────
+function toggleCard(mod, i, total) {
+  const s = state[mod];
+  const body = document.getElementById(`${mod}-card-${i}`);
+  const chev = document.getElementById(`${mod}-chev-${i}`);
+  if (s.open === i) {
+    body.classList.remove('open'); chev.style.transform = ''; s.open = null;
+  } else {
+    if (s.open !== null) {
+      document.getElementById(`${mod}-card-${s.open}`).classList.remove('open');
+      document.getElementById(`${mod}-chev-${s.open}`).style.transform = '';
+    }
+    body.classList.add('open'); chev.style.transform = 'rotate(180deg)'; s.open = i;
+  }
+}
+
+function answer(mod, i, el, correct) {
+  const s = state[mod];
+  if (s.quizAnswered[i]) return;
+  s.quizAnswered[i] = true; s.quizCorrect[i] = correct;
+  el.classList.add(correct ? 'correct' : 'wrong');
+  const data = mod==='m1'?m1data:mod==='m2'?m2data:m3data;
+  const fb = document.getElementById(`${mod}-fb-${i}`);
+  fb.textContent = (correct?'✓ ':'✗ ') + (correct?data[i].quiz.ok:data[i].quiz.no);
+  fb.className = 'quiz-fb show ' + (correct?'ok':'no');
+  updateScore(mod);
+}
+
+function updateScore(mod) {
+  const s = state[mod];
+  const total = s.quizAnswered.filter(Boolean).length;
+  const correct = s.quizCorrect.filter(Boolean).length;
+  if (total > 0) document.getElementById(`${mod}-score`).textContent = correct+'/'+total;
+}
+
+function markReviewed(mod, i, total) {
+  const s = state[mod];
+  s.reviewed[i] = true;
+  document.getElementById(`${mod}-badge-${i}`).textContent = 'Done';
+  document.getElementById(`${mod}-badge-${i}`).className = 'card-badge badge-done';
+  document.getElementById(`${mod}-card-${i}`).classList.remove('open');
+  document.getElementById(`${mod}-chev-${i}`).style.transform = '';
+  s.open = null;
+  const done = s.reviewed.filter(Boolean).length;
+  document.getElementById(`${mod}-reviewed`).textContent = done;
+  document.getElementById(`${mod}-prog`).style.width = Math.round(done/total*100)+'%';
+  document.getElementById(`${mod}-prog-label`).textContent = done+' of '+total;
+  if (done === total) {
+    document.getElementById(`${mod}-complete`).style.display = 'block';
+    document.getElementById(`tab-${mod==='m1'?0:mod==='m2'?1:2}`).classList.add('done');
+    updateHeaderProgress();
+  } else if (i+1 < total) {
+    setTimeout(() => toggleCard(mod, i+1, total), 300);
+  }
+}
+
+function updateHeaderProgress() {
+  const done = ['m1','m2','m3'].filter(m => state[m].reviewed.every(Boolean)).length;
+  document.getElementById('hp-bar').style.width = Math.round(done/3*100)+'%';
+  document.getElementById('hp-label').textContent = done+' of 3 modules';
+}
+
+function showModule(idx) {
+  document.querySelectorAll('.module-section').forEach((s,i) => s.classList.toggle('active', i===idx));
+  document.querySelectorAll('.nav-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ─── INIT ─────────────────────────────────────────────────────
+buildM1(); buildM2(); buildM3();
+toggleCard('m1', 0, 6);
+</script>
+</body>
+</html>
