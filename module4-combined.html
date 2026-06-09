@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4 — Kioti Competitive Comparison</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #CC2027; --red-dark: #a01a1f; --red-light: #fdecea; --red-mid: #f5c0c2;
+    --bg: #f7f6f4; --surface: #fff; --border: rgba(0,0,0,0.09); --border-mid: rgba(0,0,0,0.16);
+    --text: #1a1a1a; --text-2: #555; --text-3: #888;
+    --green: #1D9E75; --green-light: #e1f5ee; --green-dark: #085041;
+    --orange: #E85D04; --orange-light: #FEF0E6; --orange-dark: #7C3100;
+    --amber-light: #faeeda; --amber-dark: #633806;
+    --danger-light: #fcebeb; --danger-dark: #791f1f;
+    --purple-light: #eeedfe; --purple: #534AB7; --purple-dark: #3C3489;
+    --radius: 10px; --radius-sm: 6px;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* HEADER */
+  .site-header { background: var(--red); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .header-inner { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-mark { width: 32px; height: 32px; background: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+  .logo-mark i { font-size: 18px; color: var(--red); }
+  .logo-text { font-size: 14px; font-weight: 600; color: white; }
+  .logo-sub { font-size: 11px; color: rgba(255,255,255,0.7); }
+  .back-btn { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: white; padding: 6px 12px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; display: flex; align-items: center; gap: 5px; text-decoration: none; transition: background 0.15s; }
+  .back-btn:hover { background: rgba(255,255,255,0.25); }
+
+  /* MAIN */
+  .main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .module-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+  .module-title { font-size: 26px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .module-desc { font-size: 14px; color: var(--text-2); margin-bottom: 1.25rem; }
+  .note-block { background: var(--amber-light); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 1.5rem; font-size: 13px; color: var(--amber-dark); line-height: 1.5; display: flex; gap: 8px; align-items: flex-start; }
+  .note-block i { flex-shrink: 0; margin-top: 1px; }
+
+  /* SERIES TABS */
+  .series-tabs { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .series-tab { padding: 7px 13px; font-size: 12px; font-weight: 500; border: 1px solid var(--border-mid); border-radius: 99px; cursor: pointer; background: white; color: var(--text-2); transition: all 0.15s; white-space: nowrap; line-height: 1.4; text-align: center; }
+  .series-tab:hover { border-color: var(--red); color: var(--red); }
+  .series-tab.active { background: var(--red); color: white; border-color: var(--red); }
+
+  /* SUB-TABS */
+  .sub-tabs { display: flex; gap: 0; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border); }
+  .sub-tab { padding: 9px 16px; font-size: 13px; font-weight: 500; color: var(--text-3); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap; }
+  .sub-tab:hover { color: var(--text); }
+  .sub-tab.active { color: var(--red); border-bottom-color: var(--red); }
+
+  /* CONTENT */
+  .series-section { display: none; }
+  .series-section.active { display: block; }
+  .sub-section { display: none; }
+  .sub-section.active { display: block; }
+
+  /* MATCHUP BADGE */
+  .matchup-badge { display: inline-flex; align-items: center; gap: 6px; background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 12px; font-size: 12px; color: var(--text-2); margin-bottom: 1rem; flex-wrap: wrap; }
+  .matchup-badge strong { color: var(--text); }
+
+  /* TABLE */
+  .comp-table-wrap { background: white; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.25rem; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  thead th { padding: 10px 12px; font-size: 11px; font-weight: 600; color: white; text-align: left; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; background: #2a2a2a; }
+  thead th.mah { background: var(--red); }
+  thead th.kio { background: var(--orange); }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--bg); }
+  tbody td { padding: 10px 12px; font-size: 13px; color: var(--text); vertical-align: top; line-height: 1.5; }
+  tbody td.row-label { font-weight: 500; color: var(--text-2); font-size: 12px; background: var(--bg); white-space: nowrap; }
+  .win { background: var(--green-light); color: var(--green-dark); font-weight: 500; }
+  .lose { background: var(--danger-light); color: var(--danger-dark); }
+  .tie { color: var(--text-2); }
+  .win-badge { display: inline-block; font-size: 10px; font-weight: 600; background: var(--green); color: white; padding: 1px 6px; border-radius: 99px; margin-left: 4px; vertical-align: middle; }
+
+  /* CONTENT LABELS & ITEMS */
+  .sec-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin: 1.25rem 0 8px; display: flex; align-items: center; gap: 5px; }
+  .sec-label i { font-size: 13px; }
+  .pitch-item { display: flex; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text); line-height: 1.55; }
+  .pitch-item:last-child { border-bottom: none; }
+  .pitch-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; margin-top: 7px; }
+  .script-block { background: var(--bg); border-left: 3px solid var(--red); padding: 10px 13px; margin: 10px 0; }
+  .script-lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--red-dark); margin-bottom: 4px; }
+  .script-text { font-size: 13px; color: var(--text); line-height: 1.6; font-style: italic; }
+
+  /* EXPANDABLE PITCH CARDS (lot tactics) */
+  .pitch-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; cursor: pointer; transition: border-color 0.2s; }
+  .pitch-card:hover { border-color: var(--border-mid); }
+  .pitch-card.open { border-color: var(--red); }
+  .pc-header { display: flex; align-items: center; gap: 12px; padding: 13px 16px; }
+  .pc-icon { width: 34px; height: 34px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .pc-title { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; }
+  .pc-sub { font-size: 12px; color: var(--text-3); margin-top: 1px; }
+  .pc-chev { font-size: 15px; color: var(--text-3); transition: transform 0.2s; flex-shrink: 0; }
+  .pitch-card.open .pc-chev { transform: rotate(180deg); }
+  .pc-body { display: none; padding: 0 16px 14px; border-top: 1px solid var(--border); }
+  .pitch-card.open .pc-body { display: block; }
+
+  /* QUIZ */
+  .quiz-wrap { background: var(--bg); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 10px; }
+  .quiz-q { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 10px; line-height: 1.5; }
+  .quiz-opt { display: flex; align-items: flex-start; gap: 8px; padding: 8px 11px; border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 6px; font-size: 13px; cursor: pointer; background: white; color: var(--text); transition: background 0.12s; line-height: 1.5; }
+  .quiz-opt:hover { background: var(--bg); border-color: var(--border-mid); }
+  .quiz-opt.correct { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+  .quiz-opt.wrong { background: var(--danger-light); border-color: #e24b4a; color: var(--danger-dark); }
+  .quiz-fb { font-size: 13px; margin-top: 8px; padding: 9px 11px; border-radius: var(--radius-sm); display: none; line-height: 1.5; }
+  .quiz-fb.show { display: block; }
+  .quiz-fb.ok { background: var(--green-light); color: var(--green-dark); }
+  .quiz-fb.no { background: var(--danger-light); color: var(--danger-dark); }
+  .quiz-score { font-size: 13px; color: var(--text-3); margin-bottom: 10px; }
+
+  /* COMPLETE */
+  .complete-msg { margin-top: 1.5rem; background: var(--green-light); border-radius: var(--radius); padding: 1.5rem; border: 1px solid #5dcaa5; text-align: center; display: none; }
+
+  @media (max-width: 640px) {
+    .main { padding: 1.25rem 1rem 3rem; }
+    .module-title { font-size: 22px; }
+    .series-tab { padding: 6px 9px; font-size: 11px; }
+    .sub-tab { padding: 8px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark"><i class="ti ti-tractor"></i></div>
+      <div>
+        <div class="logo-text">Mahindra BM Training</div>
+        <div class="logo-sub">Competitive Intelligence</div>
+      </div>
+    </div>
+    <a class="back-btn" href="index.html"><i class="ti ti-arrow-left"></i> Back to training</a>
+  </div>
+</header>
+
+<main class="main">
+  <div class="module-eyebrow">Module 4</div>
+  <div class="module-title">Competing against Kioti — full lineup</div>
+  <div class="module-desc">Head-to-head specs, weight and lift comparisons, and lot-level talking points for all six Mahindra series</div>
+
+  <div class="note-block">
+    <i class="ti ti-alert-circle"></i>
+    <div>All Kioti specs sourced directly from official brochures (CS10/20/30, CK20/SE, DK20/SE, RX20, RX40). Always verify current model year specs before quoting on the lot.</div>
+  </div>
+
+  <div class="series-tabs">
+    <button class="series-tab active" onclick="showSeries('s1100', this)">1100<br><span style="font-size:10px;font-weight:400;">vs CS10/20/30</span></button>
+    <button class="series-tab" onclick="showSeries('s2100', this)">2100<br><span style="font-size:10px;font-weight:400;">vs CK20</span></button>
+    <button class="series-tab" onclick="showSeries('s1600', this)">1600<br><span style="font-size:10px;font-weight:400;">vs CK20</span></button>
+    <button class="series-tab" onclick="showSeries('s4500', this)">4500<br><span style="font-size:10px;font-weight:400;">vs DK20</span></button>
+    <button class="series-tab" onclick="showSeries('s5100', this)">5100<br><span style="font-size:10px;font-weight:400;">vs DK20SE</span></button>
+    <button class="series-tab" onclick="showSeries('s6000', this)">6000<br><span style="font-size:10px;font-weight:400;">vs RX20/40</span></button>
+    <button class="series-tab" onclick="showSeries('squiz', this)">Quiz</button>
+  </div>
+
+  <!-- ===== 1100 SERIES ===== -->
+  <div class="series-section active" id="s1100">
+    <div class="matchup-badge"><i class="ti ti-arrows-left-right" style="font-size:14px;"></i> <strong>Mahindra 1100 (20–25 HP)</strong> vs <strong style="color:var(--orange);">Kioti CS10/20/30 (21–24.5 HP)</strong></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" onclick="showSub('1100','specs',this)">Spec comparison</div>
+      <div class="sub-tab" onclick="showSub('1100','takeaway',this)">Key takeaways</div>
+      <div class="sub-tab" onclick="showSub('1100','scripts',this)">What to say</div>
+    </div>
+    <div class="sub-section active" id="1100-specs">
+      <div class="comp-table-wrap"><table>
+        <thead><tr><th style="width:26%;">Spec</th><th class="mah">Mahindra 1100</th><th class="kio">Kioti CS10/20/30</th><th style="background:#1a1a1a;">Edge</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Engine HP</td><td>20–25 HP</td><td>21–24.5 HP</td><td class="tie">Even</td></tr>
+          <tr><td class="row-label">No DPF</td><td class="win">Yes — explicitly documented, no regen ever</td><td>No DPF (CS series also no DPF — credit to Kioti)</td><td class="tie">Even on this point</td></tr>
+          <tr><td class="row-label">Tractor weight</td><td class="win">1,620 lb (OS) / 1,962 lb (Cab)<span class="win-badge">Heavier</span></td><td class="lose">1,485–1,554 lb (CS10/20) · 1,735 lb (CS30 ROPS) · 2,403 lb (CS30 Cab)</td><td class="win">1100 ROPS outweighs CS10/20 — better stability</td></tr>
+          <tr><td class="row-label">Loader lift (pivot pin)</td><td>794 lb (L11)</td><td class="lose">683 lb (SL2410/CS10) · 1,062 lb (SL2420/CS20) · 871–913 lb (CS30)</td><td>1100 beats CS10; CS20 premium loader beats 1100 — be honest</td></tr>
+          <tr><td class="row-label">Loader max lift height</td><td>68"</td><td class="win">70.9–73.7" (CS10/20) · 70.9–71.1" (CS30)</td><td class="lose">Kioti slight edge on lift height</td></tr>
+          <tr><td class="row-label">3-pt lift capacity</td><td class="win">771 lb</td><td class="lose">700 lb (all CS models)</td><td class="win">Mahindra wins by 71 lb</td></tr>
+          <tr><td class="row-label">Backhoe dig depth</td><td class="win">76" (B11)</td><td class="lose">72.8" (CS10/20) · 72.4" (CS30)</td><td class="win">Mahindra digs deeper</td></tr>
+          <tr><td class="row-label">Transmission</td><td class="win">HST 2-range, single pedal — easiest to operate</td><td>Twin HST pedals (all CS models)</td><td class="win">Single pedal = simpler for first-time buyers</td></tr>
+          <tr><td class="row-label">Factory cab</td><td class="win">Factory-built ROPS cab: heated, glass, 360° view, wipers, work lights</td><td class="lose">Field option cab (CS10/20) · Factory cab (CS30)</td><td class="win">1100 cab factory-built; CS10/20 cab is a field add-on</td></tr>
+          <tr><td class="row-label">Crank Assist™</td><td class="win">Yes — step-by-step startup guidance</td><td class="lose">No equivalent on any Kioti model</td><td class="win">Mahindra exclusive</td></tr>
+          <tr><td class="row-label">Swivel seat (backhoe)</td><td class="win">Standard — seat swivels for backhoe operation</td><td>Optional on CS30 cab only</td><td class="win">1100 standard; CS30 optional</td></tr>
+          <tr><td class="row-label">Folding ROPS</td><td class="win">Yes — standard</td><td>Yes — standard (all CS)</td><td class="tie">Even</td></tr>
+          <tr><td class="row-label">Warranty</td><td class="win">7-year / 3,000-hr / $0 deductible</td><td class="lose">4-year unlimited hours (CS30) · standard warranty (CS10/20)</td><td class="win">Mahindra wins on powertrain warranty</td></tr>
+          <tr><td class="row-label">Skid-steer couplers</td><td class="win">Yes — standard</td><td>Pinless quick-attach (CS20/30) — fast but not skid-steer spec</td><td class="win">Mahindra skid-steer standard all models</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="sub-section" id="1100-takeaway">
+      <div class="sec-label"><i class="ti ti-bulb"></i>Key takeaways — 1100 vs Kioti CS</div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Weight advantage is real.</strong> 1100 ROPS at 1,620 lb outweighs the CS10/20 at 1,485–1,554 lb. More weight means more loader stability and better counterbalance on rear implements.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>3-pt lift wins clearly.</strong> 771 lb vs 700 lb — Mahindra wins by 10%. Not huge, but it's a real spec you can quote.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Crank Assist™ is a genuine exclusive.</strong> No equivalent on any Kioti model. For first-time buyers it's a meaningful differentiator — own it.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Factory cab vs field option.</strong> The 1100 cab is factory-built. The CS10/20 cab is a field add-on. The CS30 has a factory cab — don't use this argument against the CS30.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Be honest about the CS20 SL2420 loader.</strong> At 1,062 lb it beats the 1100's 794 lb. Acknowledge it and pivot to 7-year warranty and machine weight advantage.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Kioti's CS30 has a 4-year unlimited hour warranty.</strong> Solid offer. Counter with 7 years / $0 deductible — and at 200–400 hrs/year most buyers hit 4 years before they hit 3,000 hours.</div></div>
+    </div>
+    <div class="sub-section" id="1100-scripts">
+      <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+      <div class="script-block"><div class="script-lbl">Opening the comparison</div><div class="script-text">"Good machine to look at — Kioti makes a solid subcompact. Here's where I'd focus your comparison: weight, 3-point lift, and warranty. On all three, Mahindra wins. The one place the CS20 edges us is the loader on their premium package — and I'll be straight with you about that."</div></div>
+      <div class="script-block"><div class="script-lbl">On Crank Assist™</div><div class="script-text">"One thing Mahindra has that Kioti doesn't — Crank Assist™. It walks you through startup step by step. For someone who's never owned a tractor, that confidence piece matters a lot."</div></div>
+      <div class="script-block"><div class="script-lbl">On the factory cab</div><div class="script-text">"Our cab is designed and built right at the Mahindra assembly plant — 360-degree glass, heated, wipers, work lights. The Kioti CS10 and CS20 cab is a field option add-on, not factory built. The CS30 has a factory cab, so if they're looking at that, use a different angle."</div></div>
+      <div class="script-block"><div class="script-lbl">Closing with warranty</div><div class="script-text">"7 years, zero deductible, 3,000 hours. Every time you bring it in under warranty, there's no out-of-pocket cost. Kioti's CS30 offers 4 years — that's three fewer years of powertrain coverage."</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 2100 SERIES ===== -->
+  <div class="series-section" id="s2100">
+    <div class="matchup-badge"><i class="ti ti-arrows-left-right" style="font-size:14px;"></i> <strong>Mahindra 2100 (22–25 HP)</strong> vs <strong style="color:var(--orange);">Kioti CK2620 / CK2620H (24.5 HP)</strong></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" onclick="showSub('2100','specs',this)">Spec comparison</div>
+      <div class="sub-tab" onclick="showSub('2100','takeaway',this)">Key takeaways</div>
+      <div class="sub-tab" onclick="showSub('2100','scripts',this)">What to say</div>
+    </div>
+    <div class="sub-section active" id="2100-specs">
+      <div class="comp-table-wrap"><table>
+        <thead><tr><th style="width:26%;">Spec</th><th class="mah">Mahindra 2100</th><th class="kio">Kioti CK2620 / CK2620H</th><th style="background:#1a1a1a;">Edge</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Engine HP</td><td>22–25 HP</td><td>24.5 HP (CK2620)</td><td class="tie">Comparable</td></tr>
+          <tr><td class="row-label">Tractor weight</td><td class="win">2,101 lb (OS) / 2,607 lb (Cab)</td><td class="lose">Weight not listed in CK brochure — est. 2,400–2,800 lb range</td><td class="tie">Comparable — verify at dealer</td></tr>
+          <tr><td class="row-label">Loader lift (pivot pin)</td><td class="win">1,477 lb (L21)</td><td class="lose">CK2620 loader lift not spec'd separately in brochure</td><td class="win">2100 at 1,477 lb is a strong number — lead with it</td></tr>
+          <tr><td class="row-label">3-pt lift capacity</td><td class="win">1,760 lb<span class="win-badge">Mahindra wins</span></td><td class="lose">1,631 lb (full CK20 lineup)</td><td class="win">Mahindra wins by 129 lb — cleanest head-to-head win</td></tr>
+          <tr><td class="row-label">Backhoe dig depth</td><td class="win">91" (B21)</td><td class="lose">89.7" (KB2475L)</td><td class="win">Mahindra digs 1.3" deeper</td></tr>
+          <tr><td class="row-label">Transmission options</td><td>3-range HST (2-pedal)</td><td>Manual 9F/3R OR HST 3-range</td><td class="tie">Both offer HST; Kioti adds manual option</td></tr>
+          <tr><td class="row-label">No DPF</td><td class="win">Yes — confirmed, no regen ever</td><td class="lose">Kioti CK uses Tier 4 with ECO technology — no explicit no-DPF guarantee</td><td class="win">Mahindra clearly documented no-DPF</td></tr>
+          <tr><td class="row-label">Skid-steer couplers</td><td class="win">Yes — standard</td><td>Single lever joystick standard; coupler style not skid-steer spec'd</td><td class="win">Mahindra skid-steer standard</td></tr>
+          <tr><td class="row-label">Telescoping stabilizers</td><td class="win">Yes — standard</td><td>SE models only on CK20SE</td><td class="win">Mahindra standard; Kioti SE upgrade only</td></tr>
+          <tr><td class="row-label">Warranty</td><td class="win">7-year / 3,000-hr / $0 deductible</td><td class="lose">Standard Kioti warranty (not 7-year in CK brochure)</td><td class="win">Mahindra warranty is the clear close</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="sub-section" id="2100-takeaway">
+      <div class="sec-label"><i class="ti ti-bulb"></i>Key takeaways — 2100 vs Kioti CK2620</div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>3-pt lift is the strongest win.</strong> 1,760 lb vs 1,631 lb — 129 lb more lift. For anyone hanging implements, this is the number to lead with.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Backhoe is close.</strong> 91" vs 89.7" — Mahindra wins but it's not a knockout. Use 3-pt and warranty as your primary closes.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>The DPF comparison matters.</strong> Mahindra's no-DPF story is explicit and documented. Kioti's CK brochure uses "ECO Technology" and "Tier 4" language without the same no-DPF guarantee. Lead with Mahindra's documented advantage.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Telescoping stabilizers standard.</strong> On the Kioti CK20, this is SE models only — an upgrade cost. On the 2100, it's standard across the board.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Watch the HP class comparison.</strong> If a customer is comparing to the CK35 or CK40, redirect them — those compete with the 1600 series, not the 2100. Control the comparison frame.</div></div>
+    </div>
+    <div class="sub-section" id="2100-scripts">
+      <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+      <div class="script-block"><div class="script-lbl">Opening</div><div class="script-text">"If you're comparing the CK26 to our 2100, here's the short version: Mahindra lifts more on the 3-point by 129 pounds, has the same HP range, and comes with a longer warranty and more standard features. If you've been looking at the CK35 or CK40, let me show you how the 1600 stacks up — that's the right comparison."</div></div>
+      <div class="script-block"><div class="script-lbl">On 3-pt lift</div><div class="script-text">"Our 2100 lifts 1,760 pounds at the 3-point. The full CK20 lineup is spec'd at 1,631 pounds. That's 129 more pounds of lift capacity — and it matters when you're hanging a tiller or box blade."</div></div>
+      <div class="script-block"><div class="script-lbl">On telescoping stabilizers</div><div class="script-text">"Skid-steer couplers and telescoping stabilizers are standard on every 2100. On the Kioti CK, telescoping stabilizers are SE models only — that's an upgrade cost on their side."</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 1600 SERIES ===== -->
+  <div class="series-section" id="s1600">
+    <div class="matchup-badge"><i class="ti ti-arrows-left-right" style="font-size:14px;"></i> <strong>Mahindra 1600 (25–39 HP)</strong> vs <strong style="color:var(--orange);">Kioti CK3520 / CK4020 (34.9–39.6 HP)</strong></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" onclick="showSub('1600','specs',this)">Spec comparison</div>
+      <div class="sub-tab" onclick="showSub('1600','takeaway',this)">Key takeaways</div>
+      <div class="sub-tab" onclick="showSub('1600','scripts',this)">What to say</div>
+    </div>
+    <div class="sub-section active" id="1600-specs">
+      <div class="comp-table-wrap"><table>
+        <thead><tr><th style="width:26%;">Spec</th><th class="mah">Mahindra 1600 (1635/1640)</th><th class="kio">Kioti CK3520 / CK4020</th><th style="background:#1a1a1a;">Edge</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Engine HP</td><td>25–39 HP</td><td>34.9–39.6 HP</td><td class="tie">Overlapping — compare same HP models</td></tr>
+          <tr><td class="row-label">Tractor weight</td><td class="win">3,075–3,627 lb (1635/1640 range)<span class="win-badge">Heavier</span></td><td class="lose">Est. 2,400–2,800 lb (not listed in CK brochure)</td><td class="win">1600 significantly heavier — better loader stability</td></tr>
+          <tr><td class="row-label">Loader lift (pivot pin)</td><td>1,830 lb</td><td class="lose">1,835 lb (KL4030) · 1,969 lb (KL4030C)</td><td>Essentially tied on standard; KL4030C edges by 139 lb — be honest</td></tr>
+          <tr><td class="row-label">Loader max lift height</td><td>up to 91"</td><td class="win">98.4" (KL4030/KL4030C)</td><td class="lose">Kioti lifts 7" higher — acknowledge it</td></tr>
+          <tr><td class="row-label">3-pt lift capacity</td><td class="win">1,720 lb</td><td class="lose">1,631 lb (CK20 lineup)</td><td class="win">Mahindra wins by 89 lb</td></tr>
+          <tr><td class="row-label">No DPF</td><td class="win">Yes — documented, no regen ever</td><td class="lose">Tier 4 ECO — no explicit no-DPF guarantee</td><td class="win">Mahindra's no-DPF story is cleaner</td></tr>
+          <tr><td class="row-label">Transmission options</td><td class="win">8F/8R synchro shuttle OR 3-range HST</td><td>Manual 9F/3R OR HST 3-range</td><td class="tie">Both offer two options</td></tr>
+          <tr><td class="row-label">Skid-steer couplers</td><td class="win">Yes — standard all models</td><td>Not specified as skid-steer in CK brochure</td><td class="win">Mahindra standard</td></tr>
+          <tr><td class="row-label">Telescoping stabilizers</td><td class="win">Yes — standard (1635/1640)</td><td>SE models only</td><td class="win">Mahindra standard; Kioti SE upgrade</td></tr>
+          <tr><td class="row-label">Cold weather battery</td><td class="win">925 CCA (1635/1640)</td><td>CCA not spec'd in CK brochure</td><td class="win">925 CCA is a strong cold-start story</td></tr>
+          <tr><td class="row-label">Cab (mid-PTO)</td><td class="win">Optional cab includes mid-PTO for snowblower</td><td>Cab available on SE models</td><td class="win">Mahindra cab includes mid-PTO — practical winter advantage</td></tr>
+          <tr><td class="row-label">Warranty</td><td class="win">7-year / 3,000-hr / $0 deductible</td><td class="lose">Standard Kioti warranty</td><td class="win">Mahindra warranty is the closing point</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="sub-section" id="1600-takeaway">
+      <div class="sec-label"><i class="ti ti-bulb"></i>Key takeaways — 1600 vs Kioti CK3520/4020</div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Weight is the biggest advantage.</strong> 3,075–3,627 lb vs est. 2,400–2,800 lb. More weight = better loader stability, better traction, better counterbalance for implements.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Loader lift is essentially a tie — be honest.</strong> The KL4030C at 1,969 lb edges the 1600. Don't lead here. Pivot to machine weight, 3-pt advantage, and warranty.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Kioti loader lifts higher — acknowledge it.</strong> 98.4" vs 91". Ask the customer: "How often are you loading into something taller than 91 inches?" Most customers aren't.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>3-pt lift wins by 89 lb.</strong> 1,720 vs 1,631 — documented win to put side by side.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Close with the 7-year warranty.</strong> Kioti's CK brochure doesn't cite a 7-year warranty. This closes deals.</div></div>
+    </div>
+    <div class="sub-section" id="1600-scripts">
+      <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+      <div class="script-block"><div class="script-lbl">Opening</div><div class="script-text">"Good machine — the CK35 is legitimate competition. Here's where I'd focus: weight, 3-point lift, and warranty. On all three, Mahindra wins. The one place Kioti's loader edges us is maximum lift height — I'll be straight with you about that."</div></div>
+      <div class="script-block"><div class="script-lbl">On loader height (be honest)</div><div class="script-text">"Kioti's loader lifts about 7 inches higher than the 1600. If you're regularly loading into a tall mixer wagon, that matters. For most customers doing bale work and loader tasks, 91 inches is more than enough. What are you loading into most often?"</div></div>
+      <div class="script-block"><div class="script-lbl">On machine weight</div><div class="script-text">"The 1600 series runs 3,000 to 3,600 pounds. That weight gives you loader stability on slopes and better counterbalance when you're running heavy rear implements."</div></div>
+      <div class="script-block"><div class="script-lbl">Closing</div><div class="script-text">"7-year, zero deductible powertrain warranty. When you bring it in under warranty, there's no out-of-pocket cost. That's our standard offer, not an upgrade."</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 4500 SERIES ===== -->
+  <div class="series-section" id="s4500">
+    <div class="matchup-badge"><i class="ti ti-arrows-left-right" style="font-size:14px;"></i> <strong>Mahindra 4500 (41–48 HP)</strong> vs <strong style="color:var(--orange);">Kioti DK4520 (44.9 HP)</strong></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" onclick="showSub('4500','specs',this)">Spec comparison</div>
+      <div class="sub-tab" onclick="showSub('4500','takeaway',this)">Key takeaways</div>
+      <div class="sub-tab" onclick="showSub('4500','scripts',this)">What to say</div>
+    </div>
+    <div class="sub-section active" id="4500-specs">
+      <div class="comp-table-wrap"><table>
+        <thead><tr><th style="width:26%;">Spec</th><th class="mah">Mahindra 4500 (4550)</th><th class="kio">Kioti DK4520</th><th style="background:#1a1a1a;">Edge</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Engine HP</td><td>41–48 HP</td><td>44.9 HP — closest Kioti match</td><td class="tie">Similar HP range</td></tr>
+          <tr><td class="row-label">4WD</td><td class="win">4WD standard — all models, no 2WD option</td><td>4WD standard</td><td class="tie">Even</td></tr>
+          <tr><td class="row-label">Loader lift (pivot pin)</td><td class="win">2,866 lb (4550-4L)<span class="win-badge">+392 lb</span></td><td class="lose">2,474 lb (KL5520/5521)</td><td class="win">Mahindra wins by 392 lb — 16% more lift</td></tr>
+          <tr><td class="row-label">Loader max lift height</td><td class="win">116.6" (4550-4L)</td><td class="lose">107.7" (KL5520/5521)</td><td class="win">Mahindra 8.9" higher</td></tr>
+          <tr><td class="row-label">Loader breakout force</td><td class="win">4,978 lb<span class="win-badge">+1,083 lb</span></td><td class="lose">3,895 lb</td><td class="win">Mahindra wins by 1,083 lb — 28% more breakout</td></tr>
+          <tr><td class="row-label">3-pt lift capacity</td><td class="win">Best-in-class (verify specific lb)</td><td class="lose">2,716 lb (DK20)</td><td class="win">Verify Mahindra 4500 figure — DK is 2,716 lb</td></tr>
+          <tr><td class="row-label">Backhoe dig depth</td><td class="win">101" (4550B)</td><td class="lose">94.4" (KB2485)</td><td class="win">Mahindra digs 6.6" deeper</td></tr>
+          <tr><td class="row-label">No DPF</td><td class="win">Yes — mCRD 4-cylinder, no DPF, no regen</td><td class="lose">Tier 4 ECO — no explicit no-DPF claim</td><td class="win">Mahindra clearly documented</td></tr>
+          <tr><td class="row-label">Transmission</td><td>8F/2R sliding mesh</td><td class="win">8F/8R synchro shuttle OR HST (DK20SE)</td><td class="lose">Kioti has more options — acknowledge if asked</td></tr>
+          <tr><td class="row-label">Skid-steer couplers</td><td class="win">Yes — standard</td><td>Not specified as skid-steer</td><td class="win">Mahindra advantage</td></tr>
+          <tr><td class="row-label">Warranty</td><td class="win">7-year / 3,000-hr / $0 deductible</td><td class="lose">Standard Kioti warranty</td><td class="win">Mahindra wins</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="sub-section" id="4500-takeaway">
+      <div class="sec-label"><i class="ti ti-bulb"></i>Key takeaways — 4500 vs Kioti DK4520</div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>The 4500 loader comparison is your strongest competitive story.</strong> Mahindra wins on lift (+392 lb), height (+8.9"), and breakout force (+28%). This is a clean sweep — lead with all three numbers together.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Backhoe digs 6.6" deeper.</strong> 101" vs 94.4" — meaningful for trench or foundation work.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Kioti transmission has more options.</strong> The DK20 synchro shuttle and DK20SE HST offer more flexibility than the 4500 sliding mesh. If a customer pushes on this, acknowledge it and pivot to the loader and dig advantages.</div></div>
+    </div>
+    <div class="sub-section" id="4500-scripts">
+      <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+      <div class="script-block"><div class="script-lbl">Leading with the loader</div><div class="script-text">"Let's put the loaders side by side. The 4550 lifts 2,866 pounds at the pivot pin with 4,978 pounds of breakout force. The Kioti DK4520 is 2,474 pounds and 3,895 pounds of breakout. That's nearly 400 more pounds of lift and over 1,000 more pounds of breakout on the Mahindra. For a work tractor, those numbers show up every single day."</div></div>
+      <div class="script-block"><div class="script-lbl">Closing</div><div class="script-text">"On loader lift, loader height, breakout force, and backhoe depth — Mahindra wins all four. Add the 7-year zero deductible warranty and this is a clear comparison."</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 5100 SERIES ===== -->
+  <div class="series-section" id="s5100">
+    <div class="matchup-badge"><i class="ti ti-arrows-left-right" style="font-size:14px;"></i> <strong>Mahindra 5100 (45–55 HP)</strong> vs <strong style="color:var(--orange);">Kioti DK5320SE (50.3 HP)</strong></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" onclick="showSub('5100','specs',this)">Spec comparison</div>
+      <div class="sub-tab" onclick="showSub('5100','takeaway',this)">Key takeaways</div>
+      <div class="sub-tab" onclick="showSub('5100','scripts',this)">What to say</div>
+    </div>
+    <div class="sub-section active" id="5100-specs">
+      <div class="comp-table-wrap"><table>
+        <thead><tr><th style="width:26%;">Spec</th><th class="mah">Mahindra 5100 (5155)</th><th class="kio">Kioti DK5320SE (50.3 HP)</th><th style="background:#1a1a1a;">Edge</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Engine HP</td><td>45–55 HP</td><td>44.9–57.7 HP (DK20SE range)</td><td class="tie">Best match is DK5320SE at 50.3 HP</td></tr>
+          <tr><td class="row-label">Tractor weight</td><td class="win">5,390 lb base / 6,690 lb with loader</td><td class="lose">Not listed in DK brochure — est. 4,500–5,500 lb</td><td class="win">5,390 lb base is a strong number to put on paper</td></tr>
+          <tr><td class="row-label">Loader lift (pivot pin)</td><td class="win">3,100 lb (5155-4L)<span class="win-badge">+626 lb</span></td><td class="lose">2,474 lb (KL5520/5521)</td><td class="win">Mahindra wins by 626 lb — 25% advantage</td></tr>
+          <tr><td class="row-label">Loader max lift height</td><td class="win">122"</td><td class="lose">107.7" (KL5520)</td><td class="win">Mahindra 14.3" higher</td></tr>
+          <tr><td class="row-label">Loader breakout force</td><td class="win">5,200 lb<span class="win-badge">+1,305 lb</span></td><td class="lose">3,895 lb</td><td class="win">Mahindra wins by 1,305 lb — 33% more breakout</td></tr>
+          <tr><td class="row-label">3-pt linkage</td><td>CAT 1 & 2 standard</td><td>CAT 1 & 2 standard</td><td class="tie">Even</td></tr>
+          <tr><td class="row-label">Backhoe dig depth</td><td class="win">112" (65B) — over 9 feet</td><td class="lose">94.4" (KB2485)</td><td class="win">Mahindra digs 17.6" deeper</td></tr>
+          <tr><td class="row-label">Backhoe bucket force</td><td class="win">3,895 lb</td><td class="lose">3,748 lb</td><td class="win">Mahindra +147 lb</td></tr>
+          <tr><td class="row-label">No DPF</td><td class="win">Yes — mCRD $30M engineering investment, no DPF</td><td class="lose">Tier 4 ECO — no explicit no-DPF guarantee</td><td class="win">Mahindra story is stronger and documented</td></tr>
+          <tr><td class="row-label">Transmission</td><td class="win">12F/12R synchromesh — upshift/downshift on the fly</td><td>HST 3-range (DK20SE)</td><td class="win">12F/12R synchromesh faster for production loader work</td></tr>
+          <tr><td class="row-label">PTO modes</td><td class="win">540 + 540E economy standard</td><td>540 standard</td><td class="win">540E saves fuel on light-load tasks</td></tr>
+          <tr><td class="row-label">Warranty</td><td class="win">7-year / 3,000-hr / $0 deductible</td><td class="lose">Standard Kioti warranty</td><td class="win">Mahindra wins clearly</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="sub-section" id="5100-takeaway">
+      <div class="sec-label"><i class="ti ti-bulb"></i>Key takeaways — 5100 vs Kioti DK20SE</div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Loader sweep.</strong> 3,100 vs 2,474 lb lift, 122 vs 107.7" height, 5,200 vs 3,895 lb breakout. Mahindra wins every loader metric decisively in this matchup.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Backhoe dig depth advantage is dramatic.</strong> 112" vs 94.4" — 17.6 inches more dig depth. For anyone doing serious trench work, this closes the conversation.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Machine weight is a selling point.</strong> 5,390 lb base, 6,690 lb with loader. This machine doesn't get pushed around.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>12F/12R synchromesh beats HST for production work.</strong> Operators doing loader or field work want gear control. Upshift on the fly — real workflow advantage.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>540E economy PTO saves real fuel.</strong> At commercial use levels, lighter task fuel savings add up to measurable money annually.</div></div>
+    </div>
+    <div class="sub-section" id="5100-scripts">
+      <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+      <div class="script-block"><div class="script-lbl">Leading with the loader</div><div class="script-text">"Three numbers. Mahindra 5100: 3,100 pounds of lift, 122-inch reach, 5,200 pounds of breakout. Kioti DK at this HP: 2,474 pounds, 107 inches, 3,895 pounds of breakout. On every loader metric, Mahindra wins — and the loader is what you're running 70% of the day."</div></div>
+      <div class="script-block"><div class="script-lbl">On the backhoe</div><div class="script-text">"Our optional backhoe digs over 9 feet — 112 inches. Kioti's backhoe option at this HP digs 94 inches. That's almost a foot and a half difference in dig depth for anyone doing serious trench work."</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 6000 SERIES ===== -->
+  <div class="series-section" id="s6000">
+    <div class="matchup-badge"><i class="ti ti-arrows-left-right" style="font-size:14px;"></i> <strong>Mahindra 6075 (75 HP)</strong> vs <strong style="color:var(--orange);">Kioti RX7320 / RX7340 (73 HP)</strong></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" onclick="showSub('6000','specs',this)">Spec comparison</div>
+      <div class="sub-tab" onclick="showSub('6000','takeaway',this)">Key takeaways</div>
+      <div class="sub-tab" onclick="showSub('6000','scripts',this)">What to say</div>
+    </div>
+    <div class="sub-section active" id="6000-specs">
+      <div class="comp-table-wrap"><table>
+        <thead><tr><th style="width:26%;">Spec</th><th class="mah">Mahindra 6075</th><th class="kio">Kioti RX7320 (RX20) / RX7340 (RX40)</th><th style="background:#1a1a1a;">Edge</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Engine HP</td><td class="win">62–75 HP</td><td class="lose">66–73 HP</td><td class="win">Mahindra 6075 at 75 HP edges Kioti's 73 HP</td></tr>
+          <tr><td class="row-label">Tractor weight</td><td>Est. 6,500–7,500 lb</td><td>5,732–6,162 lb (RX20) · 6,052–7,015 lb (RX40)</td><td class="tie">Comparable — verify at dealer</td></tr>
+          <tr><td class="row-label">Loader lift (pivot pin)</td><td class="win">3,609 lb (6075L)<span class="win-badge">+225–309 lb</span></td><td class="lose">3,384 lb (KL7320/RX20) · 3,300 lb (KL7340/RX40)</td><td class="win">Mahindra wins both matchups</td></tr>
+          <tr><td class="row-label">Loader max lift height</td><td class="win">133" (6075L)</td><td class="lose">107.7" (KL7320/RX20) · 127.1" (KL7340/RX40)</td><td class="win">Mahindra wins both — especially vs RX20 (+25.3")</td></tr>
+          <tr><td class="row-label">Loader breakout force</td><td>5,000 lb (6075L)</td><td class="win">5,359 lb (KL7320) · 5,875 lb (KL7340)</td><td class="lose">Kioti wins on breakout — acknowledge honestly</td></tr>
+          <tr><td class="row-label">3-pt lift capacity</td><td class="win">5,952–6,416 lb<span class="win-badge">Dominant win</span></td><td class="lose">3,594–3,898 lb (RX20) · 4,328 lb (RX40)</td><td class="win">Mahindra wins by up to 2,088 lb — decisive</td></tr>
+          <tr><td class="row-label">Backhoe dig depth</td><td class="win">112" optional</td><td class="lose">94.4" (KB2485)</td><td class="win">Mahindra digs 17.6" deeper</td></tr>
+          <tr><td class="row-label">No DPF</td><td class="win">Yes — turbo mCRD, no DPF at 60+ HP</td><td class="lose">CRDI Tier 4 Final — no explicit no-DPF guarantee</td><td class="win">No DPF at this HP level is rare and differentiating</td></tr>
+          <tr><td class="row-label">Transmission</td><td class="win">15F/15R synchro + power shuttle (PST)</td><td>12x12 or 24x24 power shuttle (RX20) · 12x12 or 20x20 (RX40)</td><td class="tie">Both power shuttle — comparable</td></tr>
+          <tr><td class="row-label">PTO modes</td><td class="win">540 + 540E standard</td><td>540/540E (both RX series)</td><td class="tie">Even</td></tr>
+          <tr><td class="row-label">Cab features</td><td>Optional — 140A alternator, work lights, GPS-ready</td><td class="win">Standard cab (RX20 cab-only) — premium features, climate control, air ride</td><td class="lose">Kioti RX cab is more fully featured out of the box</td></tr>
+          <tr><td class="row-label">Warranty</td><td class="win">7-year / 3,000-hr / $0 deductible</td><td class="lose">Standard Kioti warranty</td><td class="win">Mahindra warranty is the clear close</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="sub-section" id="6000-takeaway">
+      <div class="sec-label"><i class="ti ti-bulb"></i>Key takeaways — 6000 vs Kioti RX20/RX40</div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>3-pt lift is the most dominant advantage in the entire Mahindra lineup vs Kioti.</strong> 5,952–6,416 lb vs 4,328 lb on the RX40 — up to 2,088 lb more. Lead with this number in every 6000 conversation.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Loader lift and height wins clearly.</strong> 3,609 lb and 133" vs Kioti's 3,300–3,384 lb and 107–127". More lift, more reach.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Kioti's breakout force is higher — be honest about it.</strong> The KL7340 at 5,875 lb beats the 6075L at 5,000 lb. Don't hide it. Lead with lift capacity and reach, and acknowledge breakout when pressed.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>No DPF at 60+ HP is rare in the market.</strong> Most competitors at this power level require regen. During hay season, 15–45 minutes of regen downtime is not acceptable. Mahindra eliminates it completely.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Kioti RX cab is premium — don't oversell Mahindra's cab against it.</strong> The RX20/40 cabs are well-appointed standard. Know your cab options before comparing.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Close with 3-pt lift and warranty.</strong> At this price point, customers make long-term investment decisions. 2,000+ lb more 3-pt capacity and a 7-year warranty are the two numbers that matter most.</div></div>
+    </div>
+    <div class="sub-section" id="6000-scripts">
+      <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+      <div class="script-block"><div class="script-lbl">Lead with 3-pt lift</div><div class="script-text">"The Kioti RX is a quality machine. Here's where I want to focus your comparison: 3-point lift capacity. The Mahindra 6075 gives you up to 6,400 pounds. The Kioti RX7340 is 4,328 pounds. For anyone running heavy implements — subsoilers, large disc harrows, big rotary cutters — that difference shows up every single day."</div></div>
+      <div class="script-block"><div class="script-lbl">On loader and breakout honesty</div><div class="script-text">"On the loader — we lift 3,609 pounds at full height and reach 133 inches. The Kioti loader tops out around 127 inches and 3,300 pounds. I'll be straight — their breakout force is a bit higher on their top loader. But for stacking hay and loading trucks, lift capacity and reach are what you use every day."</div></div>
+      <div class="script-block"><div class="script-lbl">On no DPF at this HP</div><div class="script-text">"One thing that's unique at this power level — no DPF, no regen. Most machines at 70+ HP have a diesel particulate filter that requires periodic regeneration. That's 15 to 45 minutes of downtime per cycle. During hay season, that's not acceptable. Mahindra's mCRD engine eliminates it completely."</div></div>
+      <div class="script-block"><div class="script-lbl">Closing</div><div class="script-text">"3-point lift advantage, loader reach advantage, no regen downtime, and a 7-year zero deductible warranty. For a serious production operation, this is a straightforward comparison."</div></div>
+    </div>
+  </div>
+
+  <!-- ===== QUIZ SECTION ===== -->
+  <div class="series-section" id="squiz">
+    <div class="sec-label"><i class="ti ti-help-circle"></i>Knowledge check — full Kioti competitive lineup</div>
+    <div class="quiz-score" id="quiz-score-display"></div>
+    <div id="quiz-container"></div>
+    <div class="complete-msg" id="quiz-complete">
+      <i class="ti ti-circle-check" style="font-size:26px;color:var(--green);display:block;margin-bottom:8px;"></i>
+      <div style="font-size:15px;font-weight:600;color:var(--green-dark);margin-bottom:4px;">Module 4 complete</div>
+      <div style="font-size:13px;color:var(--green-dark);margin-bottom:12px;" id="quiz-final-score"></div>
+      <a href="index.html" style="display:inline-block;padding:9px 20px;background:var(--green);color:white;border-radius:var(--radius-sm);font-size:13px;font-weight:500;text-decoration:none;">Back to training hub →</a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const quizData = [
+  {
+    q: "A customer says the Kioti CS20 SL2420 loader lifts more than the Mahindra 1100. What's the right response?",
+    opts: [
+      {text:"Deny it — the 1100 loader is better in every way", correct:false},
+      {text:"Acknowledge it honestly, then pivot to 3-pt lift advantage, machine weight, 7-year warranty, and Crank Assist™", correct:true},
+      {text:"Change the subject to the 2100 series instead", correct:false}
+    ],
+    ok:"Correct. The CS20 SL2420 does lift more at 1,062 lb vs 794 lb. Honesty builds trust. Pivot to Mahindra's documented wins: 3-pt lift (771 vs 700 lb), machine weight, Crank Assist™, and 7-year warranty.",
+    no:"Denying a real spec destroys credibility immediately. Acknowledge the CS20 loader advantage and redirect to where Mahindra wins."
+  },
+  {
+    q: "What is Mahindra's strongest single spec advantage in the 2100 vs Kioti CK2620 matchup?",
+    opts: [
+      {text:"Higher loader lift height", correct:false},
+      {text:"Higher 3-point lift capacity — 1,760 lb vs 1,631 lb", correct:true},
+      {text:"Lower tractor weight for better maneuverability", correct:false}
+    ],
+    ok:"Right. 1,760 lb vs 1,631 lb — Mahindra wins the 3-pt by 129 lb. That's the cleanest head-to-head spec win in the compact comparison.",
+    no:"Kioti's KL4030 loader has more height reach, and weight is comparable. The 3-pt lift is Mahindra's strongest documented win in this matchup."
+  },
+  {
+    q: "The 4500 vs Kioti DK4520 — Mahindra wins on loader lift, height, AND breakout force. What is the breakout force advantage?",
+    opts: [
+      {text:"About 200 lb more", correct:false},
+      {text:"About 1,083 lb more — 4,978 vs 3,895 lb", correct:true},
+      {text:"About 500 lb more", correct:false}
+    ],
+    ok:"Correct. 4,978 vs 3,895 lb — Mahindra wins by 1,083 lb, a 28% advantage. Lead with all three loader metrics together: lift (+392 lb), height (+8.9\"), and breakout (+28%).",
+    no:"The advantage is much larger — 1,083 lb, or 28% more breakout force. That's a decisive win in the 4500 vs DK4520 comparison."
+  },
+  {
+    q: "What is Mahindra's most dominant spec advantage in the 6000 series vs Kioti RX40?",
+    opts: [
+      {text:"Loader breakout force", correct:false},
+      {text:"3-point lift capacity — up to 6,416 lb vs 4,328 lb", correct:true},
+      {text:"Engine horsepower", correct:false}
+    ],
+    ok:"Exactly right. Up to 2,088 lb more 3-pt lift capacity — that's the biggest spec gap in the Mahindra lineup vs Kioti. Lead with this in every 6000 conversation.",
+    no:"Kioti's RX loader actually has more breakout force. HP is close (75 vs 73). The 3-pt lift advantage of up to 2,088 lb is the dominant win for the 6000 series."
+  },
+  {
+    q: "A customer shopping the 5100 asks how the backhoe compares to the Kioti DK. What's the key number?",
+    opts: [
+      {text:"Mahindra digs 17.6 inches deeper — 112\" vs 94.4\"", correct:true},
+      {text:"Mahindra has a wider backhoe swing arc", correct:false},
+      {text:"The Kioti backhoe is not available at this HP", correct:false}
+    ],
+    ok:"Right. 112\" vs 94.4\" — nearly 1.5 feet more dig depth. Kioti backhoe IS available on the DK20SE. Swing arcs are comparable at 180°.",
+    no:"The swing arcs are both 180°. The Kioti backhoe IS available. The key number is dig depth: 112\" vs 94.4\"."
+  },
+  {
+    q: "Why is the no-DPF story especially powerful when selling the 6000 series against Kioti RX?",
+    opts: [
+      {text:"Because Kioti explicitly requires more DPF maintenance than other brands", correct:false},
+      {text:"Because no DPF at 60+ HP is rare — most competitors at this power level require regen, and production operators cannot afford that downtime", correct:true},
+      {text:"Because the Kioti RX has a shorter regen cycle than lower HP models", correct:false}
+    ],
+    ok:"Correct. At 60+ HP, most market machines require a DPF and regen cycles of 15–45 minutes. Mahindra eliminating that at this power level is genuinely uncommon and a real differentiator during hay season.",
+    no:"The Kioti brochure doesn't confirm DPF specifics. The real story is that no-DPF at 60+ HP is rare in the market — and that's what makes it a differentiator for production operators."
+  },
+  {
+    q: "A customer comparing the Kioti CK35 to the Mahindra 2100 says the Kioti loader lifts higher. What's your move?",
+    opts: [
+      {text:"Concede the loader and try to close on price", correct:false},
+      {text:"Point out that a CK35 at 35 HP competes with the Mahindra 1600, not the 2100 — then show the right comparison", correct:true},
+      {text:"Agree and suggest they buy the 1600 instead", correct:false}
+    ],
+    ok:"Exactly right. Never let a customer compare a 22–25 HP machine to a 35 HP machine as equals. Reframe the comparison: CK35 competes with the 1600. Then you control the narrative and the right specs.",
+    no:"Conceding on a mismatched comparison puts you on defense permanently. Reframe first — the CK35 competes with the 1600, not the 2100."
+  }
+];
+
+let quizAnswered = new Array(quizData.length).fill(false);
+let quizCorrect = new Array(quizData.length).fill(false);
+
+function buildQuiz() {
+  const container = document.getElementById('quiz-container');
+  quizData.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-wrap';
+    div.innerHTML = `<div class="quiz-q">${i+1}. ${q.q}</div>
+      ${q.opts.map(o => `<div class="quiz-opt" onclick="answer(${i},this,${o.correct})"><i class="ti ti-circle" style="font-size:14px;flex-shrink:0;margin-top:2px;"></i>${o.text}</div>`).join('')}
+      <div class="quiz-fb" id="qfb-${i}"></div>`;
+    container.appendChild(div);
+  });
+}
+
+function answer(i, el, correct) {
+  if (quizAnswered[i]) return;
+  quizAnswered[i] = true; quizCorrect[i] = correct;
+  el.classList.add(correct ? 'correct' : 'wrong');
+  const fb = document.getElementById('qfb-' + i);
+  fb.textContent = (correct ? '✓ ' : '✗ ') + (correct ? quizData[i].ok : quizData[i].no);
+  fb.className = 'quiz-fb show ' + (correct ? 'ok' : 'no');
+  const total = quizAnswered.filter(Boolean).length;
+  const score = quizCorrect.filter(Boolean).length;
+  document.getElementById('quiz-score-display').textContent = `Score: ${score} / ${total}`;
+  if (quizAnswered.every(Boolean)) {
+    const pct = Math.round(score / quizData.length * 100);
+    document.getElementById('quiz-final-score').textContent = `You scored ${score} out of ${quizData.length} (${pct}%) on the competitive intelligence check.`;
+    setTimeout(() => { document.getElementById('quiz-complete').style.display = 'block'; }, 400);
+  }
+}
+
+function showSeries(id, btn) {
+  document.querySelectorAll('.series-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.series-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function showSub(series, tab, btn) {
+  const section = document.getElementById('s' + series);
+  section.querySelectorAll('.sub-section').forEach(s => s.classList.remove('active'));
+  section.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+  const el = document.getElementById(series + '-' + tab);
+  if (el) el.classList.add('active');
+  btn.classList.add('active');
+}
+
+buildQuiz();
+</script>
+</body>
+</html>
