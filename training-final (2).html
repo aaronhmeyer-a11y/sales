@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahindra Sales Consultant Sales Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #CC2027; --red-dark: #a01a1f; --red-light: #fdecea; --red-mid: #f5c0c2;
+    --bg: #f7f6f4; --surface: #fff; --border: rgba(0,0,0,0.09); --border-mid: rgba(0,0,0,0.16);
+    --text: #1a1a1a; --text-2: #555; --text-3: #888;
+    --green: #1D9E75; --green-light: #e1f5ee; --green-dark: #085041;
+    --amber-light: #faeeda; --amber-dark: #633806;
+    --danger-light: #fcebeb; --danger-dark: #791f1f;
+    --purple: #534AB7; --purple-light: #eeedfe; --purple-dark: #3C3489;
+    --radius: 10px; --radius-sm: 6px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; min-height: 100vh; }
+
+  /* MODALS */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 300; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+  .modal-overlay.hidden { display: none; }
+  .modal-box { background: white; border-radius: var(--radius); padding: 2rem; max-width: 400px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+  .modal-logo { width: 40px; height: 40px; background: var(--red); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+  .modal-logo i { font-size: 20px; color: white; }
+  .modal-title { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .modal-sub { font-size: 13px; color: var(--text-2); margin-bottom: 1.25rem; line-height: 1.5; }
+  .modal-label { font-size: 12px; font-weight: 500; color: var(--text-2); margin-bottom: 5px; display: block; }
+  .modal-input { width: 100%; padding: 9px 12px; border: 1px solid var(--border-mid); border-radius: var(--radius-sm); font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--text); outline: none; transition: border-color 0.15s; }
+  .modal-input:focus { border-color: var(--red); }
+  .modal-btn { margin-top: 1rem; width: 100%; padding: 10px; background: var(--red); color: white; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.15s; }
+  .modal-btn:hover { background: var(--red-dark); }
+  .modal-err { font-size: 12px; color: var(--red); margin-top: 6px; display: none; }
+
+  /* SUBMIT MODAL */
+  .submit-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 300; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+  .submit-overlay.hidden { display: none; }
+  .submit-box { background: white; border-radius: var(--radius); padding: 2rem; max-width: 440px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); text-align: center; }
+  .submit-icon { font-size: 40px; color: var(--green); margin-bottom: 12px; display: block; }
+  .submit-title { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .submit-sub { font-size: 13px; color: var(--text-2); margin-bottom: 1.5rem; line-height: 1.5; }
+  .submit-scores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+  .submit-score-box { background: var(--bg); border-radius: var(--radius-sm); padding: 10px; }
+  .submit-score-label { font-size: 11px; color: var(--text-3); margin-bottom: 3px; }
+  .submit-score-val { font-size: 18px; font-weight: 600; color: var(--text); }
+  .submit-btn { padding: 10px 24px; background: var(--green); color: white; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; }
+  .submit-btn:hover { background: var(--green-dark); }
+  .submit-status { font-size: 12px; color: var(--text-3); margin-top: 10px; min-height: 18px; }
+
+  /* HEADER */
+  .site-header { background: var(--red); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .header-inner { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-mark { width: 32px; height: 32px; background: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+  .logo-mark i { font-size: 18px; color: var(--red); }
+  .logo-text { font-size: 14px; font-weight: 600; color: white; }
+  .logo-sub { font-size: 11px; color: rgba(255,255,255,0.7); }
+  .header-progress { display: flex; align-items: center; gap: 8px; }
+  .hp-label { font-size: 12px; color: rgba(255,255,255,0.8); }
+  .hp-bar-bg { width: 80px; height: 4px; background: rgba(255,255,255,0.25); border-radius: 99px; }
+  .hp-bar-fill { height: 4px; border-radius: 99px; background: white; transition: width 0.4s; }
+
+  /* NAV TABS */
+  .module-nav { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 56px; z-index: 90; overflow-x: auto; }
+  .nav-inner { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; display: flex; gap: 0; white-space: nowrap; }
+  .nav-tab { padding: 12px 16px; font-size: 13px; font-weight: 500; color: var(--text-3); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active { color: var(--red); border-bottom-color: var(--red); }
+  .nav-tab .tab-check { width: 16px; height: 16px; border-radius: 50%; background: var(--green-light); color: var(--green-dark); display: none; align-items: center; justify-content: center; font-size: 10px; }
+  .nav-tab.done .tab-check { display: flex; }
+
+  /* MAIN */
+  .main { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .module-section { display: none; }
+  .module-section.active { display: block; }
+  .module-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+  .module-title { font-size: 26px; font-weight: 600; line-height: 1.2; margin-bottom: 6px; }
+  .module-desc { font-size: 14px; color: var(--text-2); }
+
+  /* STATS */
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+  .stat-box { background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; }
+  .stat-box-label { font-size: 11px; color: var(--text-3); margin-bottom: 3px; }
+  .stat-box-val { font-size: 22px; font-weight: 600; color: var(--text); }
+
+  /* PROGRESS */
+  .prog-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; }
+  .prog-bg { flex: 1; height: 5px; background: #e8e6e2; border-radius: 99px; }
+  .prog-fill { height: 5px; border-radius: 99px; transition: width 0.4s; }
+  .m1 .prog-fill { background: var(--red); }
+  .m2 .prog-fill { background: var(--purple); }
+  .m3 .prog-fill { background: var(--green); }
+  .prog-label { font-size: 12px; color: var(--text-3); white-space: nowrap; }
+
+  /* CARDS */
+  .card { background: white; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; transition: border-color 0.2s; }
+  .card:hover { border-color: var(--border-mid); }
+  .card.open { border-color: var(--border-mid); }
+  .card-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; user-select: none; }
+  .card-icon { width: 36px; height: 36px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+  .card-titles { flex: 1; min-width: 0; }
+  .card-name { font-size: 14px; font-weight: 600; color: var(--text); }
+  .card-sub { font-size: 12px; color: var(--text-3); margin-top: 1px; }
+  .card-badge { font-size: 11px; padding: 2px 9px; border-radius: 99px; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
+  .badge-done { background: var(--green-light); color: var(--green-dark); }
+  .badge-go-r { background: var(--red-light); color: var(--red-dark); }
+  .badge-go-p { background: var(--purple-light); color: var(--purple-dark); }
+  .badge-go-g { background: var(--green-light); color: var(--green-dark); }
+  .chev { font-size: 16px; color: var(--text-3); transition: transform 0.2s; flex-shrink: 0; margin-left: 4px; }
+  .card.open .chev { transform: rotate(180deg); }
+  .card-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); }
+  .card.open .card-body { display: block; }
+
+  /* SPECS GRID */
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0; }
+  .spec-box { background: var(--bg); border-radius: var(--radius-sm); padding: 10px 12px; }
+  .spec-label { font-size: 11px; color: var(--text-3); margin-bottom: 2px; }
+  .spec-val { font-size: 15px; font-weight: 600; color: var(--text); }
+  .spec-sub { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+
+  /* PAYMENT GRID */
+  .payment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+  .pay-box { background: var(--bg); border-radius: var(--radius-sm); padding: 10px 12px; }
+  .pay-label { font-size: 11px; color: var(--text-3); margin-bottom: 2px; }
+  .pay-val { font-size: 16px; font-weight: 600; color: var(--text); }
+  .pay-sub { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+
+  /* SECTION LABELS */
+  .sec-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin: 14px 0 8px; display: flex; align-items: center; gap: 5px; }
+  .sec-label i { font-size: 13px; }
+
+  /* TIP ITEMS */
+  .tip-item { display: flex; gap: 9px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text); line-height: 1.55; }
+  .tip-item:last-child { border-bottom: none; }
+  .tip-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+
+  /* SCRIPTS */
+  .script-block { border-left: 3px solid; padding: 10px 13px; margin: 8px 0; background: var(--bg); }
+  .script-lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
+  .script-text { font-size: 13px; color: var(--text); line-height: 1.6; font-style: italic; }
+
+  /* OBJECTIONS */
+  .obj-block { background: var(--bg); border-radius: var(--radius-sm); padding: 11px 13px; margin-bottom: 7px; }
+  .obj-q { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+  .obj-a { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+  .obj-a em { color: var(--text); font-style: italic; }
+
+  /* DEAL STEPS */
+  .deal-step { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .deal-step:last-child { border-bottom: none; }
+  .deal-num { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; margin-top: 1px; background: var(--green-light); color: var(--green-dark); }
+  .deal-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .deal-desc { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+
+  /* NOTE */
+  .note-block { background: var(--amber-light); border-radius: var(--radius-sm); padding: 9px 13px; margin: 8px 0; font-size: 12px; color: var(--amber-dark); line-height: 1.5; }
+
+  /* TAG */
+  .tag { font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 500; }
+  .tag-sub { background: #dbeafe; color: #1e40af; }
+  .tag-compact { background: var(--purple-light); color: var(--purple-dark); }
+  .tag-utility { background: var(--green-light); color: var(--green-dark); }
+  .tag-commercial { background: var(--amber-light); color: var(--amber-dark); }
+
+  /* QUIZ */
+  .quiz-wrap { margin-top: 14px; background: var(--bg); border-radius: var(--radius-sm); padding: 13px; }
+  .quiz-section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); margin-bottom: 8px; }
+  .single-quiz { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .single-quiz:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .quiz-q { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .quiz-opt { display: flex; align-items: flex-start; gap: 8px; padding: 7px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 5px; font-size: 13px; cursor: pointer; background: white; color: var(--text); transition: background 0.12s; line-height: 1.5; }
+  .quiz-opt:hover { background: var(--bg); border-color: var(--border-mid); }
+  .quiz-opt.correct { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+  .quiz-opt.wrong { background: var(--danger-light); border-color: #e24b4a; color: var(--danger-dark); }
+  .quiz-opt i { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+  .quiz-fb { font-size: 12px; margin-top: 6px; padding: 7px 10px; border-radius: var(--radius-sm); display: none; line-height: 1.5; }
+  .quiz-fb.show { display: block; }
+  .quiz-fb.ok { background: var(--green-light); color: var(--green-dark); }
+  .quiz-fb.no { background: var(--danger-light); color: var(--danger-dark); }
+
+  /* BUTTONS */
+  .next-btn { margin-top: 12px; width: 100%; padding: 10px; font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; background: white; border: 1px solid var(--border-mid); border-radius: var(--radius-sm); cursor: pointer; color: var(--text); transition: background 0.12s; }
+  .next-btn:hover { background: var(--bg); }
+
+  /* COMPLETE */
+  .complete-msg { margin-top: 1.5rem; border-radius: var(--radius); padding: 1.5rem; text-align: center; display: none; border: 1px solid; }
+  .complete-msg.m1-done { background: var(--red-light); border-color: var(--red-mid); }
+  .complete-msg.m2-done { background: var(--purple-light); border-color: #afa9ec; }
+  .complete-msg.m3-done { background: var(--green-light); border-color: #5dcaa5; }
+  .complete-msg i { font-size: 26px; display: block; margin-bottom: 8px; }
+  .complete-msg .c-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .complete-msg .c-sub { font-size: 13px; margin-bottom: 12px; }
+  .complete-btn { padding: 8px 18px; font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid; transition: opacity 0.15s; text-decoration: none; display: inline-block; }
+  .complete-btn:hover { opacity: 0.85; }
+  .m1-done .c-title, .m1-done .c-sub { color: var(--red-dark); }
+  .m1-done .complete-btn { background: var(--red); color: white; border-color: var(--red-dark); }
+  .m2-done .c-title, .m2-done .c-sub { color: var(--purple-dark); }
+  .m2-done .complete-btn { background: var(--purple); color: white; border-color: var(--purple-dark); }
+  .m3-done .c-title, .m3-done .c-sub { color: var(--green-dark); }
+  .m3-done .complete-btn { background: var(--green); color: white; border-color: var(--green-dark); }
+
+  /* MODULE 4 LINK */
+  .mod4-link { display: flex; align-items: center; gap: 12px; background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-top: 10px; text-decoration: none; color: var(--text); transition: border-color 0.2s; }
+  .mod4-link:hover { border-color: var(--red); }
+  .mod4-icon { width: 36px; height: 36px; background: var(--red-light); color: var(--red); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+  .mod4-text { flex: 1; }
+  .mod4-title { font-size: 14px; font-weight: 600; }
+  .mod4-sub { font-size: 12px; color: var(--text-3); margin-top: 1px; }
+
+  @media (max-width: 600px) {
+    .stats-row { grid-template-columns: repeat(3, 1fr); }
+    .specs-grid, .payment-grid { grid-template-columns: 1fr 1fr; }
+    .main { padding: 1.25rem 1rem 3rem; }
+    .nav-tab { padding: 10px 10px; font-size: 12px; }
+  }
+  /* MODULE 4 STYLES */
+  --orange: #E85D04; --orange-light: #FEF0E6; --orange-dark: #7C3100;
+  .series-tabs { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .series-tab { padding: 7px 13px; font-size: 12px; font-weight: 500; border: 1px solid var(--border-mid); border-radius: 99px; cursor: pointer; background: white; color: var(--text-2); transition: all 0.15s; white-space: nowrap; line-height: 1.4; text-align: center; }
+  .series-tab:hover { border-color: var(--red); color: var(--red); }
+  .series-tab.active { background: var(--red); color: white; border-color: var(--red); }
+  .sub-tabs { display: flex; gap: 0; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border); }
+  .sub-tab { padding: 9px 16px; font-size: 13px; font-weight: 500; color: var(--text-3); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap; }
+  .sub-tab:hover { color: var(--text); }
+  .sub-tab.active { color: var(--red); border-bottom-color: var(--red); }
+  .series-section { display: none; } .series-section.active { display: block; }
+  .sub-section { display: none; } .sub-section.active { display: block; }
+  .matchup-badge { display: inline-flex; align-items: center; gap: 6px; background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 12px; font-size: 12px; color: var(--text-2); margin-bottom: 1rem; flex-wrap: wrap; }
+  .matchup-badge strong { color: var(--text); }
+  .comp-table-wrap { background: white; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.25rem; overflow-x: auto; }
+  .comp-table-wrap table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  .comp-table-wrap thead th { padding: 10px 12px; font-size: 11px; font-weight: 600; color: white; text-align: left; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; background: #2a2a2a; }
+  .comp-table-wrap thead th.mah { background: var(--red); }
+  .comp-table-wrap thead th.kio { background: #E85D04; }
+  .comp-table-wrap tbody tr { border-bottom: 1px solid var(--border); }
+  .comp-table-wrap tbody tr:last-child { border-bottom: none; }
+  .comp-table-wrap tbody tr:hover { background: var(--bg); }
+  .comp-table-wrap tbody td { padding: 10px 12px; font-size: 13px; color: var(--text); vertical-align: top; line-height: 1.5; }
+  .comp-table-wrap tbody td.row-label { font-weight: 500; color: var(--text-2); font-size: 12px; background: var(--bg); white-space: nowrap; }
+  .win { background: var(--green-light); color: var(--green-dark); font-weight: 500; }
+  .lose { background: var(--danger-light); color: var(--danger-dark); }
+  .tie { color: var(--text-2); }
+  .win-badge { display: inline-block; font-size: 10px; font-weight: 600; background: var(--green); color: white; padding: 1px 6px; border-radius: 99px; margin-left: 4px; vertical-align: middle; }
+  .pitch-item { display: flex; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text); line-height: 1.55; }
+  .pitch-item:last-child { border-bottom: none; }
+  .pitch-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; margin-top: 7px; }
+  .m4-complete-msg { margin-top: 1.5rem; background: var(--green-light); border-radius: var(--radius); padding: 1.5rem; border: 1px solid #5dcaa5; text-align: center; display: none; }
+  .m4-quiz-wrap { background: var(--bg); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 10px; }
+  .m4-quiz-q { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .m4-score-display { font-size: 13px; color: var(--text-3); margin-bottom: 10px; }
+
+</style>
+</head>
+<body>
+
+<!-- NAME MODAL -->
+<div class="modal-overlay" id="name-modal">
+  <div class="modal-box">
+    <div class="modal-logo"><i class="ti ti-tractor"></i></div>
+    <div class="modal-title">Mahindra Sales Consultant Sales Training</div>
+    <div class="modal-sub">Enter your name to get started. Your completion and quiz scores will be recorded when you finish all three modules.</div>
+    <label class="modal-label" for="bm-name-input">Your full name</label>
+    <input class="modal-input" id="bm-name-input" type="text" placeholder="First and last name" autocomplete="name">
+    <div class="modal-err" id="name-err">Please enter your first and last name to continue.</div>
+    <button class="modal-btn" onclick="startTraining()">Start training →</button>
+  </div>
+</div>
+
+<!-- SUBMIT MODAL -->
+<div class="submit-overlay hidden" id="submit-modal">
+  <div class="submit-box">
+    <i class="ti ti-trophy submit-icon"></i>
+    <div class="submit-title">Training complete!</div>
+    <div class="submit-sub" id="submit-name-line">Great work. Here's your final score summary.</div>
+    <div class="submit-scores" style="grid-template-columns:repeat(4,1fr);">
+      <div class="submit-score-box"><div class="submit-score-label">Module 1</div><div class="submit-score-val" id="final-m1">—</div></div>
+      <div class="submit-score-box"><div class="submit-score-label">Module 2</div><div class="submit-score-val" id="final-m2">—</div></div>
+      <div class="submit-score-box"><div class="submit-score-label">Module 3</div><div class="submit-score-val" id="final-m3">—</div></div>
+      <div class="submit-score-box"><div class="submit-score-label">Module 4</div><div class="submit-score-val" id="final-m4">—</div></div>
+    </div>
+    <button class="submit-btn" onclick="submitResults()">Submit my results</button>
+    <div class="submit-status" id="submit-status"></div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark"><i class="ti ti-tractor"></i></div>
+      <div><div class="logo-text">Mahindra Sales Training</div><div class="logo-sub">Sales Consultant Training</div></div>
+    </div>
+    <div class="header-progress">
+      <span class="hp-label" id="hp-label">0 of 4 modules</span>
+      <div class="hp-bar-bg"><div class="hp-bar-fill" id="hp-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+</header>
+
+<nav class="module-nav">
+  <div class="nav-inner">
+    <div class="nav-tab active" id="tab-0" onclick="showModule(0)"><span>Module 1</span><span style="color:var(--text-3);font-weight:400;font-size:12px;">Product lineup</span><span class="tab-check"><i class="ti ti-check"></i></span></div>
+    <div class="nav-tab" id="tab-1" onclick="showModule(1)"><span>Module 2</span><span style="color:var(--text-3);font-weight:400;font-size:12px;">Sales process</span><span class="tab-check"><i class="ti ti-check"></i></span></div>
+    <div class="nav-tab" id="tab-2" onclick="showModule(2)"><span>Module 3</span><span style="color:var(--text-3);font-weight:400;font-size:12px;">Financing</span><span class="tab-check"><i class="ti ti-check"></i></span></div>
+    <div class="nav-tab" id="tab-3" onclick="showModule(3)"><span>Module 4</span><span style="color:var(--text-3);font-weight:400;font-size:12px;">Competitive intel</span><span class="tab-check"><i class="ti ti-check"></i></span></div>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ===================== MODULE 1 ===================== -->
+<section class="module-section m1 active" id="mod-0">
+  <div class="module-eyebrow">Module 1</div>
+  <div class="module-title">Product lineup</div>
+  <div class="module-desc" style="margin-bottom:1.5rem;">All six current Mahindra series — what to say on the lot</div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-box-label">Series</div><div class="stat-box-val">6</div></div>
+    <div class="stat-box"><div class="stat-box-label">Reviewed</div><div class="stat-box-val" id="m1-reviewed">0</div></div>
+    <div class="stat-box"><div class="stat-box-label">Quiz score</div><div class="stat-box-val" id="m1-score">—</div></div>
+  </div>
+  <div class="prog-row m1"><div class="prog-bg"><div class="prog-fill" id="m1-prog" style="width:0%"></div></div><span class="prog-label" id="m1-prog-label">0 of 6</span></div>
+  <div id="m1-cards"></div>
+  <div class="complete-msg m1-done" id="m1-complete">
+    <i class="ti ti-circle-check" style="color:var(--red);"></i>
+    <div class="c-title">Module 1 complete</div>
+    <div class="c-sub">All six series reviewed. Continue to the sales process.</div>
+    <button class="complete-btn" onclick="showModule(1)">Continue to Module 2 →</button>
+  </div>
+</section>
+
+<!-- ===================== MODULE 2 ===================== -->
+<section class="module-section m2" id="mod-1">
+  <div class="module-eyebrow">Module 2</div>
+  <div class="module-title">Sales process</div>
+  <div class="module-desc" style="margin-bottom:1.5rem;">Meet &amp; greet through close — scripts, frameworks, and objection handling</div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-box-label">Steps</div><div class="stat-box-val">5</div></div>
+    <div class="stat-box"><div class="stat-box-label">Completed</div><div class="stat-box-val" id="m2-reviewed">0</div></div>
+    <div class="stat-box"><div class="stat-box-label">Quiz score</div><div class="stat-box-val" id="m2-score">—</div></div>
+  </div>
+  <div class="prog-row m2"><div class="prog-bg"><div class="prog-fill" id="m2-prog" style="width:0%"></div></div><span class="prog-label" id="m2-prog-label">0 of 5</span></div>
+  <div id="m2-cards"></div>
+  <div class="complete-msg m2-done" id="m2-complete">
+    <i class="ti ti-circle-check" style="color:var(--purple);"></i>
+    <div class="c-title">Module 2 complete</div>
+    <div class="c-sub">Sales process covered. Continue to financing and deal structure.</div>
+    <button class="complete-btn" onclick="showModule(2)">Continue to Module 3 →</button>
+  </div>
+</section>
+
+<!-- ===================== MODULE 3 ===================== -->
+<section class="module-section m3" id="mod-2">
+  <div class="module-eyebrow">Module 3</div>
+  <div class="module-title">Financing &amp; deal structure</div>
+  <div class="module-desc" style="margin-bottom:1.5rem;">mFUSA programs, payment selling, deal structure, and closing</div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-box-label">Topics</div><div class="stat-box-val">5</div></div>
+    <div class="stat-box"><div class="stat-box-label">Completed</div><div class="stat-box-val" id="m3-reviewed">0</div></div>
+    <div class="stat-box"><div class="stat-box-label">Quiz score</div><div class="stat-box-val" id="m3-score">—</div></div>
+  </div>
+  <div class="prog-row m3"><div class="prog-bg"><div class="prog-fill" id="m3-prog" style="width:0%"></div></div><span class="prog-label" id="m3-prog-label">0 of 5</span></div>
+  <div id="m3-cards"></div>
+  <div class="complete-msg m3-done" id="m3-complete">
+    <i class="ti ti-circle-check" style="color:var(--green);"></i>
+    <div class="c-title">Module 3 complete</div>
+    <div class="c-sub">Financing and deal structure covered. Continue to competitive intelligence.</div>
+    <button class="complete-btn" onclick="showModule(3)">Continue to Module 4 →</button>
+  </div>
+</section>
+<!-- ===================== MODULE 4 ===================== -->
+<section class="module-section" id="mod-3">
+  <div class="module-eyebrow">Module 4</div>
+  <div class="module-title">Competing against Kioti</div>
+  <div class="module-desc" style="margin-bottom:1rem;">Head-to-head specs, weight and lift comparisons, and lot-level talking points across all six series</div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-box-label">Series</div><div class="stat-box-val">6</div></div>
+    <div class="stat-box"><div class="stat-box-label">Quiz score</div><div class="stat-box-val" id="m4-score">—</div></div>
+    <div class="stat-box"><div class="stat-box-label">Questions</div><div class="stat-box-val">7</div></div>
+  </div>
+  <div class="note-block" style="margin-bottom:1rem;">All Kioti specs sourced from official brochures (CS, CK20, DK20, RX20/40 series). Always verify current model year specs before quoting on the lot.</div>
+
+  <div class="series-tabs" id="m4-series-tabs">
+    <button class="series-tab active" onclick="showSeries('s1100',this)">1100<br><span style="font-size:10px;font-weight:400;">vs CS10/20/30</span></button>
+    <button class="series-tab" onclick="showSeries('s2100',this)">2100<br><span style="font-size:10px;font-weight:400;">vs CK20</span></button>
+    <button class="series-tab" onclick="showSeries('s1600',this)">1600<br><span style="font-size:10px;font-weight:400;">vs CK20</span></button>
+    <button class="series-tab" onclick="showSeries('s4500',this)">4500<br><span style="font-size:10px;font-weight:400;">vs DK20</span></button>
+    <button class="series-tab" onclick="showSeries('s5100',this)">5100<br><span style="font-size:10px;font-weight:400;">vs DK20SE</span></button>
+    <button class="series-tab" onclick="showSeries('s6000',this)">6000<br><span style="font-size:10px;font-weight:400;">vs RX20/40</span></button>
+    <button class="series-tab" onclick="showSeries('squiz',this)">Quiz</button>
+  </div>
+  <div id="m4-series-content"></div>
+</section>
+
+</main>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby6Y4Fsh9Xeu6gT-ZKN4jv_CkMkSwmaoCbWIim5gb_l8kmIli-tSPKv_T2a9rz5mnUF6w/exec';
+let bmName = '';
+
+// ─── NAME MODAL ───────────────────────────────────────────────
+function startTraining() {
+  const v = document.getElementById('bm-name-input').value.trim();
+  if (!v || v.split(' ').filter(s=>s.length>0).length < 2) { document.getElementById('name-err').style.display = 'block'; return; }
+  bmName = v;
+  document.getElementById('name-modal').classList.add('hidden');
+}
+document.getElementById('bm-name-input').addEventListener('keydown', e => { if(e.key==='Enter') startTraining(); });
+
+// ─── MODULE 1 DATA ────────────────────────────────────────────
+const m1data = [
+  {
+    name:'1100 series', hp:'20–25 HP', type:'Subcompact', tagClass:'tag-sub', iconBg:'#dbeafe', iconColor:'#1e40af',
+    customer:'Estate owners, hobby farmers, properties under 5 acres',
+    specs:[
+      {label:'Loader lift (pivot pin)',val:'794 lb',sub:'L11 loader'},
+      {label:'3-pt lift capacity',val:'771 lb',sub:"24\" from pin, CAT 1"},
+      {label:'Loader max lift height',val:'68"',sub:'with L11'},
+      {label:'Backhoe dig depth',val:'76"',sub:'optional B11'}
+    ],
+    pitches:[
+      'No DPF — ever. Zero regen downtime, no wasted fuel, fewer parts to replace. Lead every Mahindra conversation with this.',
+      '794 lb loader lift — heaviest-lifting subcompact we\'ve ever built. Skid-steer couplers mean attachment swaps take seconds.',
+      'Crank Assist™ walks first-time owners step-by-step through startup. Huge confidence builder for buyers who\'ve never owned a tractor.',
+      'Electric PTO engagement prevents accidental activation — big safety sell for customers with kids or pets on the property.',
+      'mComfort seat swivels for backhoe operation. One machine, multiple jobs without the awkward twist.',
+      'Optional ROPS cab: heated, glass-enclosed, 360° view with wipers and work lights. Nothing else in this class offers it.',
+      'Folding ROPS fits in a standard garage. Most subcompact buyers worry about storage — this closes that objection fast.',
+      'HST 2-range transmission with single pedal — as easy to drive as a golf cart. Perfect for the first-time buyer.',
+      '7-year/3,000-hour $0 deductible powertrain warranty — the longest in the subcompact class. Use this as a closing point every time.'
+    ],
+    quizzes:[
+      {
+        q:'A customer with 3 acres and a standard garage says they\'ve never owned a tractor. What\'s your strongest opening pitch?',
+        opts:[
+          {text:'Show them the optional cab and backhoe specs', correct:false},
+          {text:'Lead with the 794 lb loader lift capacity numbers', correct:false},
+          {text:'Lead with Crank Assist™ and the garage-friendly folding ROPS', correct:true}
+        ],
+        ok:'Correct. First-time buyer + small lot = address confidence and practicality first. Crank Assist™ and folding ROPS hit both.',
+        no:'Lift specs and premium options won\'t land with a first-time buyer on 3 acres. Lead with ease of use and fit.'
+      },
+      {
+        q:'A customer asks what makes the 1100 different from the competition in its class. What is the best answer?',
+        opts:[
+          {text:'The 1100 is the only subcompact with 4WD standard', correct:false},
+          {text:'No DPF ever, factory-built ROPS cab option, and Crank Assist™ — none of which competitors offer in this class', correct:true},
+          {text:'The 1100 has the highest loader lift capacity in the subcompact class', correct:false}
+        ],
+        ok:'Correct. No DPF, factory cab, and Crank Assist™ are genuine differentiators in the subcompact segment. Lead with documented advantages.',
+        no:'4WD is common in the class. Loader lift is competitive but not dominant at this HP. No DPF, factory cab, and Crank Assist™ are the real differentiators.'
+      }
+    ]
+  },
+  {
+    name:'2100 series', hp:'22–25 HP', type:'Compact', tagClass:'tag-compact', iconBg:'#ede9fe', iconColor:'#5b21b6',
+    customer:'Small acreage owners, light farm use, 5–15 acres',
+    specs:[
+      {label:'Loader lift (pivot pin)',val:'1,477 lb',sub:'L21 loader'},
+      {label:'3-pt lift capacity',val:'1,760 lb',sub:"24\" from pin, CAT 1"},
+      {label:'Loader max lift height',val:'77"',sub:'with L21'},
+      {label:'Backhoe dig depth',val:'91"',sub:'optional B21'}
+    ],
+    pitches:[
+      'No DPF — same story as every Mahindra. No regen, no downtime, no surprises. Reinforce this on every model conversation.',
+      '1,477 lb loader lift — nearly double the 1100. For customers moving material regularly, this is a meaningful step up.',
+      '1,760 lb 3-point lift handles a wide range of CAT 1 rear implements — tillers, finish mowers, box blades, spreaders.',
+      '3-range HST with two-pedal operation — easier to learn than shuttle shift for buyers stepping up from a lawn tractor.',
+      'Telescoping stabilizers on the 3-point hitch make rear implement hookups faster and more precise.',
+      'B21 backhoe digs 91 inches with over 2,900 lb bucket force — capable option for customers who want occasional dig work.',
+      'Skid-steer loader couplers standard. Ask: \'How much time do you spend swapping attachments?\' Then demonstrate the speed.',
+      'Good bridge tractor — positions well for customers who\'ve outgrown a subcompact but don\'t need utility HP.',
+      '7-year/3,000-hour $0 deductible powertrain warranty. Same industry-leading coverage as the full Mahindra lineup — close every 2100 conversation with this.'
+    ],
+    quizzes:[
+      {
+        q:'A customer stepping up from a riding mower has 10 acres and is nervous about operating a tractor. Best move?',
+        opts:[
+          {text:'Emphasize the 3-range HST and walk them through how easy it drives', correct:true},
+          {text:'Show them the 1100 — simpler for a new operator', correct:false},
+          {text:'Lead with the backhoe dig depth and 3-pt lift numbers', correct:false}
+        ],
+        ok:'Correct. The 2100\'s 3-range HST is the easiest transmission in the lineup and directly addresses operator anxiety.',
+        no:'The 1100 undersizes them for 10 acres. Specs don\'t answer their concern. Ease of operation is the winning angle here.'
+      },
+      {
+        q:'What is the strongest argument for the 2100 over the 1100 when a customer is deciding between them?',
+        opts:[
+          {text:'The 2100 has a factory-installed cab option', correct:false},
+          {text:'Nearly double the loader lift (1,477 vs 794 lb) and significantly higher 3-pt capacity for customers who need to move material regularly', correct:true},
+          {text:'The 2100 has a more powerful engine and more HP', correct:false}
+        ],
+        ok:'Right. The lift story is the clearest step-up case: 1,477 lb loader and 1,760 lb 3-pt vs the 1100\'s 794 and 771 lb. For customers who work their machines, that\'s the case.',
+        no:'Both have factory cab options. HP is similar (22–25 vs 20–25). The lift capacity jump is the clearest and most compelling upgrade argument.'
+      }
+    ]
+  },
+  {
+    name:'1600 series', hp:'25–39 HP', type:'Compact utility', tagClass:'tag-compact', iconBg:'#ede9fe', iconColor:'#3C3489',
+    customer:'Estates, orchards, ranches, hunt clubs — 10–40 acres',
+    specs:[
+      {label:'Loader lift (pivot pin)',val:'1,830 lb',sub:'skid-steer couplers std.'},
+      {label:'3-pt lift capacity',val:'1,720 lb',sub:"24\" from pin, CAT 1"},
+      {label:'Loader max lift height',val:'up to 91"',sub:'1635/1640 models'},
+      {label:'PTO HP',val:'up to 29.9 HP',sub:'1640 models'}
+    ],
+    pitches:[
+      'No DPF on any 1600 model. Common rail engine runs cleaner and quieter at lower RPMs — longer life, less fuel.',
+      '1,830 lb loader lift. Can stack 4-foot round bales two high, carry IBC totes, handle full bucket loads all day.',
+      'Two transmission choices: 8F/8R synchro shuttle for experienced operators, or 3-range HST for first-timers. Fit the tractor to the buyer.',
+      'Optional climate-controlled cab with mid-PTO for snowblower — a year-round machine for northern customers.',
+      '925 CCA battery on the 1635/1640. Starts in any weather — lead this for cold-climate customers.',
+      '7-year/3,000-hour $0 deductible powertrain warranty. No competitor in this class comes close. Use as a closing point.',
+      'Skid-steer couplers standard, folding ROPS, mComfort seat with adjustable armrests — well-equipped at a strong value price.',
+      "Ground clearance up to 12.8\" on the 1640 — important for customers doing hay or rough terrain work."
+    ],
+    quizzes:[
+      {
+        q:'A rancher with 30 acres needs to move round bales and occasionally grade a driveway. What\'s your key pitch for the 1600?',
+        opts:[
+          {text:'The optional cab and snowblower capability for year-round use', correct:false},
+          {text:'The no-DPF engine story and 7-year warranty', correct:false},
+          {text:'The 1,830 lb loader capacity and choice of transmission to match their experience level', correct:true}
+        ],
+        ok:'Right call. A rancher moving bales needs to know this loader handles the work. Transmission choice shows you listened to their needs.',
+        no:'Warranty and cab are supporting points, not openers for this buyer. Lead with what the machine can lift and do.'
+      },
+      {
+        q:'A customer asks why the 1600 is priced higher than the 1100 and 2100. What\'s the best response?',
+        opts:[
+          {text:'Step them down to the 2100 if budget is tight', correct:false},
+          {text:'More HP, 1,830 lb loader, choice of shuttle or HST transmission, 925 CCA battery, and a 7-year warranty — this is a significantly more capable machine', correct:true},
+          {text:'The 1600 has a cab option which adds to the price', correct:false}
+        ],
+        ok:'Correct. The value case for the 1600 is clear: more HP, heavier lift, two transmission options, cold-weather capability, and the same industry-leading warranty.',
+        no:'Stepping down loses the sale. The 1600 justifies its price with measurably more capability — make that case clearly.'
+      }
+    ]
+  },
+  {
+    name:'4500 series', hp:'41–48 HP', type:'Utility', tagClass:'tag-utility', iconBg:'#dcfce7', iconColor:'#166534',
+    customer:'Rural lifestyle, hobby farming, grounds maintenance, light commercial',
+    specs:[
+      {label:'Loader lift (pivot pin)',val:'2,866 lb',sub:'4550-4L loader'},
+      {label:'3-pt lift capacity',val:'Best-in-class',sub:'CAT 1 & 2, tele. stabilizers'},
+      {label:'Loader max lift height',val:'116.6"',sub:'4550-4L'},
+      {label:'Backhoe dig depth',val:'101"',sub:'optional 4550B'}
+    ],
+    pitches:[
+      '4WD on every model — no 2WD option. That\'s a strength: customers get maximum traction and stability every time.',
+      '2,866 lb loader lift at pivot pins on the 4550. Ask any competitor to match that number at this price point.',
+      'No DPF mCRD 4-cylinder engine. Cleaner exhaust, no operator regen involvement, lower cost of ownership.',
+      'Skid-steer quick-attach couplers standard on the loader — fast hookups across buckets, forks, bale spears, and grapples.',
+      'Optional 4550B backhoe: 101-inch dig depth, 180° swing arc, 3,670 lb bucket dig force. True multi-purpose machine.',
+      'mComfort mechanical suspension seat standard — reduces fatigue on long days. One-piece steel hood for easy engine access.',
+      'Large ag and industrial tire options for maximum traction on uneven terrain or wet fields.',
+      '7-year/3,000-hour $0 deductible powertrain warranty. Strong competitive advantage at this HP level.'
+    ],
+    quizzes:[
+      {
+        q:'A grounds maintenance customer needs loader work, mowing, and occasional trenching. Which 4500 do you spec out?',
+        opts:[
+          {text:'4540 4WD — base model saves them money', correct:false},
+          {text:'4550 4WD with the optional backhoe', correct:true},
+          {text:'Step them up to the 5100 instead', correct:false}
+        ],
+        ok:'Correct. Trenching needs the 4550B backhoe, only available on the 4550. 4WD gives the stability needed for all three tasks.',
+        no:'The backhoe option only fits the 4550. The 5100 may be more than they need or budget for.'
+      },
+      {
+        q:'What is the 4500\'s most compelling spec advantage over competitors at this HP level?',
+        opts:[
+          {text:'It is the only model in this HP range with 4WD standard', correct:false},
+          {text:'2,866 lb loader lift and 101\" backhoe dig depth — both best-in-class at this price point', correct:true},
+          {text:'It has the longest warranty in the utility tractor class', correct:false}
+        ],
+        ok:'Correct. 2,866 lb loader lift and 101" dig depth are your competitive anchors at this HP. Lead with those numbers.',
+        no:'4WD is common at this HP level. Warranty is a strength but not unique. The loader lift and dig depth are the numbers that move buyers.'
+      }
+    ]
+  },
+  {
+    name:'5100 series', hp:'45–55 HP', type:'Commercial utility', tagClass:'tag-commercial', iconBg:'#fef3c7', iconColor:'#92400e',
+    customer:'Ag farmers, livestock, landscapers, municipalities, ranchers — 50+ acres',
+    specs:[
+      {label:'Loader lift (full height)',val:'3,100 lb',sub:'5155-4L at pivot pin'},
+      {label:'3-pt linkage',val:'CAT 1 & 2',sub:'telescoping stabilizers + flex links'},
+      {label:'Loader max lift height',val:'122"',sub:'5155-4L loader'},
+      {label:'Backhoe dig depth',val:'112"',sub:'optional 65B, 9+ feet'}
+    ],
+    pitches:[
+      'mCRD common rail diesel — no DPF, superior PTO HP vs. Deere and Kubota at this price. Lead with that comparison directly.',
+      '3,100 lb full-height loader lift, 122-inch max height. Stack hay, load mixer wagons, handle bulk materials with reach to spare.',
+      'Base weight 5,390 lb — add the loader and you\'re at 6,690 lb. This machine doesn\'t get pushed around on slopes or in mud.',
+      '12F/12R synchromesh transmission — upshift or downshift on the fly like a car. Faster for front loader work than a standard HST.',
+      'CAT 1 and CAT 2 connectors standard — more implement compatibility than most competitors. One tractor, dozens of tools.',
+      '540 and 540E economy PTO modes standard. Fuel savings add up fast over a full season — put real numbers in front of the buyer.',
+      'Optional backhoe digs over 9 feet with 3,895 lb bucket force. ROI pitch: replaces a rental machine for most farm dig work.',
+      'Flat-top fenders add usable storage, side ignition prevents knee bumps — details that matter on long days.'
+    ],
+    quizzes:[
+      {
+        q:'A livestock farmer with 75 acres asks how the 5100 stacks up against a Kubota at similar HP. Your strongest counter?',
+        opts:[
+          {text:'Superior PTO HP, no DPF regen, and the 7-year warranty', correct:true},
+          {text:'Our dealer network and parts availability in their area', correct:false},
+          {text:'The mComfort seat and operator comfort features', correct:false}
+        ],
+        ok:'Exactly right. A working farmer cares about uptime and output. No regen downtime + better PTO HP + stronger warranty wins it.',
+        no:'Dealer network and comfort are supporting points. A 75-acre operation needs uptime and PTO performance — lead there.'
+      },
+      {
+        q:'What does the 5100\'s 12F/12R synchromesh transmission offer that an HST doesn\'t for commercial operators?',
+        opts:[
+          {text:'It\'s easier to operate for first-time tractor owners', correct:false},
+          {text:'Better fuel economy at all speeds', correct:false},
+          {text:'On-the-fly upshifting and downshifting — faster, more precise speed control for front loader and field work', correct:true}
+        ],
+        ok:'Right. Experienced commercial operators prefer the control of a synchromesh. They can upshift without stopping — real speed advantage for loader-intensive days.',
+        no:'HST is actually easier for beginners. Fuel economy isn\'t the story here. The synchromesh advantage is on-the-fly speed control for production work.'
+      }
+    ]
+  },
+  {
+    name:'6000 series', hp:'62–75 HP', type:'Commercial utility', tagClass:'tag-commercial', iconBg:'#fef3c7', iconColor:'#78350f',
+    customer:'Commercial farmers, hay producers, large acreage, municipalities',
+    specs:[
+      {label:'Loader lift (full height)',val:'3,609 lb',sub:'6075L at pivot pin'},
+      {label:'3-pt lift capacity',val:'5,952 lb',sub:'CAT 1 & 2, varies by model'},
+      {label:'Loader max lift height',val:'133"',sub:'6075L — high-sided trucks'},
+      {label:'Backhoe dig depth',val:'112"',sub:"optional, 9'4\", 3,895 lb force"}
+    ],
+    pitches:[
+      'Turbocharged, intercooled mCRD — no DPF at 60+ HP. Competitors make you deal with regen at this power level. We don\'t.',
+      '3,609 lb loader lift at full height. 133-inch max height reaches into mixer wagons and high-sided trucks.',
+      '5,952 lb on the 3-point hitch. Pulls serious implements: subsoilers, large disc harrows, heavy rotary cutters.',
+      '15F/15R full synchromesh on shuttle models; power shuttle with wet clutch on PST models — faster direction changes for loader-intensive days.',
+      'Optional cab with 140A alternator — ready for work lights, electronics, and GPS. Built for commercial and municipal buyers.',
+      '540 and 540E economy PTO modes. At 60+ HP, fuel consumption is a real cost — 540E saves measurable gallons per hour.',
+      "Backhoe option: 9'4\" dig depth, 3,895 lb bucket force, 18-inch bucket standard. Replaces a dedicated excavator for most farm dig work.",
+      'Heavy front axles boost stability for loader work. Wet disc brakes with lever-actuated parking brake — built for the long haul.'
+    ],
+    quizzes:[
+      {
+        q:'A hay producer with 200 acres asks why they should choose the 6075 over a comparable Deere or Kubota. What do you lead with?',
+        opts:[
+          {text:'Transmission options and cab comfort features', correct:false},
+          {text:'Lower price point and strong warranty terms', correct:false},
+          {text:'No DPF at this HP level, 3,609 lb loader lift, and 7-year warranty with zero deductible', correct:true}
+        ],
+        ok:'Perfect. A 200-acre hay producer can\'t afford regen downtime during cutting season. No DPF + loader capacity + warranty wins this deal.',
+        no:'Price signals commodity. Comfort doesn\'t move a production farmer. Lead with uptime, lift capacity, and warranty protection.'
+      },
+      {
+        q:'The 6000 series 3-point lift capacity is 5,952 lb. Why does that number matter in a sales conversation?',
+        opts:[
+          {text:'It proves the machine is heavier than competitors at this HP', correct:false},
+          {text:'It allows the customer to run serious implements — subsoilers, large disc harrows, heavy rotary cutters — that lower-capacity machines can\'t handle', correct:true},
+          {text:'Higher 3-pt lift means better loader performance', correct:false}
+        ],
+        ok:'Correct. 3-pt lift capacity directly determines what implements the machine can run. At 5,952 lb, the 6000 handles the heaviest ag implements — that\'s a direct productivity argument.',
+        no:'3-pt and loader are separate hydraulic systems. Weight comparison isn\'t the point. The 3-pt lift capacity determines implement compatibility — that\'s the selling point.'
+      }
+    ]
+  }
+];
+
+// ─── MODULE 2 DATA ────────────────────────────────────────────
+const m2data = [
+  {
+    name:'Step 1 — Meet & greet', subtitle:'First impression sets the deal\'s tone', icon:'ti-user', iconBg:'#ede9fe', iconColor:'#5b21b6',
+    tips:[
+      'Get to them before they\'ve walked the lot for five minutes on their own. An ungreeted customer starts forming opinions without you.',
+      "Open with curiosity, not a pitch. 'What brings you in today?' beats 'Can I help you?' — one invites a conversation, the other invites 'just looking.'",
+      'Mirror their energy. A no-nonsense farmer wants direct, low-fluff conversation. A first-time buyer wants reassurance. Read them fast.',
+      'Introduce yourself by name and get theirs early. Using their name throughout the conversation builds rapport without effort.',
+      'Never walk them to the tractors first. Walk them to a conversation first — lot walks are more effective after you know what they need.'
+    ],
+    scripts:[
+      {label:'Opening line',text:'"Hey, welcome in — I\'m [name]. What brings you out today, are you looking to add a tractor or replace something you\'ve got?"'},
+      {label:"If they say 'just looking'",text:'"No problem at all. I\'ll let you browse — I\'m happy to answer anything when you\'re ready. Just so I know, is it for your place or someone else\'s property?"'}
+    ],
+    hasObjections:false,
+    quizzes:[
+      {
+        q:"A customer walks in and says 'just looking.' What's the right move?",
+        opts:[
+          {text:'Give them space and wait for them to come to you', correct:false},
+          {text:'Acknowledge it, then ask one low-pressure question to open a conversation', correct:true},
+          {text:'Start walking them through the lineup immediately', correct:false}
+        ],
+        ok:"Correct. 'Just looking' is a defense, not a dismissal. One easy question keeps the door open without pressure.",
+        no:"Waiting kills momentum. Jumping straight to the lineup ignores what they actually need. One warm question is the right move."
+      },
+      {
+        q:'Why should you get the customer\'s name early in the conversation?',
+        opts:[
+          {text:'So you can enter them into the CRM system before they leave', correct:false},
+          {text:'Using their name throughout the conversation builds rapport naturally and makes the interaction feel personal', correct:true},
+          {text:'Company policy requires capturing customer names for every lot visit', correct:false}
+        ],
+        ok:'Right. Using someone\'s name consistently throughout a conversation builds genuine rapport — it signals that you\'re paying attention to them specifically.',
+        no:'CRM and policy aren\'t the selling reason. The genuine reason is rapport — using their name makes the conversation feel personal, not transactional.'
+      }
+    ]
+  },
+  {
+    name:'Step 2 — Discovery', subtitle:'Ask before you pitch', icon:'ti-question-mark', iconBg:'#ede9fe', iconColor:'#5b21b6',
+    tips:[
+      'Use the LAND framework: Land size, Application (what they\'re doing with it), Needs timeline, and Dollar comfort. Four questions that tell you everything.',
+      'Never mention a model until you\'ve asked at least 3 discovery questions. The Sales Consultant who asks the best questions wins more deals.',
+      "Dig into application — mowing, loader work, hay, tilling, snow, landscaping? One customer's 'general use' is another's 'I need to move round bales every day.'",
+      "Ask about their current situation: 'What are you running now?' If they have a tractor, find out what they like and hate about it. That's your pitch.",
+      "Timeline matters. 'When do you need this by?' separates tire-kickers from buyers and helps you prioritize urgency.",
+      'Let them talk. The more a customer talks, the more they\'re invested. Your job in discovery is to listen 70% and talk 30%.'
+    ],
+    scripts:[
+      {label:'LAND opener',text:'"Before I show you anything, I want to make sure I point you at the right machine. How many acres are you working with, and what\'s the main thing you need it to do?"'},
+      {label:'Digging into application',text:'"When you say general use — are we talking mostly mowing and light loader work, or do you need something that can handle hay or heavier implement work?"'},
+      {label:'Current situation',text:'"Are you replacing something or is this your first tractor? If you\'ve had one before, what did you like or wish it did better?"'}
+    ],
+    hasObjections:false,
+    quizzes:[
+      {
+        q:"A customer walks in and says they want 'something around 40 HP.' What do you do first?",
+        opts:[
+          {text:'Ask about their budget before anything else', correct:false},
+          {text:'Show them the 4500 series — it fits the HP range they mentioned', correct:false},
+          {text:'Ask LAND questions before walking them to any model', correct:true}
+        ],
+        ok:'Right. HP is a starting point, not a destination. LAND questions tell you if 40 HP is actually what they need.',
+        no:'Jumping to a model or leading with budget skips the most important step. Discovery first — then match the machine to the real need.'
+      },
+      {
+        q:'During discovery a customer says they\'re "not sure when" they\'ll need the tractor. What\'s the right response?',
+        opts:[
+          {text:'Treat them like a serious buyer and invest full time in the demonstration', correct:false},
+          {text:'Ask a follow-up question to understand if there\'s a specific trigger — season, project, or event — that would drive the purchase', correct:true},
+          {text:'Focus the rest of the conversation on urgency-creating offers', correct:false}
+        ],
+        ok:'Correct. "Not sure when" often means there\'s a trigger you haven\'t uncovered yet. One follow-up question — "Is there a specific project or season driving this?" — usually surfaces it.',
+        no:'Full demo investment without knowing timeline wastes time on tire-kickers. Manufactured urgency feels pushy. One smart follow-up question is the right move.'
+      }
+    ]
+  },
+  {
+    name:'Step 3 — Product match & demo', subtitle:'Put them in the seat', icon:'ti-tractor', iconBg:'#ede9fe', iconColor:'#5b21b6',
+    tips:[
+      "A customer who sits in the seat is significantly more likely to buy. Make the demo non-negotiable — 'Let me show you how it drives' not 'Would you like to try it?'",
+      'Recommend one or two models max based on your discovery answers. Showing three or more creates confusion and stalls decisions.',
+      'Walk the machine before they get on. Point out the specific features that match what they told you in discovery.',
+      'During the demo, let them operate it. Set up a route that shows loader capability, turning radius, and ground feel. Don\'t just let them idle.',
+      "After the demo, ask: 'How did that feel compared to what you were expecting?' — this surfaces objections early while you're still at the machine.",
+      "If they're comparing to a competitor, offer a side-by-side walk. Don't avoid the comparison — own it. You know the Mahindra advantages cold."
+    ],
+    scripts:[
+      {label:'Transitioning to the lot',text:'"Based on what you\'re describing — 20 acres, loader work, and some bush hogging — the 1600 is going to be the right machine. Let me walk you over and show you a couple things before you get on it."'},
+      {label:'Post-demo question',text:'"How did that feel? Anything that surprised you — good or bad?"'},
+      {label:'If they hesitate on the demo',text:'"It only takes about 5 minutes and it\'s the best way to know if this is the right fit. Hop on and we\'ll take it around the building."'}
+    ],
+    hasObjections:false,
+    quizzes:[
+      {
+        q:"After discovery, you know the customer needs the 1600 series. What's your next move?",
+        opts:[
+          {text:'Recommend one specific 1600 model and walk them to it for a demo', correct:true},
+          {text:'Present the full 1600 lineup and let them choose the model', correct:false},
+          {text:'Give them a brochure and spec sheet to review before the demo', correct:false}
+        ],
+        ok:'Correct. Narrow it to one recommendation — it shows confidence and expertise. Then get them on the machine.',
+        no:'Too many options stalls the decision. A brochure before a demo slows momentum. Make the call and get them in the seat.'
+      },
+      {
+        q:"A customer finishes a demo and goes quiet. What should you ask?",
+        opts:[
+          {text:'"Are you ready to talk numbers?"', correct:false},
+          {text:'"How did that feel compared to what you were expecting?"', correct:true},
+          {text:'"Do you want to try a different model?"', correct:false}
+        ],
+        ok:'Right. That question surfaces both positive impressions and hidden objections — while you\'re still standing next to the machine where they\'re most engaged.',
+        no:'Jumping to numbers skips the objection discovery step. Offering another model suggests you\'re not confident in your recommendation. Ask how it felt first.'
+      }
+    ]
+  },
+  {
+    name:'Step 4 — Objection handling', subtitle:'Objections are buying signals', icon:'ti-shield', iconBg:'#ede9fe', iconColor:'#5b21b6',
+    tips:[
+      'Reframe your mindset: an objection means they\'re still engaged. A customer who\'s done buying just leaves.',
+      "Never argue with an objection. Acknowledge it first — 'That's a fair point' — then pivot. Arguing puts them on defense.",
+      "'Is that the main thing holding you back, or is there something else too?' Answering the wrong objection wastes time.",
+      'Most objections are really one of three things: price, confidence, or timing. Identify which one before you respond.',
+      "After you handle an objection, always close back: 'Does that help?' or 'Does that change things for you?' — don't just answer and go silent."
+    ],
+    hasObjections:true,
+    objections:[
+      {q:'"It\'s more than I wanted to spend."',a:"Don't drop the price first. Pivot to payment: ",script:'"I hear you — what if I showed you what the monthly looks like on our current mFUSA finance program? Most folks find it\'s less than they expected."'},
+      {q:'"I need to think about it."',a:'This means there\'s an unanswered question. Find it: ',script:'"Absolutely — what specific piece would you want to think through? I want to make sure I\'ve answered everything before you leave."'},
+      {q:'"I\'m also looking at Kubota / Kioti / LS."',a:"Don't trash the competitor. Get curious instead: ",script:'"Good to shop around. What do you like about what you\'ve seen so far? I want to make sure you\'re comparing apples to apples on the things that matter most."'},
+      {q:'"I\'m not sure I need that much tractor."',a:'Reframe as long-term value: ',script:'"That\'s a common concern — I\'d rather you get what you need than sell you something you\'ll outgrow in a season. What\'s the biggest job you\'d ask this machine to do?"'},
+      {q:'"I want to wait until spring."',a:'Create urgency without pressure: ',script:'"That\'s fine, and spring is a great time to have it ready. The challenge is our current mFUSA rate and inventory — both tend to change before spring hits. Want to at least lock in today\'s numbers?"'}
+    ],
+    scripts:[],
+    quizzes:[
+      {
+        q:"A customer says 'I want to think about it' and starts moving toward the door. What do you do?",
+        opts:[
+          {text:'Offer a discount to try to close before they leave', correct:false},
+          {text:'Thank them and hand them a brochure to take home', correct:false},
+          {text:'Ask what specific thing they still need to think through', correct:true}
+        ],
+        ok:"Exactly right. 'I need to think about it' almost always means there's one unanswered question. Find it before they walk.",
+        no:"A brochure is a goodbye. A discount without identifying the real objection is money left on the table. Find the question first."
+      },
+      {
+        q:'A customer says "I\'m also looking at a Kioti." What\'s the worst response?',
+        opts:[
+          {text:'Ask what they like about the Kioti so far', correct:false},
+          {text:'Tell them Kioti has reliability and parts availability problems', correct:true},
+          {text:'Offer to walk them through an apples-to-apples comparison on the specs that matter most', correct:false}
+        ],
+        ok:'Correct. Trashing a competitor immediately destroys your credibility. Customers assume you\'re defensive, not confident. Get curious about what they\'ve seen instead.',
+        no:'Disparaging a competitor with unverified claims is the fastest way to lose a customer\'s trust. Curiosity and comparison are the right moves.'
+      }
+    ]
+  },
+  {
+    name:'Step 5 — Close & follow-up', subtitle:'Ask for the business, then stay in it', icon:'ti-check', iconBg:'#ede9fe', iconColor:'#5b21b6',
+    tips:[
+      "Most BMs don't ask for the sale clearly enough. After you've handled objections, close directly: 'Are we ready to get the paperwork started?'",
+      "Trial closes throughout the conversation reduce friction at the final close: 'If the numbers work for you, is this the one?'",
+      'Offer a reason to decide today — current mFUSA program, inventory availability, delivery timing. Urgency should be real, not manufactured.',
+      'If they say yes, slow down. Confirm the model, attachments, and delivery expectations before moving to paperwork.',
+      "If they don't buy today, set a specific next step before they leave — not 'let me know' but a day and time to follow up.",
+      'Follow-up calls within 24 hours close more deals than any other single activity. Strike while the demo is still fresh.',
+      'Track every unsold demo with a follow-up date. The Sales Consultant who follows up consistently outsells the one who waits for the phone to ring.'
+    ],
+    scripts:[
+      {label:'Direct close',text:'"Based on everything we\'ve talked about, it sounds like the 1635 HST is the right fit. Are we ready to get the paperwork started?"'},
+      {label:'Trial close during walkthrough',text:'"If the monthly payment works for you, is this the machine you\'d want to go with?"'},
+      {label:'Setting a follow-up before they leave',text:'"I\'ll run the numbers on the mFUSA 0% program and send them over this afternoon. Can I give you a call Thursday to walk through it?"'},
+      {label:'24-hour follow-up opener',text:'"Hey [name], it\'s [your name] from [dealership]. Just wanted to follow up while the demo was still fresh — did any other questions come up after you left?"'}
+    ],
+    hasObjections:false,
+    quizzes:[
+      {
+        q:"A customer liked the tractor but left without buying. They said they'd 'be in touch.' What's the right move?",
+        opts:[
+          {text:'Send a follow-up email in a week with the spec sheet attached', correct:false},
+          {text:'Call within 24 hours with a specific reason to reconnect', correct:true},
+          {text:'Wait for them to reach out — you don\'t want to be pushy', correct:false}
+        ],
+        ok:'Correct. 24-hour follow-up while the demo is still fresh is one of the highest-ROI activities in tractor sales. Don\'t wait.',
+        no:"Waiting gives competitors time to get in front of them. A week is too long — the buying energy fades fast. Call within 24 hours."
+      },
+      {
+        q:'What is the biggest mistake BMs make at the close stage?',
+        opts:[
+          {text:'Offering a trial close too early in the conversation', correct:false},
+          {text:'Not asking for the sale clearly and directly after objections have been handled', correct:true},
+          {text:'Moving to paperwork before the customer is fully committed', correct:false}
+        ],
+        ok:'Right. Most lost deals are lost because the Sales Consultant never clearly asked for the business. After you\'ve handled objections, close directly — "Are we ready to get the paperwork started?"',
+        no:'Trial closes are a best practice, not a mistake. Moving to paperwork after commitment is correct. The single biggest mistake is not asking clearly for the sale.'
+      }
+    ]
+  }
+];
+
+// ─── MODULE 3 DATA ────────────────────────────────────────────
+const dealSteps = [
+  {num:1,title:'Start at full MSRP + attachments',desc:'Never open discounted. Present the full package — tractor, loader, and any implements they mentioned needing.'},
+  {num:2,title:'Offer the mFUSA promotional rate first',desc:'0% financing is your cheapest concession. It moves the monthly payment dramatically without touching gross.'},
+  {num:3,title:'Bundle implements to grow the ticket',desc:"Add a rotary cutter, box blade, backhoe, or bale spear. Bigger ticket = more room to work. Ask: 'What do you need to be productive day one?'"},
+  {num:4,title:'Adjust term length before price',desc:'Extending the term drops the payment further. Use this before touching the unit price.'},
+  {num:5,title:'Discount the tractor price — last resort only',desc:'Only here if everything else has been exhausted. Know your floor plan break-even before you move a dollar on the price.'}
+];
+const m3data = [
+  {
+    name:'Topic 1 — mFUSA programs overview', subtitle:'Know your programs before they ask', icon:'ti-building-bank', iconBg:'#dcfce7', iconColor:'#166534',
+    tips:[
+      'Mahindra Finance USA (mFUSA) is your captive lender — always lead with mFUSA before sending customers to outside banks.',
+      'Know the current programs by series: 1100/2100 series: 0% for 84 months + $2,000 CIL (Cash In Lieu). 1600/4500/5100 series: 0% for 72 months. 6000 series: 0% for 60 months. Always verify current rates before quoting.',
+      'Programs rotate quarterly — always check the current rate sheet. Quoting an expired program kills trust fast.',
+      'Know your floor plan terms. Margin flex is linked to how long the unit has been on the floor. Units sitting longer have more room.',
+      'mFUSA approvals are typically fast — same day for clean credit. Use this as a selling point.',
+      'Always present mFUSA first even if a customer says they\'re paying cash. "Let me show you what the 0% program looks like before you decide."'
+    ],
+    hasPayments:false, hasDealSteps:false,
+    scripts:[
+      {label:'Introducing mFUSA early',text:'"Before we talk numbers, we have Mahindra\'s own finance program through mFUSA. Current programs are 0% for up to 84 months on the compact models — a lot of folks find it makes more sense to finance than write a check."'},
+      {label:'Positioning mFUSA vs. a bank',text:'"You can absolutely use your bank — but our mFUSA program is 0% right now and your bank won\'t beat that. Let me show you the monthly on this machine."'}
+    ],
+    quizzes:[
+      {
+        q:'A customer says they\'re planning to pay cash. What should you do?',
+        opts:[
+          {text:'Present the 0% mFUSA program before they finalize — they may prefer to keep their cash working', correct:true},
+          {text:'Offer a cash discount to incentivize the quicker transaction', correct:false},
+          {text:'Accept it and move forward with a cash deal', correct:false}
+        ],
+        ok:'Correct. Always present mFUSA even to cash buyers. 0% financing is hard to beat — a financed deal keeps margin in the deal.',
+        no:'Cash deals can cost you margin. A financed deal through mFUSA at 0% gives the customer a better use of their money.'
+      },
+      {
+        q:'What is the current mFUSA program for the 4500 series?',
+        opts:[
+          {text:'0% for 84 months with $2,000 CIL', correct:false},
+          {text:'0% for 60 months, no money down required', correct:false},
+          {text:'0% for 72 months', correct:true}
+        ],
+        ok:'Correct. 1600, 4500, and 5100 series are all 0% for 72 months. Memorize the tier: 84mo (1100/2100), 72mo (1600/4500/5100), 60mo (6000).',
+        no:'84 months + $2,000 CIL is the 1100/2100 program. 60 months is the 6000 series. The 4500 is 0% for 72 months. Know your tiers.'
+      }
+    ]
+  },
+  {
+    name:'Topic 2 — Selling on payment', subtitle:'Frame value around monthly cost, not price', icon:'ti-calculator', iconBg:'#dcfce7', iconColor:'#166534',
+    tips:[
+      'Most compact tractor buyers are monthly payment buyers — they budget monthly, not by sticker price.',
+      'Never present the full cash price first to a customer who hasn\'t asked. Price anchors kill deals. Payment frames win them.',
+      'The truck payment comparison is your most powerful tool. A 2100 series at 0%/84 months runs around $285–310/month — significantly less than a truck payment. Say it out loud.',
+      'Build payment fluency: know approximate monthly payments for your top models at the current rate. Say it without looking it up.',
+      "If a customer fixates on price, pivot: 'What monthly payment would make this work for you?' — moves the conversation from sticker shock to workable math.",
+      'Always quote payment ranges, not exact numbers, until you have an mFUSA application in hand.'
+    ],
+    hasPayments:true,
+    payments:[
+      {label:'1100 series (~$18K)',val:'~$190/mo',sub:'0% for 84 mo + $2K down'},
+      {label:'2100 series (~$25K)',val:'~$274/mo',sub:'0% for 84 mo + $2K down'},
+      {label:'1600 series (~$28K)',val:'~$389/mo',sub:'0% for 72 months'},
+      {label:'4500 series (~$35K)',val:'~$486/mo',sub:'0% for 72 months'},
+      {label:'5100 series (~$45K)',val:'~$625/mo',sub:'0% for 72 months'},
+      {label:'6000 series (~$58K)',val:'~$967/mo',sub:'0% for 60 months'}
+    ],
+    hasDealSteps:false,
+    scripts:[
+      {label:'Payment pivot from price objection',text:'"I hear you on the price — let\'s look at it differently. At 0% for 84 months through mFUSA with $2,000 CIL, the 2100 series is right around $274 a month. That\'s well under most truck payments, and this machine works every day."'},
+      {label:'Asking their payment target',text:'"What monthly payment would make this feel comfortable for you? Let me see what I can put together through mFUSA."'}
+    ],
+    quizzes:[
+      {
+        q:'A customer sees the sticker on a 2100 series and says "that\'s more than I thought." What\'s your move?',
+        opts:[
+          {text:'Explain the features that justify the price', correct:false},
+          {text:'Show them the 1100 series to keep them engaged', correct:false},
+          {text:'Immediately pivot to the monthly payment — around $274/month with 0% for 84 months and $2K down', correct:true}
+        ],
+        ok:'Right. Price sticker shock is best answered with a payment frame. Get to ~$274/month and let that number do the work.',
+        no:'Defending the price with features keeps them anchored to the sticker. Stepping down loses gross. Pivot to payment immediately.'
+      },
+      {
+        q:'What is the mFUSA program for the 1100 and 2100 series?',
+        opts:[
+          {text:'0% for 72 months, no money down', correct:false},
+          {text:'0% for 84 months with $2,000 CIL', correct:true},
+          {text:'0% for 60 months with $1,000 down', correct:false}
+        ],
+        ok:'Correct. 0% for 84 months + $2,000 CIL (Cash In Lieu) on the 1100 and 2100 series. The longer term drops the monthly payment significantly.',
+        no:'72 months is the 1600/4500/5100 program. 60 months is the 6000 program. The 1100 and 2100 get 84 months + $2,000 CIL.'
+      }
+    ]
+  },
+  {
+    name:'Topic 3 — Deal structure', subtitle:'Build from the top down to protect gross', icon:'ti-layers', iconBg:'#dcfce7', iconColor:'#166534',
+    tips:[
+      'Always build from the top down: start at full MSRP plus attachments. Never open with a discounted price.',
+      'Your first concession should always be the mFUSA promotional rate — it costs you significantly less than a cash discount.',
+      'Add implements and attachments to increase the total ticket before talking about price.',
+      'Only discount the tractor price as a last resort, after exhausting rate concessions and attachment bundling.',
+      'Know your floor plan cost on each unit. Once below your break-even, you\'re paying to sell a tractor.',
+      "Implement bundles are a win-win: the customer gets everything they need at delivery, and you increase total deal gross. Always ask: 'What do you need to be productive day one?'"
+    ],
+    hasDealSteps:true,
+    scripts:[
+      {label:'Opening at full MSRP',text:'"Here\'s where we start — full MSRP plus the loader package. Let me show you what that looks like monthly through mFUSA on our current program."'},
+      {label:'Rate as first concession',text:'"I can get you into our mFUSA 0% program for 72 months — that drops your payment significantly without touching the price of the machine."'},
+      {label:'Bundling implements',text:'"Before we finalize, what implements do you need to be productive day one? A rotary cutter and box blade added today gets you everything you need and I can work the package."'}
+    ],
+    hasPayments:false,
+    quizzes:[
+      {
+        q:'A customer asks for $1,500 off the sticker price. What\'s the best first response?',
+        opts:[
+          {text:'Hold firm and explain why the price is where it is', correct:false},
+          {text:'Offer the mFUSA promotional rate as an alternative to a price cut', correct:true},
+          {text:'Meet them at $750 off as a compromise', correct:false}
+        ],
+        ok:'Correct. The mFUSA rate concession costs you far less than $1,500 off the sticker. Offer the rate first — save price discount for last resort.',
+        no:'Splitting a discount immediately gives away gross. Holding firm without offering something sounds inflexible. The rate concession is your first and cheapest move.'
+      },
+      {
+        q:'In the deal structure sequence, when should you adjust the loan term?',
+        opts:[
+          {text:'First — before offering the promotional rate', correct:false},
+          {text:'After the promotional rate and implement bundling, but before discounting the tractor price', correct:true},
+          {text:'Only after the customer has already agreed to the price', correct:false}
+        ],
+        ok:'Right. Work the sequence: MSRP → mFUSA rate → implement bundle → term extension → price discount. Each step costs you less than the one after it.',
+        no:'Rate always comes before term adjustment. Term comes before price — there\'s a specific sequence designed to protect your gross.'
+      }
+    ]
+  },
+  {
+    name:'Topic 4 — Reading the credit application', subtitle:'Know what you\'re working with before you commit', icon:'ti-file-text', iconBg:'#dcfce7', iconColor:'#166534',
+    tips:[
+      "Get a credit application early — ideally before the demo. 'Let me get your information into mFUSA while we walk the lot' is natural and low-pressure.",
+      "A pulled credit score tells you what program tier you're working in. Don't quote a 0% payment to someone who may not qualify.",
+      'mFUSA has tiered programs. Strong credit gets the promotional rate. Weaker credit may still qualify at a standard rate — know the tiers.',
+      "If credit comes back thin, lead with what IS available: 'mFUSA has a program that works for you at X%' beats 'you don\'t qualify for the 0%.'",
+      'Co-signer conversations: if a customer is close but not qualifying, a co-signer can close the gap. Bring it up early.',
+      'Never promise a rate before mFUSA approval. Quote ranges only.'
+    ],
+    scripts:[
+      {label:'Getting the application early',text:'"While I pull the machine around, let me grab your info for the mFUSA application — it only takes a minute and tells us exactly which program you qualify for."'},
+      {label:'If credit comes back challenged',text:'"Here\'s what mFUSA has for you — you qualify for our standard program at X%, which puts you right around $Y a month. That\'s still a strong payment on this machine."'},
+      {label:'Co-signer intro',text:'"Just to make sure we\'ve got every option on the table — is there a spouse or business partner who typically co-signs on purchases like this?"'}
+    ],
+    hasPayments:false, hasDealSteps:false,
+    quizzes:[
+      {
+        q:"Before pulling credit, a customer asks 'what will my monthly payment be?' What do you say?",
+        opts:[
+          {text:'Tell them you can\'t discuss payments until the paperwork is done', correct:false},
+          {text:'Quote them the 0% mFUSA payment for the model they\'re looking at', correct:false},
+          {text:'Give a payment range and explain it depends on the mFUSA program they qualify for', correct:true}
+        ],
+        ok:'Right. Quote a range, not a number. "Somewhere between $X and $Y depending on your mFUSA program" sets the right expectation without overcommitting.',
+        no:'Quoting the 0% rate before credit is pulled sets an expectation you may not meet. Refusing to discuss payments at all stalls the conversation. Ranges are the answer.'
+      },
+      {
+        q:'A customer\'s credit comes back thin — they don\'t qualify for the 0% program. What\'s the right way to handle it?',
+        opts:[
+          {text:'Tell them they don\'t qualify for 0% and show them what they do qualify for', correct:false},
+          {text:'Lead with what IS available: "mFUSA has a program that works for you at X%" without leading with what they didn\'t get', correct:true},
+          {text:'Suggest they find a co-signer before you proceed any further', correct:false}
+        ],
+        ok:'Correct. Lead with the positive — what they do qualify for. Announcing what they didn\'t get first puts the customer on defense.',
+        no:'Leading with the denial puts the customer on defense. Co-signer is a good option but shouldn\'t be your first move. Frame what\'s available positively.'
+      }
+    ]
+  },
+  {
+    name:'Topic 5 — Closing the finance deal', subtitle:'Paperwork is part of the sale', icon:'ti-signature', iconBg:'#dcfce7', iconColor:'#166534',
+    tips:[
+      "The finance close is a process: closing the model, then the payment, then the mFUSA program, then the paperwork — each step leads to the next.",
+      "Once a customer agrees on payment, move immediately: 'Great — let me get the mFUSA paperwork started.' Any pause gives doubt time to creep in.",
+      'Review every line item with the customer before they sign. Surprises at delivery kill future referrals.',
+      'Confirm delivery expectations clearly: date, prep items, attachments being added.',
+      "Deposit conversations: getting a deposit locks the deal. 'I'll hold this machine with a deposit today — what works for you, credit card or check?'",
+      "After signing, re-sell the decision. 'You made a great call — this machine is going to work hard for you' goes a long way."
+    ],
+    scripts:[
+      {label:'Moving to paperwork after agreement',text:'"Perfect — let me get the mFUSA paperwork going. I\'ll have you in and out in about 20 minutes."'},
+      {label:'Getting a deposit to lock the deal',text:'"I want to make sure this unit is held for you. I can lock it with a deposit today — credit card or check, whichever is easier."'},
+      {label:'Re-selling the decision after signing',text:'"You made a solid call today. The [model] is going to serve you well — and that 7-year warranty means you\'ve got Mahindra behind you the whole time."'},
+      {label:'Setting up delivery',text:'"Let\'s confirm delivery before you leave — what day works, and do you need us to arrange transport or are you picking up?"'}
+    ],
+    hasPayments:false, hasDealSteps:false,
+    quizzes:[
+      {
+        q:"A customer agrees on the payment and says 'sounds good, I'll come back Saturday to sign.' What's the right move?",
+        opts:[
+          {text:'Confirm Saturday and send them a reminder the day before', correct:false},
+          {text:'Start pulling mFUSA paperwork so it\'s ready for Saturday', correct:false},
+          {text:'Get a deposit today to lock the deal before they leave', correct:true}
+        ],
+        ok:'Correct. A verbal agreement without a deposit is a maybe, not a deal. Get something down before they leave — it dramatically reduces fallout.',
+        no:'Without a deposit, that deal can go sideways before Saturday. A competitor call or second thought can undo everything. Lock it now.'
+      },
+      {
+        q:'Why should you re-sell the decision after a customer signs?',
+        opts:[
+          {text:'To upsell additional accessories and implements', correct:false},
+          {text:'Company policy requires a verbal confirmation of all signed contracts', correct:false},
+          {text:'Buyer\'s remorse is real — a confident positive statement after signing reduces post-sale cancellations and builds the referral relationship', correct:true}
+        ],
+        ok:'Right. "You made a great call" after signing is about reducing buyer\'s remorse and starting the referral relationship. It\'s one of the most underused tools in the close.',
+        no:'Re-selling after signing is about buyer psychology, not upsells or policy. Reducing remorse and planting the referral seed is the purpose.'
+      }
+    ]
+  }
+];
+
+// ─── STATE ────────────────────────────────────────────────────
+const state = {
+  m1: { open:null, reviewed:new Array(6).fill(false), quizAnswered:{}, quizCorrect:{} },
+  m2: { open:null, reviewed:new Array(5).fill(false), quizAnswered:{}, quizCorrect:{} },
+  m3: { open:null, reviewed:new Array(5).fill(false), quizAnswered:{}, quizCorrect:{} }
+};
+
+// ─── BUILD CARDS ─────────────────────────────────────────────
+function buildM1() {
+  const c = document.getElementById('m1-cards');
+  m1data.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'card'; div.id = 'm1-card-'+i;
+    div.onclick = () => toggleCard('m1', i, 6);
+    const specsHTML = s.specs.map(sp => `<div class="spec-box"><div class="spec-label">${sp.label}</div><div class="spec-val">${sp.val}</div><div class="spec-sub">${sp.sub}</div></div>`).join('');
+    const pitchHTML = s.pitches.map(p => `<div class="tip-item"><div class="tip-dot" style="background:var(--red);"></div><div>${p}</div></div>`).join('');
+    const quizHTML = buildQuizBlock('m1', i, s.quizzes);
+    div.innerHTML = `
+      <div class="card-header">
+        <div class="card-icon" style="background:${s.iconBg};color:${s.iconColor};"><i class="ti ti-tractor"></i></div>
+        <div class="card-titles"><div class="card-name">${s.name} <span style="font-weight:400;color:var(--text-3);font-size:12px;">· ${s.hp}</span></div><div class="card-sub"><span class="tag ${s.tagClass}">${s.type}</span></div></div>
+        <span class="card-badge badge-go-r" id="m1-badge-${i}">Review</span>
+        <i class="ti ti-chevron-down chev" id="m1-chev-${i}"></i>
+      </div>
+      <div class="card-body">
+        <div style="font-size:12px;color:var(--text-3);font-style:italic;margin-top:12px;">Ideal for: ${s.customer}</div>
+        <div class="specs-grid">${specsHTML}</div>
+        <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+        ${pitchHTML}
+        ${quizHTML}
+        <button class="next-btn" onclick="markReviewed('m1',${i},6);event.stopPropagation();">${i<5?'Mark reviewed &amp; next →':'Mark reviewed — finish module →'}</button>
+      </div>`;
+    c.appendChild(div);
+  });
+}
+
+function buildM2() {
+  const c = document.getElementById('m2-cards');
+  m2data.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'card'; div.id = 'm2-card-'+i;
+    div.onclick = () => toggleCard('m2', i, 5);
+    const tipsHTML = s.tips.map(t => `<div class="tip-item"><div class="tip-dot" style="background:var(--purple);"></div><div>${t}</div></div>`).join('');
+    const scriptsHTML = (s.scripts||[]).map(sc => `<div class="script-block" style="border-color:var(--purple);"><div class="script-lbl" style="color:var(--purple);">${sc.label}</div><div class="script-text">${sc.text}</div></div>`).join('');
+    let objHTML = '';
+    if (s.hasObjections) {
+      objHTML = `<div class="sec-label"><i class="ti ti-alert-circle"></i>Common objections — what to say</div>` +
+        s.objections.map(o => `<div class="obj-block"><div class="obj-q">${o.q}</div><div class="obj-a">${o.a}<em>${o.script}</em></div></div>`).join('');
+    }
+    const quizHTML = buildQuizBlock('m2', i, s.quizzes);
+    div.innerHTML = `
+      <div class="card-header">
+        <div class="card-icon" style="background:${s.iconBg};color:${s.iconColor};"><i class="ti ${s.icon}"></i></div>
+        <div class="card-titles"><div class="card-name">${s.name}</div><div class="card-sub">${s.subtitle}</div></div>
+        <span class="card-badge badge-go-p" id="m2-badge-${i}">Review</span>
+        <i class="ti ti-chevron-down chev" id="m2-chev-${i}"></i>
+      </div>
+      <div class="card-body">
+        <div class="sec-label" style="margin-top:12px;"><i class="ti ti-bulb"></i>Key principles</div>
+        ${tipsHTML}${scriptsHTML}${objHTML}
+        ${quizHTML}
+        <button class="next-btn" onclick="markReviewed('m2',${i},5);event.stopPropagation();">${i<4?'Mark complete &amp; next →':'Mark complete — finish module →'}</button>
+      </div>`;
+    c.appendChild(div);
+  });
+}
+
+function buildM3() {
+  const c = document.getElementById('m3-cards');
+  m3data.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'card'; div.id = 'm3-card-'+i;
+    div.onclick = () => toggleCard('m3', i, 5);
+    const tipsHTML = s.tips.map(t => `<div class="tip-item"><div class="tip-dot" style="background:var(--green);"></div><div>${t}</div></div>`).join('');
+    const scriptsHTML = (s.scripts||[]).map(sc => `<div class="script-block" style="border-color:var(--green);"><div class="script-lbl" style="color:var(--green-dark);">${sc.label}</div><div class="script-text">${sc.text}</div></div>`).join('');
+    let payHTML = '';
+    if (s.hasPayments) {
+      payHTML = `<div class="sec-label"><i class="ti ti-coin"></i>Reference payments — current mFUSA programs</div>
+        <div class="note-block">Estimated reference figures only. Always verify against the current mFUSA rate sheet and confirm after credit approval.</div>
+        <div class="payment-grid">${s.payments.map(p=>`<div class="pay-box"><div class="pay-label">${p.label}</div><div class="pay-val">${p.val}</div><div class="pay-sub">${p.sub}</div></div>`).join('')}</div>`;
+    }
+    let dsHTML = '';
+    if (s.hasDealSteps) {
+      dsHTML = `<div class="sec-label" style="margin-top:1rem;"><i class="ti ti-sort-descending"></i>Deal structure — work this order</div>` +
+        dealSteps.map(d=>`<div class="deal-step"><div class="deal-num">${d.num}</div><div><div class="deal-title">${d.title}</div><div class="deal-desc">${d.desc}</div></div></div>`).join('');
+    }
+    const quizHTML = buildQuizBlock('m3', i, s.quizzes);
+    div.innerHTML = `
+      <div class="card-header">
+        <div class="card-icon" style="background:${s.iconBg};color:${s.iconColor};"><i class="ti ${s.icon}"></i></div>
+        <div class="card-titles"><div class="card-name">${s.name}</div><div class="card-sub">${s.subtitle}</div></div>
+        <span class="card-badge badge-go-g" id="m3-badge-${i}">Review</span>
+        <i class="ti ti-chevron-down chev" id="m3-chev-${i}"></i>
+      </div>
+      <div class="card-body">
+        <div class="sec-label" style="margin-top:12px;"><i class="ti ti-bulb"></i>Key principles</div>
+        ${tipsHTML}${payHTML}${dsHTML}${scriptsHTML}
+        ${quizHTML}
+        <button class="next-btn" onclick="markReviewed('m3',${i},5);event.stopPropagation();">${i<4?'Mark complete &amp; next →':'Finish modules 1–3 →'}</button>
+      </div>`;
+    c.appendChild(div);
+  });
+}
+
+function buildQuizBlock(mod, cardIdx, quizzes) {
+  let html = `<div class="quiz-wrap"><div class="quiz-section-label"><i class="ti ti-help-circle" style="font-size:13px;vertical-align:-1px;margin-right:4px;"></i>Knowledge check</div>`;
+  quizzes.forEach((q, qIdx) => {
+    const key = cardIdx + '-' + qIdx;
+    html += `<div class="single-quiz">
+      <div class="quiz-q">${q.q}</div>
+      ${q.opts.map((o,oIdx) => `<div class="quiz-opt" onclick="answer('${mod}','${key}',${oIdx},this,${o.correct});event.stopPropagation();"><i class="ti ti-circle"></i>${o.text}</div>`).join('')}
+      <div class="quiz-fb" id="${mod}-fb-${key}"></div>
+    </div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+// ─── INTERACTIONS ─────────────────────────────────────────────
+function toggleCard(mod, i, total) {
+  const s = state[mod];
+  const body = document.getElementById(`${mod}-card-${i}`);
+  const chev = document.getElementById(`${mod}-chev-${i}`);
+  if (s.open === i) {
+    body.classList.remove('open'); chev.style.transform = ''; s.open = null;
+  } else {
+    if (s.open !== null) {
+      document.getElementById(`${mod}-card-${s.open}`).classList.remove('open');
+      document.getElementById(`${mod}-chev-${s.open}`).style.transform = '';
+    }
+    body.classList.add('open'); chev.style.transform = 'rotate(180deg)'; s.open = i;
+  }
+}
+
+function answer(mod, key, optIdx, el, correct) {
+  const s = state[mod];
+  if (s.quizAnswered[key]) return;
+  s.quizAnswered[key] = true; s.quizCorrect[key] = correct;
+  el.classList.add(correct ? 'correct' : 'wrong');
+  const [cardIdx, qIdx] = key.split('-').map(Number);
+  const data = mod==='m1'?m1data:mod==='m2'?m2data:m3data;
+  const quiz = data[cardIdx].quizzes[qIdx];
+  const fb = document.getElementById(`${mod}-fb-${key}`);
+  fb.textContent = (correct?'✓ ':'✗ ') + (correct?quiz.ok:quiz.no);
+  fb.className = 'quiz-fb show ' + (correct?'ok':'no');
+  updateScore(mod);
+}
+
+function updateScore(mod) {
+  const s = state[mod];
+  const total = Object.keys(s.quizAnswered).length;
+  const correct = Object.values(s.quizCorrect).filter(Boolean).length;
+  if (total > 0) document.getElementById(`${mod}-score`).textContent = correct+'/'+total;
+}
+
+function getModuleScore(mod) {
+  const s = state[mod];
+  const total = Object.keys(s.quizAnswered).length;
+  const correct = Object.values(s.quizCorrect).filter(Boolean).length;
+  return total > 0 ? correct+'/'+total : '0/0';
+}
+
+function markReviewed(mod, i, total) {
+  const s = state[mod];
+  s.reviewed[i] = true;
+  document.getElementById(`${mod}-badge-${i}`).textContent = 'Done';
+  document.getElementById(`${mod}-badge-${i}`).className = 'card-badge badge-done';
+  document.getElementById(`${mod}-card-${i}`).classList.remove('open');
+  document.getElementById(`${mod}-chev-${i}`).style.transform = '';
+  s.open = null;
+  const done = s.reviewed.filter(Boolean).length;
+  document.getElementById(`${mod}-reviewed`).textContent = done;
+  document.getElementById(`${mod}-prog`).style.width = Math.round(done/total*100)+'%';
+  document.getElementById(`${mod}-prog-label`).textContent = done+' of '+total;
+  if (done === total) {
+    document.getElementById(`${mod}-complete`).style.display = 'block';
+    document.getElementById(`tab-${mod==='m1'?0:mod==='m2'?1:2}`).classList.add('done');
+    updateHeaderProgress();
+  } else if (i+1 < total) {
+    setTimeout(() => toggleCard(mod, i+1, total), 300);
+  }
+}
+
+// ─── MODULE 4 DATA & LOGIC ────────────────────────────────────
+const m4SeriesHTML = document.createElement('div');
+
+// Inject series sections from module4-combined
+const m4Content = `SERIES_HTML_PLACEHOLDER`;
+
+const m4QuizData = [
+  {q:"A customer says the Kioti CS20 SL2420 loader lifts more than the Mahindra 1100. What's the right response?",opts:[{text:"Acknowledge it honestly, then pivot to 3-pt lift advantage, machine weight, 7-year warranty, and Crank Assist™",correct:true},{text:"Deny it — the 1100 loader is better in every way",correct:false},{text:"Change the subject to the 2100 series instead",correct:false}],ok:"Correct. The CS20 SL2420 does lift more at 1,062 lb vs 794 lb. Honesty builds trust. Pivot to Mahindra's documented wins.",no:"Denying a real spec destroys credibility. Acknowledge it and redirect to where Mahindra wins."},
+  {q:"What is Mahindra's strongest single spec advantage in the 2100 vs Kioti CK2620 matchup?",opts:[{text:"Higher 3-point lift capacity — 1,760 lb vs 1,631 lb",correct:true},{text:"Higher loader lift height",correct:false},{text:"Lower tractor weight for better maneuverability",correct:false}],ok:"Right. 1,760 lb vs 1,631 lb — Mahindra wins the 3-pt by 129 lb. Cleanest head-to-head spec win in the compact comparison.",no:"The 3-pt lift is Mahindra's strongest documented win in this matchup."},
+  {q:"The 4500 vs Kioti DK4520 — Mahindra wins on loader lift, height, AND breakout force. What is the breakout force advantage?",opts:[{text:"About 200 lb more",correct:false},{text:"About 500 lb more",correct:false},{text:"About 1,083 lb more — 4,978 vs 3,895 lb",correct:true}],ok:"Correct. 4,978 vs 3,895 lb — Mahindra wins by 1,083 lb, a 28% advantage.",no:"The advantage is 1,083 lb, or 28% more breakout force. A decisive win."},
+  {q:"What is Mahindra's most dominant spec advantage in the 6000 series vs Kioti RX40?",opts:[{text:"3-point lift capacity — 5,952 lb vs 4,328 lb",correct:true},{text:"Loader breakout force",correct:false},{text:"Engine horsepower",correct:false}],ok:"Exactly right. 1,624 lb more 3-pt lift — the biggest spec gap in the Mahindra lineup vs Kioti.",no:"Kioti's RX loader has more breakout force. The 3-pt lift advantage of 1,624 lb is the dominant win."},
+  {q:"A customer shopping the 5100 asks how the backhoe compares to the Kioti DK. What's the key number?",opts:[{text:"Mahindra digs 17.6 inches deeper — 112\" vs 94.4\"",correct:true},{text:"Mahindra has a wider backhoe swing arc",correct:false},{text:"The Kioti backhoe is not available at this HP",correct:false}],ok:"Right. 112\" vs 94.4\" — nearly 1.5 feet more dig depth.",no:"The swing arcs are both 180°. The Kioti backhoe IS available. Dig depth is the key: 112\" vs 94.4\"."},
+  {q:"Why is the no-DPF story especially powerful when selling the 6000 series against Kioti RX?",opts:[{text:"Because the Kioti RX has a shorter regen cycle than lower HP models",correct:false},{text:"Because no DPF at 60+ HP is rare — most competitors at this power level require regen, and production operators cannot afford that downtime",correct:true},{text:"Because Kioti explicitly requires more DPF maintenance than other brands",correct:false}],ok:"Correct. At 60+ HP, most market machines require DPF and regen cycles. Mahindra eliminating that is a genuine differentiator during hay season.",no:"The real story is that no-DPF at 60+ HP is rare in the market."},
+  {q:"A customer comparing the Kioti CK35 to the Mahindra 2100 says the Kioti loader lifts higher. What's your move?",opts:[{text:"Concede the loader and try to close on price",correct:false},{text:"Agree and suggest they buy the 1600 instead",correct:false},{text:"Point out that a CK35 at 35 HP competes with the Mahindra 1600, not the 2100 — then show the right comparison",correct:true}],ok:"Exactly right. Never let a customer compare a 22–25 HP machine to a 35 HP machine as equals. Reframe the comparison.",no:"Reframe first — the CK35 competes with the 1600, not the 2100."}
+];
+
+let m4QuizAnswered = new Array(m4QuizData.length).fill(false);
+let m4QuizCorrect = new Array(m4QuizData.length).fill(false);
+
+function buildM4() {
+  const container = document.getElementById('m4-series-content');
+
+  // Build series sections (inject HTML from module4)
+  const seriesDiv = document.createElement('div');
+  seriesDiv.innerHTML = document.getElementById('m4-series-template').innerHTML;
+  container.appendChild(seriesDiv);
+
+  // Build quiz section
+  const quizSection = document.createElement('div');
+  quizSection.className = 'series-section'; quizSection.id = 'squiz';
+  let quizHTML = `<div class="sec-label"><i class="ti ti-help-circle"></i>Knowledge check — Kioti competitive intelligence</div>
+    <div class="m4-score-display" id="m4-score-display"></div>`;
+  m4QuizData.forEach((q, i) => {
+    quizHTML += `<div class="m4-quiz-wrap"><div class="m4-quiz-q">${i+1}. ${q.q}</div>
+      ${q.opts.map(o => `<div class="quiz-opt" onclick="m4Answer(${i},this,${o.correct})"><i class="ti ti-circle" style="font-size:14px;flex-shrink:0;margin-top:2px;"></i>${o.text}</div>`).join('')}
+      <div class="quiz-fb" id="m4fb-${i}"></div></div>`;
+  });
+  quizHTML += `<div class="m4-complete-msg" id="m4-complete">
+    <i class="ti ti-circle-check" style="font-size:26px;color:var(--green);display:block;margin-bottom:8px;"></i>
+    <div style="font-size:15px;font-weight:600;color:var(--green-dark);margin-bottom:4px;">All 4 modules complete!</div>
+    <div style="font-size:13px;color:var(--green-dark);margin-bottom:12px;" id="m4-final-score"></div>
+    <button style="padding:9px 20px;background:var(--green);color:white;border:none;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:DM Sans,sans-serif;cursor:pointer;" onclick="showSubmitModal()">Submit all results →</button>
+  </div>`;
+  quizSection.innerHTML = quizHTML;
+  container.appendChild(quizSection);
+}
+
+function m4Answer(i, el, correct) {
+  if (m4QuizAnswered[i]) return;
+  m4QuizAnswered[i] = true; m4QuizCorrect[i] = correct;
+  el.classList.add(correct ? 'correct' : 'wrong');
+  const fb = document.getElementById('m4fb-' + i);
+  fb.textContent = (correct ? '✓ ' : '✗ ') + (correct ? m4QuizData[i].ok : m4QuizData[i].no);
+  fb.className = 'quiz-fb show ' + (correct ? 'ok' : 'no');
+  const total = m4QuizAnswered.filter(Boolean).length;
+  const score = m4QuizCorrect.filter(Boolean).length;
+  document.getElementById('m4-score-display').textContent = 'Score: ' + score + ' / ' + total;
+  document.getElementById('m4-score').textContent = score + '/' + total;
+  if (m4QuizAnswered.every(Boolean)) {
+    const pct = Math.round(score / m4QuizData.length * 100);
+    document.getElementById('m4-final-score').textContent = 'You scored ' + score + ' out of ' + m4QuizData.length + ' (' + pct + '%) on competitive intelligence.';
+    document.getElementById('m4-complete').style.display = 'block';
+    document.getElementById('tab-3').classList.add('done');
+    updateHeaderProgress();
+  }
+}
+
+function getM4Score() {
+  const total = m4QuizAnswered.filter(Boolean).length;
+  const correct = m4QuizCorrect.filter(Boolean).length;
+  return total > 0 ? correct + '/' + total : '0/0';
+}
+
+function showSeries(id, btn) {
+  document.querySelectorAll('#m4-series-content .series-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('#m4-series-tabs .series-tab').forEach(t => t.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function showSub(series, tab, btn) {
+  const section = document.getElementById('s' + series);
+  if (!section) return;
+  section.querySelectorAll('.sub-section').forEach(s => s.classList.remove('active'));
+  section.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+  const el = document.getElementById(series + '-' + tab);
+  if (el) el.classList.add('active');
+  btn.classList.add('active');
+}
+
+function togglePitch(id) {
+  const card = document.getElementById(id);
+  if (card) card.classList.toggle('open');
+}
+
+// ─── UPDATED FUNCTIONS ────────────────────────────────────────
+function showModule(idx) {
+  document.querySelectorAll('.module-section').forEach((s,i) => s.classList.toggle('active', i===idx));
+  document.querySelectorAll('.nav-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function updateHeaderProgress() {
+  const m1done = state.m1.reviewed.every(Boolean);
+  const m2done = state.m2.reviewed.every(Boolean);
+  const m3done = state.m3.reviewed.every(Boolean);
+  const m4done = m4QuizAnswered.every(Boolean);
+  const done = [m1done, m2done, m3done, m4done].filter(Boolean).length;
+  document.getElementById('hp-bar').style.width = Math.round(done/4*100)+'%';
+  document.getElementById('hp-label').textContent = done+' of 4 modules';
+}
+
+function showSubmitModal() {
+  document.getElementById('final-m1').textContent = getModuleScore('m1');
+  document.getElementById('final-m2').textContent = getModuleScore('m2');
+  document.getElementById('final-m3').textContent = getModuleScore('m3');
+  document.getElementById('final-m4').textContent = getM4Score();
+  document.getElementById('submit-name-line').textContent = 'Nice work, ' + bmName + '. Here\'s your final score summary.';
+  document.getElementById('submit-modal').classList.remove('hidden');
+}
+
+function submitResults() {
+  const btn = document.querySelector('.submit-btn');
+  const status = document.getElementById('submit-status');
+  btn.disabled = true; btn.textContent = 'Submitting...';
+  status.textContent = 'Sending your results...';
+  const payload = {
+    name: bmName,
+    dateCompleted: new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}),
+    m1Score: getModuleScore('m1'),
+    m2Score: getModuleScore('m2'),
+    m3Score: getModuleScore('m3'),
+    m4Score: getM4Score(),
+    overallScore: (function(){
+      let c=0,t=0;
+      ['m1','m2','m3'].forEach(m=>{c+=Object.values(state[m].quizCorrect).filter(Boolean).length;t+=Object.keys(state[m].quizAnswered).length;});
+      c+=m4QuizCorrect.filter(Boolean).length; t+=m4QuizAnswered.filter(Boolean).length;
+      return t>0?c+'/'+t:'0/0';
+    })()
+  };
+  fetch(APPS_SCRIPT_URL, {method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(()=>{status.textContent='✓ Results submitted successfully!';status.style.color='var(--green)';btn.textContent='Submitted ✓';btn.style.background='var(--green)';})
+    .catch(()=>{status.textContent='Submission failed — screenshot your scores and share with your manager.';status.style.color='var(--red)';btn.disabled=false;btn.textContent='Try again';});
+}
+
+// ─── INIT ─────────────────────────────────────────────────────
+buildM1(); buildM2(); buildM3(); buildM4();
+toggleCard('m1', 0, 6);
+</script>
+
+<!-- Module 4 Series Template -->
+<script type="text/html" id="m4-series-template">
+  <!-- ===== 1100 SERIES ===== -->
+  <div class="series-section active" id="s1100">
+    <div class="matchup-badge"><i class="ti ti-arrows-left-right" style="font-size:14px;"></i> <strong>Mahindra 1100 (20–25 HP)</strong> vs <strong style="color:var(--orange);">Kioti CS10/20/30 (21–24.5 HP)</strong></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" onclick="showSub('1100','specs',this)">Spec comparison</div>
+      <div class="sub-tab" onclick="showSub('1100','takeaway',this)">Key takeaways</div>
+      <div class="sub-tab" onclick="showSub('1100','scripts',this)">What to say</div>
+    </div>
+    <div class="sub-section active" id="1100-specs">
+      <div class="comp-table-wrap"><table>
+        <thead><tr><th style="width:26%;">Spec</th><th class="mah">Mahindra 1100</th><th class="kio">Kioti CS10/20/30</th><th style="background:#1a1a1a;">Edge</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Engine HP</td><td>20–25 HP</td><td>21–24.5 HP</td><td class="tie">Even</td></tr>
+          <tr><td class="row-label">No DPF</td><td class="win">Yes — explicitly documented, no regen ever</td><td>No DPF (CS series also no DPF — credit to Kioti)</td><td class="tie">Even on this point</td></tr>
+          <tr><td class="row-label">Tractor weight</td><td class="win">1,620 lb (OS) / 1,962 lb (Cab)<span class="win-badge">Heavier</span></td><td class="lose">1,485–1,554 lb (CS10/20) · 1,735 lb (CS30 ROPS) · 2,403 lb (CS30 Cab)</td><td class="win">1100 ROPS outweighs CS10/20 — better stability</td></tr>
+          <tr><td class="row-label">Loader lift (pivot pin)</td><td>794 lb (L11)</td><td class="lose">683 lb (SL2410/CS10) · 1,062 lb (SL2420/CS20) · 871–913 lb (CS30)</td><td>1100 beats CS10; CS20 premium loader beats 1100 — be honest</td></tr>
+          <tr><td class="row-label">Loader max lift height</td><td>68"</td><td class="win">70.9–73.7" (CS10/20) · 70.9–71.1" (CS30)</td><td class="lose">Kioti slight edge on lift height</td></tr>
+          <tr><td class="row-label">3-pt lift capacity</td><td class="win">771 lb</td><td class="lose">700 lb (all CS models)</td><td class="win">Mahindra wins by 71 lb</td></tr>
+          <tr><td class="row-label">Backhoe dig depth</td><td class="win">76" (B11)</td><td class="lose">72.8" (CS10/20) · 72.4" (CS30)</td><td class="win">Mahindra digs deeper</td></tr>
+          <tr><td class="row-label">Transmission</td><td class="win">HST 2-range, single pedal — easiest to operate</td><td>Twin HST pedals (all CS models)</td><td class="win">Single pedal = simpler for first-time buyers</td></tr>
+          <tr><td class="row-label">Factory cab</td><td class="win">Factory-built ROPS cab: heated, glass, 360° view, wipers, work lights</td><td class="lose">Field option cab (CS10/20) · Factory cab (CS30)</td><td class="win">1100 cab factory-built; CS10/20 cab is a field add-on</td></tr>
+          <tr><td class="row-label">Crank Assist™</td><td class="win">Yes — step-by-step startup guidance</td><td class="lose">No equivalent on any Kioti model</td><td class="win">Mahindra exclusive</td></tr>
+          <tr><td class="row-label">Swivel seat (backhoe)</td><td class="win">Standard — seat swivels for backhoe operation</td><td>Optional on CS30 cab only</td><td class="win">1100 standard; CS30 optional</td></tr>
+          <tr><td class="row-label">Folding ROPS</td><td class="win">Yes — standard</td><td>Yes — standard (all CS)</td><td class="tie">Even</td></tr>
+          <tr><td class="row-label">Warranty</td><td class="win">7-year / 3,000-hr / $0 deductible</td><td class="lose">4-year unlimited hours (CS30) · standard warranty (CS10/20)</td><td class="win">Mahindra wins on powertrain warranty</td></tr>
+          <tr><td class="row-label">Skid-steer couplers</td><td class="win">Yes — standard</td><td>Pinless quick-attach (CS20/30) — fast but not skid-steer spec</td><td class="win">Mahindra skid-steer standard all models</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="sub-section" id="1100-takeaway">
+      <div class="sec-label"><i class="ti ti-bulb"></i>Key takeaways — 1100 vs Kioti CS</div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Weight advantage is real.</strong> 1100 ROPS at 1,620 lb outweighs the CS10/20 at 1,485–1,554 lb. More weight means more loader stability and better counterbalance on rear implements.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>3-pt lift wins clearly.</strong> 771 lb vs 700 lb — Mahindra wins by 10%. Not huge, but it's a real spec you can quote.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Crank Assist™ is a genuine exclusive.</strong> No equivalent on any Kioti model. For first-time buyers it's a meaningful differentiator — own it.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Factory cab vs field option.</strong> The 1100 cab is factory-built. The CS10/20 cab is a field add-on. The CS30 has a factory cab — don't use this argument against the CS30.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Be honest about the CS20 SL2420 loader.</strong> At 1,062 lb it beats the 1100's 794 lb. Acknowledge it and pivot to 7-year warranty and machine weight advantage.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Kioti's CS30 has a 4-year unlimited hour warranty.</strong> Solid offer. Counter with 7 years / $0 deductible — and at 200–400 hrs/year most buyers hit 4 years before they hit 3,000 hours.</div></div>
+    </div>
+    <div class="sub-section" id="1100-scripts">
+      <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+      <div class="script-block"><div class="script-lbl">Opening the comparison</div><div class="script-text">"Good machine to look at — Kioti makes a solid subcompact. Here's where I'd focus your comparison: weight, 3-point lift, and warranty. On all three, Mahindra wins. The one place the CS20 edges us is the loader on their premium package — and I'll be straight with you about that."</div></div>
+      <div class="script-block"><div class="script-lbl">On Crank Assist™</div><div class="script-text">"One thing Mahindra has that Kioti doesn't — Crank Assist™. It walks you through startup step by step. For someone who's never owned a tractor, that confidence piece matters a lot."</div></div>
+      <div class="script-block"><div class="script-lbl">On the factory cab</div><div class="script-text">"Our cab is designed and built right at the Mahindra assembly plant — 360-degree glass, heated, wipers, work lights. The Kioti CS10 and CS20 cab is a field option add-on, not factory built. The CS30 has a factory cab, so if they're looking at that, use a different angle."</div></div>
+      <div class="script-block"><div class="script-lbl">Closing with warranty</div><div class="script-text">"7 years, zero deductible, 3,000 hours. Every time you bring it in under warranty, there's no out-of-pocket cost. Kioti's CS30 offers 4 years — that's three fewer years of powertrain coverage."</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 2100 SERIES ===== -->
+  <div class="series-section" id="s2100">
+    <div class="matchup-badge"><i class="ti ti-arrows-left-right" style="font-size:14px;"></i> <strong>Mahindra 2100 (22–25 HP)</strong> vs <strong style="color:var(--orange);">Kioti CK2620 / CK2620H (24.5 HP)</strong></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" onclick="showSub('2100','specs',this)">Spec comparison</div>
+      <div class="sub-tab" onclick="showSub('2100','takeaway',this)">Key takeaways</div>
+      <div class="sub-tab" onclick="showSub('2100','scripts',this)">What to say</div>
+    </div>
+    <div class="sub-section active" id="2100-specs">
+      <div class="comp-table-wrap"><table>
+        <thead><tr><th style="width:26%;">Spec</th><th class="mah">Mahindra 2100</th><th class="kio">Kioti CK2620 / CK2620H</th><th style="background:#1a1a1a;">Edge</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Engine HP</td><td>22–25 HP</td><td>24.5 HP (CK2620)</td><td class="tie">Comparable</td></tr>
+          <tr><td class="row-label">Tractor weight</td><td class="win">2,101 lb (OS) / 2,607 lb (Cab)</td><td class="lose">Weight not listed in CK brochure — est. 2,400–2,800 lb range</td><td class="tie">Comparable — verify at dealer</td></tr>
+          <tr><td class="row-label">Loader lift (pivot pin)</td><td class="win">1,477 lb (L21)</td><td class="lose">CK2620 loader lift not spec'd separately in brochure</td><td class="win">2100 at 1,477 lb is a strong number — lead with it</td></tr>
+          <tr><td class="row-label">3-pt lift capacity</td><td class="win">1,760 lb<span class="win-badge">Mahindra wins</span></td><td class="lose">1,631 lb (full CK20 lineup)</td><td class="win">Mahindra wins by 129 lb — cleanest head-to-head win</td></tr>
+          <tr><td class="row-label">Backhoe dig depth</td><td class="win">91" (B21)</td><td class="lose">89.7" (KB2475L)</td><td class="win">Mahindra digs 1.3" deeper</td></tr>
+          <tr><td class="row-label">Transmission options</td><td>3-range HST (2-pedal)</td><td>Manual 9F/3R OR HST 3-range</td><td class="tie">Both offer HST; Kioti adds manual option</td></tr>
+          <tr><td class="row-label">No DPF</td><td class="win">Yes — confirmed, no regen ever</td><td class="lose">Kioti CK uses Tier 4 with ECO technology — no explicit no-DPF guarantee</td><td class="win">Mahindra clearly documented no-DPF</td></tr>
+          <tr><td class="row-label">Skid-steer couplers</td><td class="win">Yes — standard</td><td>Single lever joystick standard; coupler style not skid-steer spec'd</td><td class="win">Mahindra skid-steer standard</td></tr>
+          <tr><td class="row-label">Telescoping stabilizers</td><td class="win">Yes — standard</td><td>SE models only on CK20SE</td><td class="win">Mahindra standard; Kioti SE upgrade only</td></tr>
+          <tr><td class="row-label">Warranty</td><td class="win">7-year / 3,000-hr / $0 deductible</td><td class="lose">Standard Kioti warranty (not 7-year in CK brochure)</td><td class="win">Mahindra warranty is the clear close</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="sub-section" id="2100-takeaway">
+      <div class="sec-label"><i class="ti ti-bulb"></i>Key takeaways — 2100 vs Kioti CK2620</div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>3-pt lift is the strongest win.</strong> 1,760 lb vs 1,631 lb — 129 lb more lift. For anyone hanging implements, this is the number to lead with.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Backhoe is close.</strong> 91" vs 89.7" — Mahindra wins but it's not a knockout. Use 3-pt and warranty as your primary closes.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>The DPF comparison matters.</strong> Mahindra's no-DPF story is explicit and documented. Kioti's CK brochure uses "ECO Technology" and "Tier 4" language without the same no-DPF guarantee. Lead with Mahindra's documented advantage.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Telescoping stabilizers standard.</strong> On the Kioti CK20, this is SE models only — an upgrade cost. On the 2100, it's standard across the board.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Watch the HP class comparison.</strong> If a customer is comparing to the CK35 or CK40, redirect them — those compete with the 1600 series, not the 2100. Control the comparison frame.</div></div>
+    </div>
+    <div class="sub-section" id="2100-scripts">
+      <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+      <div class="script-block"><div class="script-lbl">Opening</div><div class="script-text">"If you're comparing the CK26 to our 2100, here's the short version: Mahindra lifts more on the 3-point by 129 pounds, has the same HP range, and comes with a longer warranty and more standard features. If you've been looking at the CK35 or CK40, let me show you how the 1600 stacks up — that's the right comparison."</div></div>
+      <div class="script-block"><div class="script-lbl">On 3-pt lift</div><div class="script-text">"Our 2100 lifts 1,760 pounds at the 3-point. The full CK20 lineup is spec'd at 1,631 pounds. That's 129 more pounds of lift capacity — and it matters when you're hanging a tiller or box blade."</div></div>
+      <div class="script-block"><div class="script-lbl">On telescoping stabilizers</div><div class="script-text">"Skid-steer couplers and telescoping stabilizers are standard on every 2100. On the Kioti CK, telescoping stabilizers are SE models only — that's an upgrade cost on their side."</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 1600 SERIES ===== -->
+  <div class="series-section" id="s1600">
+    <div class="matchup-badge"><i class="ti ti-arrows-left-right" style="font-size:14px;"></i> <strong>Mahindra 1600 (25–39 HP)</strong> vs <strong style="color:var(--orange);">Kioti CK3520 / CK4020 (34.9–39.6 HP)</strong></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" onclick="showSub('1600','specs',this)">Spec comparison</div>
+      <div class="sub-tab" onclick="showSub('1600','takeaway',this)">Key takeaways</div>
+      <div class="sub-tab" onclick="showSub('1600','scripts',this)">What to say</div>
+    </div>
+    <div class="sub-section active" id="1600-specs">
+      <div class="comp-table-wrap"><table>
+        <thead><tr><th style="width:26%;">Spec</th><th class="mah">Mahindra 1600 (1635/1640)</th><th class="kio">Kioti CK3520 / CK4020</th><th style="background:#1a1a1a;">Edge</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Engine HP</td><td>25–39 HP</td><td>34.9–39.6 HP</td><td class="tie">Overlapping — compare same HP models</td></tr>
+          <tr><td class="row-label">Tractor weight</td><td class="win">3,075–3,627 lb (1635/1640 range)<span class="win-badge">Heavier</span></td><td class="lose">Est. 2,400–2,800 lb (not listed in CK brochure)</td><td class="win">1600 significantly heavier — better loader stability</td></tr>
+          <tr><td class="row-label">Loader lift (pivot pin)</td><td>1,830 lb</td><td class="lose">1,835 lb (KL4030) · 1,969 lb (KL4030C)</td><td>Essentially tied on standard; KL4030C edges by 139 lb — be honest</td></tr>
+          <tr><td class="row-label">Loader max lift height</td><td>up to 91"</td><td class="win">98.4" (KL4030/KL4030C)</td><td class="lose">Kioti lifts 7" higher — acknowledge it</td></tr>
+          <tr><td class="row-label">3-pt lift capacity</td><td class="win">1,720 lb</td><td class="lose">1,631 lb (CK20 lineup)</td><td class="win">Mahindra wins by 89 lb</td></tr>
+          <tr><td class="row-label">No DPF</td><td class="win">Yes — documented, no regen ever</td><td class="lose">Tier 4 ECO — no explicit no-DPF guarantee</td><td class="win">Mahindra's no-DPF story is cleaner</td></tr>
+          <tr><td class="row-label">Transmission options</td><td class="win">8F/8R synchro shuttle OR 3-range HST</td><td>Manual 9F/3R OR HST 3-range</td><td class="tie">Both offer two options</td></tr>
+          <tr><td class="row-label">Skid-steer couplers</td><td class="win">Yes — standard all models</td><td>Not specified as skid-steer in CK brochure</td><td class="win">Mahindra standard</td></tr>
+          <tr><td class="row-label">Telescoping stabilizers</td><td class="win">Yes — standard (1635/1640)</td><td>SE models only</td><td class="win">Mahindra standard; Kioti SE upgrade</td></tr>
+          <tr><td class="row-label">Cold weather battery</td><td class="win">925 CCA (1635/1640)</td><td>CCA not spec'd in CK brochure</td><td class="win">925 CCA is a strong cold-start story</td></tr>
+          <tr><td class="row-label">Cab (mid-PTO)</td><td class="win">Optional cab includes mid-PTO for snowblower</td><td>Cab available on SE models</td><td class="win">Mahindra cab includes mid-PTO — practical winter advantage</td></tr>
+          <tr><td class="row-label">Warranty</td><td class="win">7-year / 3,000-hr / $0 deductible</td><td class="lose">Standard Kioti warranty</td><td class="win">Mahindra warranty is the closing point</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="sub-section" id="1600-takeaway">
+      <div class="sec-label"><i class="ti ti-bulb"></i>Key takeaways — 1600 vs Kioti CK3520/4020</div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Weight is the biggest advantage.</strong> 3,075–3,627 lb vs est. 2,400–2,800 lb. More weight = better loader stability, better traction, better counterbalance for implements.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Loader lift is essentially a tie — be honest.</strong> The KL4030C at 1,969 lb edges the 1600. Don't lead here. Pivot to machine weight, 3-pt advantage, and warranty.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Kioti loader lifts higher — acknowledge it.</strong> 98.4" vs 91". Ask the customer: "How often are you loading into something taller than 91 inches?" Most customers aren't.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>3-pt lift wins by 89 lb.</strong> 1,720 vs 1,631 — documented win to put side by side.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Close with the 7-year warranty.</strong> Kioti's CK brochure doesn't cite a 7-year warranty. This closes deals.</div></div>
+    </div>
+    <div class="sub-section" id="1600-scripts">
+      <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+      <div class="script-block"><div class="script-lbl">Opening</div><div class="script-text">"Good machine — the CK35 is legitimate competition. Here's where I'd focus: weight, 3-point lift, and warranty. On all three, Mahindra wins. The one place Kioti's loader edges us is maximum lift height — I'll be straight with you about that."</div></div>
+      <div class="script-block"><div class="script-lbl">On loader height (be honest)</div><div class="script-text">"Kioti's loader lifts about 7 inches higher than the 1600. If you're regularly loading into a tall mixer wagon, that matters. For most customers doing bale work and loader tasks, 91 inches is more than enough. What are you loading into most often?"</div></div>
+      <div class="script-block"><div class="script-lbl">On machine weight</div><div class="script-text">"The 1600 series runs 3,000 to 3,600 pounds. That weight gives you loader stability on slopes and better counterbalance when you're running heavy rear implements."</div></div>
+      <div class="script-block"><div class="script-lbl">Closing</div><div class="script-text">"7-year, zero deductible powertrain warranty. When you bring it in under warranty, there's no out-of-pocket cost. That's our standard offer, not an upgrade."</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 4500 SERIES ===== -->
+  <div class="series-section" id="s4500">
+    <div class="matchup-badge"><i class="ti ti-arrows-left-right" style="font-size:14px;"></i> <strong>Mahindra 4500 (41–48 HP)</strong> vs <strong style="color:var(--orange);">Kioti DK4520 (44.9 HP)</strong></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" onclick="showSub('4500','specs',this)">Spec comparison</div>
+      <div class="sub-tab" onclick="showSub('4500','takeaway',this)">Key takeaways</div>
+      <div class="sub-tab" onclick="showSub('4500','scripts',this)">What to say</div>
+    </div>
+    <div class="sub-section active" id="4500-specs">
+      <div class="comp-table-wrap"><table>
+        <thead><tr><th style="width:26%;">Spec</th><th class="mah">Mahindra 4500 (4550)</th><th class="kio">Kioti DK4520</th><th style="background:#1a1a1a;">Edge</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Engine HP</td><td>41–48 HP</td><td>44.9 HP — closest Kioti match</td><td class="tie">Similar HP range</td></tr>
+          <tr><td class="row-label">4WD</td><td class="win">4WD standard — all models, no 2WD option</td><td>4WD standard</td><td class="tie">Even</td></tr>
+          <tr><td class="row-label">Loader lift (pivot pin)</td><td class="win">2,866 lb (4550-4L)<span class="win-badge">+392 lb</span></td><td class="lose">2,474 lb (KL5520/5521)</td><td class="win">Mahindra wins by 392 lb — 16% more lift</td></tr>
+          <tr><td class="row-label">Loader max lift height</td><td class="win">116.6" (4550-4L)</td><td class="lose">107.7" (KL5520/5521)</td><td class="win">Mahindra 8.9" higher</td></tr>
+          <tr><td class="row-label">Loader breakout force</td><td class="win">4,978 lb<span class="win-badge">+1,083 lb</span></td><td class="lose">3,895 lb</td><td class="win">Mahindra wins by 1,083 lb — 28% more breakout</td></tr>
+          <tr><td class="row-label">3-pt lift capacity</td><td class="win">Best-in-class (verify specific lb)</td><td class="lose">2,716 lb (DK20)</td><td class="win">Verify Mahindra 4500 figure — DK is 2,716 lb</td></tr>
+          <tr><td class="row-label">Backhoe dig depth</td><td class="win">101" (4550B)</td><td class="lose">94.4" (KB2485)</td><td class="win">Mahindra digs 6.6" deeper</td></tr>
+          <tr><td class="row-label">No DPF</td><td class="win">Yes — mCRD 4-cylinder, no DPF, no regen</td><td class="lose">Tier 4 ECO — no explicit no-DPF claim</td><td class="win">Mahindra clearly documented</td></tr>
+          <tr><td class="row-label">Transmission</td><td>8F/2R sliding mesh</td><td class="win">8F/8R synchro shuttle OR HST (DK20SE)</td><td class="lose">Kioti has more options — acknowledge if asked</td></tr>
+          <tr><td class="row-label">Skid-steer couplers</td><td class="win">Yes — standard</td><td>Not specified as skid-steer</td><td class="win">Mahindra advantage</td></tr>
+          <tr><td class="row-label">Warranty</td><td class="win">7-year / 3,000-hr / $0 deductible</td><td class="lose">Standard Kioti warranty</td><td class="win">Mahindra wins</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="sub-section" id="4500-takeaway">
+      <div class="sec-label"><i class="ti ti-bulb"></i>Key takeaways — 4500 vs Kioti DK4520</div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>The 4500 loader comparison is your strongest competitive story.</strong> Mahindra wins on lift (+392 lb), height (+8.9"), and breakout force (+28%). This is a clean sweep — lead with all three numbers together.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Backhoe digs 6.6" deeper.</strong> 101" vs 94.4" — meaningful for trench or foundation work.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Kioti transmission has more options.</strong> The DK20 synchro shuttle and DK20SE HST offer more flexibility than the 4500 sliding mesh. If a customer pushes on this, acknowledge it and pivot to the loader and dig advantages.</div></div>
+    </div>
+    <div class="sub-section" id="4500-scripts">
+      <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+      <div class="script-block"><div class="script-lbl">Leading with the loader</div><div class="script-text">"Let's put the loaders side by side. The 4550 lifts 2,866 pounds at the pivot pin with 4,978 pounds of breakout force. The Kioti DK4520 is 2,474 pounds and 3,895 pounds of breakout. That's nearly 400 more pounds of lift and over 1,000 more pounds of breakout on the Mahindra. For a work tractor, those numbers show up every single day."</div></div>
+      <div class="script-block"><div class="script-lbl">Closing</div><div class="script-text">"On loader lift, loader height, breakout force, and backhoe depth — Mahindra wins all four. Add the 7-year zero deductible warranty and this is a clear comparison."</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 5100 SERIES ===== -->
+  <div class="series-section" id="s5100">
+    <div class="matchup-badge"><i class="ti ti-arrows-left-right" style="font-size:14px;"></i> <strong>Mahindra 5100 (45–55 HP)</strong> vs <strong style="color:var(--orange);">Kioti DK5320SE (50.3 HP)</strong></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" onclick="showSub('5100','specs',this)">Spec comparison</div>
+      <div class="sub-tab" onclick="showSub('5100','takeaway',this)">Key takeaways</div>
+      <div class="sub-tab" onclick="showSub('5100','scripts',this)">What to say</div>
+    </div>
+    <div class="sub-section active" id="5100-specs">
+      <div class="comp-table-wrap"><table>
+        <thead><tr><th style="width:26%;">Spec</th><th class="mah">Mahindra 5100 (5155)</th><th class="kio">Kioti DK5320SE (50.3 HP)</th><th style="background:#1a1a1a;">Edge</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Engine HP</td><td>45–55 HP</td><td>44.9–57.7 HP (DK20SE range)</td><td class="tie">Best match is DK5320SE at 50.3 HP</td></tr>
+          <tr><td class="row-label">Tractor weight</td><td class="win">5,390 lb base / 6,690 lb with loader</td><td class="lose">Not listed in DK brochure — est. 4,500–5,500 lb</td><td class="win">5,390 lb base is a strong number to put on paper</td></tr>
+          <tr><td class="row-label">Loader lift (pivot pin)</td><td class="win">3,100 lb (5155-4L)<span class="win-badge">+626 lb</span></td><td class="lose">2,474 lb (KL5520/5521)</td><td class="win">Mahindra wins by 626 lb — 25% advantage</td></tr>
+          <tr><td class="row-label">Loader max lift height</td><td class="win">122"</td><td class="lose">107.7" (KL5520)</td><td class="win">Mahindra 14.3" higher</td></tr>
+          <tr><td class="row-label">Loader breakout force</td><td class="win">5,200 lb<span class="win-badge">+1,305 lb</span></td><td class="lose">3,895 lb</td><td class="win">Mahindra wins by 1,305 lb — 33% more breakout</td></tr>
+          <tr><td class="row-label">3-pt linkage</td><td>CAT 1 & 2 standard</td><td>CAT 1 & 2 standard</td><td class="tie">Even</td></tr>
+          <tr><td class="row-label">Backhoe dig depth</td><td class="win">112" (65B) — over 9 feet</td><td class="lose">94.4" (KB2485)</td><td class="win">Mahindra digs 17.6" deeper</td></tr>
+          <tr><td class="row-label">Backhoe bucket force</td><td class="win">3,895 lb</td><td class="lose">3,748 lb</td><td class="win">Mahindra +147 lb</td></tr>
+          <tr><td class="row-label">No DPF</td><td class="win">Yes — mCRD $30M engineering investment, no DPF</td><td class="lose">Tier 4 ECO — no explicit no-DPF guarantee</td><td class="win">Mahindra story is stronger and documented</td></tr>
+          <tr><td class="row-label">Transmission</td><td class="win">12F/12R synchromesh — upshift/downshift on the fly</td><td>HST 3-range (DK20SE)</td><td class="win">12F/12R synchromesh faster for production loader work</td></tr>
+          <tr><td class="row-label">PTO modes</td><td class="win">540 + 540E economy standard</td><td>540 standard</td><td class="win">540E saves fuel on light-load tasks</td></tr>
+          <tr><td class="row-label">Warranty</td><td class="win">7-year / 3,000-hr / $0 deductible</td><td class="lose">Standard Kioti warranty</td><td class="win">Mahindra wins clearly</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="sub-section" id="5100-takeaway">
+      <div class="sec-label"><i class="ti ti-bulb"></i>Key takeaways — 5100 vs Kioti DK20SE</div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Loader sweep.</strong> 3,100 vs 2,474 lb lift, 122 vs 107.7" height, 5,200 vs 3,895 lb breakout. Mahindra wins every loader metric decisively in this matchup.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Backhoe dig depth advantage is dramatic.</strong> 112" vs 94.4" — 17.6 inches more dig depth. For anyone doing serious trench work, this closes the conversation.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Machine weight is a selling point.</strong> 5,390 lb base, 6,690 lb with loader. This machine doesn't get pushed around.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>12F/12R synchromesh beats HST for production work.</strong> Operators doing loader or field work want gear control. Upshift on the fly — real workflow advantage.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>540E economy PTO saves real fuel.</strong> At commercial use levels, lighter task fuel savings add up to measurable money annually.</div></div>
+    </div>
+    <div class="sub-section" id="5100-scripts">
+      <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+      <div class="script-block"><div class="script-lbl">Leading with the loader</div><div class="script-text">"Three numbers. Mahindra 5100: 3,100 pounds of lift, 122-inch reach, 5,200 pounds of breakout. Kioti DK at this HP: 2,474 pounds, 107 inches, 3,895 pounds of breakout. On every loader metric, Mahindra wins — and the loader is what you're running 70% of the day."</div></div>
+      <div class="script-block"><div class="script-lbl">On the backhoe</div><div class="script-text">"Our optional backhoe digs over 9 feet — 112 inches. Kioti's backhoe option at this HP digs 94 inches. That's almost a foot and a half difference in dig depth for anyone doing serious trench work."</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 6000 SERIES ===== -->
+  <div class="series-section" id="s6000">
+    <div class="matchup-badge"><i class="ti ti-arrows-left-right" style="font-size:14px;"></i> <strong>Mahindra 6075 (75 HP)</strong> vs <strong style="color:var(--orange);">Kioti RX7320 / RX7340 (73 HP)</strong></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" onclick="showSub('6000','specs',this)">Spec comparison</div>
+      <div class="sub-tab" onclick="showSub('6000','takeaway',this)">Key takeaways</div>
+      <div class="sub-tab" onclick="showSub('6000','scripts',this)">What to say</div>
+    </div>
+    <div class="sub-section active" id="6000-specs">
+      <div class="comp-table-wrap"><table>
+        <thead><tr><th style="width:26%;">Spec</th><th class="mah">Mahindra 6075</th><th class="kio">Kioti RX7320 (RX20) / RX7340 (RX40)</th><th style="background:#1a1a1a;">Edge</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Engine HP</td><td class="win">62–75 HP</td><td class="lose">66–73 HP</td><td class="win">Mahindra 6075 at 75 HP edges Kioti's 73 HP</td></tr>
+          <tr><td class="row-label">Tractor weight</td><td>Est. 6,500–7,500 lb</td><td>5,732–6,162 lb (RX20) · 6,052–7,015 lb (RX40)</td><td class="tie">Comparable — verify at dealer</td></tr>
+          <tr><td class="row-label">Loader lift (pivot pin)</td><td class="win">3,609 lb (6075L)<span class="win-badge">+225–309 lb</span></td><td class="lose">3,384 lb (KL7320/RX20) · 3,300 lb (KL7340/RX40)</td><td class="win">Mahindra wins both matchups</td></tr>
+          <tr><td class="row-label">Loader max lift height</td><td class="win">133" (6075L)</td><td class="lose">107.7" (KL7320/RX20) · 127.1" (KL7340/RX40)</td><td class="win">Mahindra wins both — especially vs RX20 (+25.3")</td></tr>
+          <tr><td class="row-label">Loader breakout force</td><td>5,000 lb (6075L)</td><td class="win">5,359 lb (KL7320) · 5,875 lb (KL7340)</td><td class="lose">Kioti wins on breakout — acknowledge honestly</td></tr>
+          <tr><td class="row-label">3-pt lift capacity</td><td class="win">5,952 lb<span class="win-badge">Dominant win</span></td><td class="lose">3,594–3,898 lb (RX20) · 4,328 lb (RX40)</td><td class="win">Mahindra wins by 1,624 lb — decisive</td></tr>
+          <tr><td class="row-label">Backhoe dig depth</td><td class="win">112" optional</td><td class="lose">94.4" (KB2485)</td><td class="win">Mahindra digs 17.6" deeper</td></tr>
+          <tr><td class="row-label">No DPF</td><td class="win">Yes — turbo mCRD, no DPF at 60+ HP</td><td class="lose">CRDI Tier 4 Final — no explicit no-DPF guarantee</td><td class="win">No DPF at this HP level is rare and differentiating</td></tr>
+          <tr><td class="row-label">Transmission</td><td class="win">15F/15R synchro + power shuttle (PST)</td><td>12x12 or 24x24 power shuttle (RX20) · 12x12 or 20x20 (RX40)</td><td class="tie">Both power shuttle — comparable</td></tr>
+          <tr><td class="row-label">PTO modes</td><td class="win">540 + 540E standard</td><td>540/540E (both RX series)</td><td class="tie">Even</td></tr>
+          <tr><td class="row-label">Cab features</td><td>Optional — 140A alternator, work lights, GPS-ready</td><td class="win">Standard cab (RX20 cab-only) — premium features, climate control, air ride</td><td class="lose">Kioti RX cab is more fully featured out of the box</td></tr>
+          <tr><td class="row-label">Warranty</td><td class="win">7-year / 3,000-hr / $0 deductible</td><td class="lose">Standard Kioti warranty</td><td class="win">Mahindra warranty is the clear close</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="sub-section" id="6000-takeaway">
+      <div class="sec-label"><i class="ti ti-bulb"></i>Key takeaways — 6000 vs Kioti RX20/RX40</div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>3-pt lift is the most dominant advantage in the entire Mahindra lineup vs Kioti.</strong> 5,952 lb vs 4,328 lb on the RX40 — 1,624 lb more. Lead with this number in every 6000 conversation.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Loader lift and height wins clearly.</strong> 3,609 lb and 133" vs Kioti's 3,300–3,384 lb and 107–127". More lift, more reach.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Kioti's breakout force is higher — be honest about it.</strong> The KL7340 at 5,875 lb beats the 6075L at 5,000 lb. Don't hide it. Lead with lift capacity and reach, and acknowledge breakout when pressed.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>No DPF at 60+ HP is rare in the market.</strong> Most competitors at this power level require regen. During hay season, 15–45 minutes of regen downtime is not acceptable. Mahindra eliminates it completely.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Kioti RX cab is premium — don't oversell Mahindra's cab against it.</strong> The RX20/40 cabs are well-appointed standard. Know your cab options before comparing.</div></div>
+      <div class="pitch-item"><div class="pitch-dot"></div><div><strong>Close with 3-pt lift and warranty.</strong> At this price point, customers make long-term investment decisions. 2,000+ lb more 3-pt capacity and a 7-year warranty are the two numbers that matter most.</div></div>
+    </div>
+    <div class="sub-section" id="6000-scripts">
+      <div class="sec-label"><i class="ti ti-message-circle"></i>What to say on the lot</div>
+      <div class="script-block"><div class="script-lbl">Lead with 3-pt lift</div><div class="script-text">"The Kioti RX is a quality machine. Here's where I want to focus your comparison: 3-point lift capacity. The Mahindra 6075 gives you up to 6,400 pounds. The Kioti RX7340 is 4,328 pounds. For anyone running heavy implements — subsoilers, large disc harrows, big rotary cutters — that difference shows up every single day."</div></div>
+      <div class="script-block"><div class="script-lbl">On loader and breakout honesty</div><div class="script-text">"On the loader — we lift 3,609 pounds at full height and reach 133 inches. The Kioti loader tops out around 127 inches and 3,300 pounds. I'll be straight — their breakout force is a bit higher on their top loader. But for stacking hay and loading trucks, lift capacity and reach are what you use every day."</div></div>
+      <div class="script-block"><div class="script-lbl">On no DPF at this HP</div><div class="script-text">"One thing that's unique at this power level — no DPF, no regen. Most machines at 70+ HP have a diesel particulate filter that requires periodic regeneration. That's 15 to 45 minutes of downtime per cycle. During hay season, that's not acceptable. Mahindra's mCRD engine eliminates it completely."</div></div>
+      <div class="script-block"><div class="script-lbl">Closing</div><div class="script-text">"3-point lift advantage, loader reach advantage, no regen downtime, and a 7-year zero deductible warranty. For a serious production operation, this is a straightforward comparison."</div></div>
+    </div>
+  </div>
+
+  <!-- ===== QUIZ SECTION ===== -->
+</script>
+</body>
+</html>
